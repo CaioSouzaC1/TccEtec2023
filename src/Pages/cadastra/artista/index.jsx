@@ -16,26 +16,33 @@ const CreateAccArtista = () => {
         setNomeArt(document.querySelector("form.Form .NomeArtistico").value);
         setCpf(document.querySelector("form.Form .cpf").value);
 
-        console.log(
-          await (await fetch("http://127.0.0.1:3333/createAcc")).json()
-        );
+        // console.log(
+        //   await (await fetch("http://127.0.0.1:3333/createAcc")).json()
+        // );
 
-        console.log(
-          await fetch("http://127.0.0.1:3333/creatAcc", {
+        try {
+          console.log(nome, nomeArt, cpf);
+          await fetch("http://127.0.0.1:3333/createAcc", {
             method: "POST",
             headers: {
-              Accept: "application/json, text/plain, */*",
+              Accept: "application/json",
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ nome: nome, nomeArt: nomeArt, cpf: cpf }),
-          })
-        );
+            body: JSON.stringify({
+              name: "Caio",
+              nameArt: "Artista",
+              cpf: "123",
+            }),
+          });
+        } catch (err) {
+          console.log(err);
+        }
       });
   }, []);
 
   return (
     <>
-      <form className="Form" action="">
+      <form className="Form">
         <InputText class="Nome" label="Nome" placeholder="Seu nome"></InputText>
         <br />
         <InputText
