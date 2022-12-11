@@ -14,7 +14,7 @@ Plataforma de comunicação entre artistas e donos de estabelecimento, projeto f
 
 `npm i` - Dentro da raiz do projeto, npi para baixar as dependências node do projeto.
 
-`npm Start` - Inicia o projeto React criado com vite
+`npm run dev` - Inicia o projeto React criado com vite
 
 `npx prisma migrate dev` - Cria uma nova migrate ("Versão") da database
 

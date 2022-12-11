@@ -1,18 +1,15 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import Home from "./Pages/home";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <div className="App">
-      <div>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home></Home>} />
+        <Route path="*" element={<div>pagina 404</div>} />`
+      </Routes>
+    </BrowserRouter>
   );
 }
 
