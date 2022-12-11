@@ -19,3 +19,5 @@ Plataforma de comunicação entre artistas e donos de estabelecimento, projeto f
 `npx prisma migrate dev` - Cria uma nova migrate ("Versão") da database
 
 `npx prisma studio` - Abre o dashboard do prisma para melhor vizualização das tabelas
+
+`npm start` - Dentro de Server, inicia o servidor node para acesso as rotas
