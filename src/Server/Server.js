@@ -31,9 +31,27 @@ router.get("/createAcc", (req, res) => {
   return res.send({ objeto: "obj" });
 });
 
-router.post("/createAcc", (req, res) => {
-  console.log(req.body);
-  res.send(req.body).json();
+router.post("/createAcc", async (req, res) => {
+  await prisma.Artists.create({
+    data: {
+      name: req.body.name,
+      nameArt: req.body.nameArt,
+      cpf: req.body.cpf,
+      email: req.body.email,
+      pass: req.body.pass,
+      whatsApp: req.body.whatsApp,
+    },
+  });
+  return res.sendStatus(200);
+});
+
+router.post("/validateEmail", async (req, res) => {
+  const rowEmail = await prisma.Artists.findMany({
+    where: {
+      email: req.body.email,
+    },
+  });
+  res.json({ emails: rowEmail.length });
 });
 
 app.use("", router);

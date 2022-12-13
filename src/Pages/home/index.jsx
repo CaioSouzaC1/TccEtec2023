@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <>
       <Text size={25} text="Home Page"></Text>
-      <Link to={"cadastra/artista"}>
+      <Link to={"cadastra/artista/etapa/1"}>
         <Button text="Criar Artista"></Button>
       </Link>
     </>
