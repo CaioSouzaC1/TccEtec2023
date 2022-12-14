@@ -1,18 +1,18 @@
+import { useLocation } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import Button from "../../../Components/Button/Button";
 import InputText from "../../../Components/InputText";
+import selectValue from "../../../utils/selectValue";
 
 const CreateAccArtistaStepTwo = () => {
+  const { state } = useLocation();
   const sendForm = async (event) => {
     event.preventDefault();
 
-    const selectInput = (seletor) => {
-      return document.querySelector(`form.Form ${seletor}`).value;
-    };
-
-    const nome = selectInput(".Nome");
-    const nomeArt = selectInput(".NomeArtistico");
-    const cpf = selectInput(".cpf");
-    const whatsApp = selectInput(".whatsApp");
+    const nome = selectValue(".Nome");
+    const nomeArt = selectValue(".NomeArtistico");
+    const cpf = selectValue(".cpf");
+    const whatsApp = selectValue(".whatsApp");
 
     try {
       const createArt = await fetch("http://127.0.0.1:3333/createAcc", {
@@ -25,12 +25,25 @@ const CreateAccArtistaStepTwo = () => {
           name: nome,
           nameArt: nomeArt,
           cpf: cpf,
-          email: "email@email.com",
-          pass: "senha",
+          email: state.email,
+          pass: state.pass,
           whatsApp: whatsApp,
         }),
       });
       console.log(createArt.status);
+
+      if (createArt.status === 200) {
+        toast.success("Conta Criada! Redirecionando... ", {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
     } catch (err) {
       console.log(err);
     }
@@ -38,6 +51,7 @@ const CreateAccArtistaStepTwo = () => {
 
   return (
     <>
+      <h1>Etapa 2</h1>
       <form className="Form" onSubmit={sendForm}>
         <InputText class="Nome" label="Nome" placeholder="Seu nome"></InputText>
         <br />
@@ -56,6 +70,7 @@ const CreateAccArtistaStepTwo = () => {
         ></InputText>
         <br />
         <Button text="Enviar"></Button>
+        <ToastContainer />
       </form>
     </>
   );

@@ -7,6 +7,7 @@ const InputText = (props) => {
         className={props.class}
         type="text"
         placeholder={props.placeholder}
+        value={props.value}
       />
     </>
   );

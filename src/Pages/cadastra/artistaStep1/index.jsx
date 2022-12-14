@@ -1,18 +1,18 @@
 import Button from "../../../Components/Button/Button";
 import InputText from "../../../Components/InputText";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import selectValue from "../../../utils/selectValue";
+import setValueNull from "../../../utils/setValueNull";
 
 const CreateAccArtistaStepOne = () => {
-  const [emailsRows, setEmailsRows] = useState(2);
+  const [emailsRows, setEmailsRows] = useState(false);
 
   const emailValidation = async (event) => {
     event.preventDefault();
-    const selectInput = (seletor) => {
-      return document.querySelector(`form.Form ${seletor}`).value;
-    };
-    const email = selectInput(" .Email");
-
+    const email = selectValue(".Email");
     try {
       const emailRows = await (
         await fetch("http://127.0.0.1:3333/validateEmail", {
@@ -32,15 +32,57 @@ const CreateAccArtistaStepOne = () => {
     }
   };
   const navigate = useNavigate();
-  if (emailsRows == 1) {
-    console.log("email já cadastrado");
-  } else {
-    console.log("email ainda não cadastrado");
-    // navigate("/cadastra/artista/etapa/2");
-  }
+  const notifyEmailAlreadCadastred = () =>
+    toast.warn("Email Já cadastrado", {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  const notifyPassNotEquals = () =>
+    toast.error("As senhas não coincidem", {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+
+  //
+
+  useEffect(() => {
+    const PassEquals = selectValue(".Senha") === selectValue(".ConfirmaSenha");
+    if (!PassEquals) {
+      notifyPassNotEquals();
+      setValueNull(".Senha");
+      setValueNull(".ConfirmaSenha");
+      setEmailsRows(false);
+    }
+    if (emailsRows === 0 && PassEquals) {
+      navigate("/cadastra/artista/etapa/2", {
+        state: {
+          email: selectValue(".Email"),
+          pass: selectValue(".Senha"),
+        },
+      });
+    }
+    if (emailsRows === 1) {
+      setValueNull(".Email");
+      notifyEmailAlreadCadastred();
+      setEmailsRows(false);
+    }
+  }, [emailsRows]);
 
   return (
     <>
+      <h1>Etapa 1</h1>
       <form className="Form" onSubmit={emailValidation}>
         <InputText
           class="Email"
@@ -55,13 +97,13 @@ const CreateAccArtistaStepOne = () => {
         ></InputText>
         <br />
         <InputText
-          class="Confirma Senha"
+          class="ConfirmaSenha"
           label="Confirma Senha"
           placeholder="Confirme sua senha"
         ></InputText>
         <br />
-
         <Button text="Avançar"></Button>
+        <ToastContainer />
       </form>
     </>
   );
