@@ -3,8 +3,27 @@ import { toast, ToastContainer } from "react-toastify";
 import Button from "../../../Components/Button/Button";
 import InputText from "../../../Components/InputText";
 import selectValue from "../../../utils/selectValue";
+import selectInput from "../../../utils/selectInput";
+import { useEffect } from "react";
 
 const CreateAccArtistaStepTwo = () => {
+  useEffect(() => {
+    IMask(selectInput(".cpf"), {
+      mask: "000.000.000-00",
+    });
+    IMask(selectInput(".Nome"), {
+      mask: /^[a-zA-Zà-úÀ-Ú ]{0,35}$/,
+    });
+    IMask(selectInput(".NomeArtistico"), {
+      mask: /^[a-zA-Zà-úÀ-Ú0-9 !@#\$%\^\&*\)\(+=._-]{0,35}$/g,
+    });
+    IMask(selectInput(".whatsApp"), {
+      mask: "(00)00000-0000",
+    });
+  }, []);
+
+  /^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]+$/g;
+
   const { state } = useLocation();
   const sendForm = async (event) => {
     event.preventDefault();

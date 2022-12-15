@@ -6,9 +6,20 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import selectValue from "../../../utils/selectValue";
 import setValueNull from "../../../utils/setValueNull";
+import selectInput from "../../../utils/selectInput";
+import IMask from "imask";
 
 const CreateAccArtistaStepOne = () => {
   const [emailsRows, setEmailsRows] = useState(false);
+
+  useEffect(() => {
+    // IMask(selectInput(".Senha"), {
+    //   mask: /^.{0,24}$/,
+    // });
+    // IMask(selectInput(".ConfirmaSenha"), {
+    //   mask: /^.{0,24}$/,
+    // });
+  }, []);
 
   const emailValidation = async (event) => {
     event.preventDefault();
@@ -85,21 +96,28 @@ const CreateAccArtistaStepOne = () => {
       <h1>Etapa 1</h1>
       <form className="Form" onSubmit={emailValidation}>
         <InputText
+          type="email"
           class="Email"
           label="Email"
           placeholder="Seu Email"
         ></InputText>
         <br />
         <InputText
+          type="password"
           class="Senha"
           label="Senha"
           placeholder="Sua Senha"
+          min="8"
+          max="24"
         ></InputText>
         <br />
         <InputText
+          type="password"
           class="ConfirmaSenha"
           label="Confirma Senha"
           placeholder="Confirme sua senha"
+          min="8"
+          max="24"
         ></InputText>
         <br />
         <Button text="Avançar"></Button>

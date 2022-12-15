@@ -27,9 +27,9 @@ const prisma = new PrismaClient({
   log: ["query"],
 });
 
-router.get("/createAcc", (req, res) => {
-  return res.send({ objeto: "obj" });
-});
+// router.get("/createAcc", (req, res) => {
+//   return res.send({ objeto: "obj" });
+// });
 
 router.post("/createAcc", async (req, res) => {
   await prisma.Artists.create({
