@@ -1,12 +1,16 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import Button from "../../../Components/Button/Button";
 import InputText from "../../../Components/InputText";
 import selectValue from "../../../utils/selectValue";
 import selectInput from "../../../utils/selectInput";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const CreateAccArtistaStepTwo = () => {
+  const [invalidNavigate, setInvalidNavigate] = useState(false);
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     IMask(selectInput(".cpf"), {
       mask: "000.000.000-00",
@@ -22,7 +26,18 @@ const CreateAccArtistaStepTwo = () => {
     });
   }, []);
 
-  /^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]+$/g;
+  const errorNotify = () => {
+    toast.error("As senhas não coincidem", {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
 
   const { state } = useLocation();
   const sendForm = async (event) => {
@@ -33,26 +48,54 @@ const CreateAccArtistaStepTwo = () => {
     const cpf = selectValue(".cpf");
     const whatsApp = selectValue(".whatsApp");
 
-    try {
-      const createArt = await fetch("http://127.0.0.1:3333/createAcc", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: nome,
-          nameArt: nomeArt,
-          cpf: cpf,
-          email: state.email,
-          pass: state.pass,
-          whatsApp: whatsApp,
-        }),
-      });
-      console.log(createArt.status);
+    if (!state === null) {
+      try {
+        const createArt = await fetch("http://127.0.0.1:3333/createAcc", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: nome,
+            nameArt: nomeArt,
+            cpf: cpf,
+            email: state.email,
+            pass: state.pass,
+            whatsApp: whatsApp,
+          }),
+        });
 
-      if (createArt.status === 200) {
-        toast.success("Conta Criada! Redirecionando... ", {
+        if (createArt.status === 200) {
+          toast.success("Conta Criada! Redirecionando... ", {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        } else {
+          errorNotify();
+        }
+      } catch (err) {
+        errorNotify();
+      }
+    } else {
+      toast.warn("Você está pulando uma etapa..", {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      setTimeout(() => {
+        toast.warn("Redirecionando para a etapa 1", {
           position: "top-right",
           autoClose: 4000,
           hideProgressBar: false,
@@ -62,9 +105,10 @@ const CreateAccArtistaStepTwo = () => {
           progress: undefined,
           theme: "dark",
         });
-      }
-    } catch (err) {
-      console.log(err);
+      }, 1500);
+      setTimeout(() => {
+        navigate("/cadastra/artista/etapa/1");
+      }, 5000);
     }
   };
 
