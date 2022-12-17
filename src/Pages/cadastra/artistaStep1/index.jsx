@@ -2,24 +2,14 @@ import Button from "../../../Components/Button/Button";
 import InputText from "../../../Components/InputText";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 import selectValue from "../../../utils/selectValue";
 import setValueNull from "../../../utils/setValueNull";
-import selectInput from "../../../utils/selectInput";
-import IMask from "imask";
+import errorFy from "../../../utils/toastify/errorFy";
+import warnFy from "../../../utils/toastify/warnFy";
 
 const CreateAccArtistaStepOne = () => {
   const [emailsRows, setEmailsRows] = useState(false);
-
-  useEffect(() => {
-    // IMask(selectInput(".Senha"), {
-    //   mask: /^.{0,24}$/,
-    // });
-    // IMask(selectInput(".ConfirmaSenha"), {
-    //   mask: /^.{0,24}$/,
-    // });
-  }, []);
 
   const emailValidation = async (event) => {
     event.preventDefault();
@@ -39,39 +29,18 @@ const CreateAccArtistaStepOne = () => {
       ).json();
       setEmailsRows(emailRows.emails);
     } catch (err) {
-      console.log(err);
+      errorFy("Erro na Requisição!");
     }
   };
   const navigate = useNavigate();
-  const notifyEmailAlreadCadastred = () =>
-    toast.warn("Email Já cadastrado", {
-      position: "top-right",
-      autoClose: 4000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
-  const notifyPassNotEquals = () =>
-    toast.error("As senhas não coincidem", {
-      position: "top-right",
-      autoClose: 4000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
-
-  //
+  const notifyEmailAlreadCadastred = () => {
+    warnFy("Email Já cadastrado");
+  };
 
   useEffect(() => {
     const PassEquals = selectValue(".Senha") === selectValue(".ConfirmaSenha");
     if (!PassEquals) {
-      notifyPassNotEquals();
+      errorFy("As Senhas não coincidem");
       setValueNull(".Senha");
       setValueNull(".ConfirmaSenha");
       setEmailsRows(false);

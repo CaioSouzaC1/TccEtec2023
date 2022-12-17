@@ -54,6 +54,16 @@ router.post("/validateEmail", async (req, res) => {
   res.json({ emails: rowEmail.length });
 });
 
+router.post("/login", async (req, res) => {
+  const login = await prisma.Artists.findFirst({
+    where: {
+      email: req.body.email,
+      pass: req.body.pass,
+    },
+  });
+  res.json({ userData: login });
+});
+
 app.use("", router);
 
 app.listen(3333);

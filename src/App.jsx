@@ -4,6 +4,7 @@ import Cadastra from "./Pages/cadastra";
 import CreateAccArtistaStepOne from "./Pages/cadastra/artistaStep1";
 import CreateAccArtistaStepTwo from "./Pages/cadastra/artistaStep2";
 import Home from "./Pages/home";
+import Login from "./Pages/login";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           path="/cadastra/artista/etapa/2"
           element={<CreateAccArtistaStepTwo />}
         />
+        <Route path="/login" element={<Login />} />
         <Route path="*" element={<div>pagina 404</div>} />`
       </Routes>
     </BrowserRouter>

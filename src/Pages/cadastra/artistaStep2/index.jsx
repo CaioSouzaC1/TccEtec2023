@@ -1,43 +1,27 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import Button from "../../../Components/Button/Button";
 import InputText from "../../../Components/InputText";
 import selectValue from "../../../utils/selectValue";
-import selectInput from "../../../utils/selectInput";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import successFy from "../../../utils/toastify/successFy";
+import errorFy from "../../../utils/toastify/errorFy";
+import warnFy from "../../../utils/toastify/warnFy";
+import putImask from "../../../utils/putImask";
+import cpfValidate from "../../../utils/cpfValidate";
+import setValueNull from "../../../utils/setValueNull";
 
 const CreateAccArtistaStepTwo = () => {
-  const [invalidNavigate, setInvalidNavigate] = useState(false);
+  //To Do: Não deixar o form enviável após o envio
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    IMask(selectInput(".cpf"), {
-      mask: "000.000.000-00",
-    });
-    IMask(selectInput(".Nome"), {
-      mask: /^[a-zA-Zà-úÀ-Ú ]{0,35}$/,
-    });
-    IMask(selectInput(".NomeArtistico"), {
-      mask: /^[a-zA-Zà-úÀ-Ú0-9 !@#\$%\^\&*\)\(+=._-]{0,35}$/g,
-    });
-    IMask(selectInput(".whatsApp"), {
-      mask: "(00)00000-0000",
-    });
+    putImask(".cpf", "000.000.000-00");
+    putImask(".Nome", /^[a-zA-Zà-úÀ-Ú ]{0,35}$/);
+    putImask(".NomeArtistico", /^[a-zA-Zà-úÀ-Ú ]{0,35}$/);
+    putImask(".whatsApp", "(00) 00000-0000");
   }, []);
-
-  const errorNotify = () => {
-    toast.error("As senhas não coincidem", {
-      position: "top-right",
-      autoClose: 4000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
-  };
 
   const { state } = useLocation();
   const sendForm = async (event) => {
@@ -46,9 +30,12 @@ const CreateAccArtistaStepTwo = () => {
     const nome = selectValue(".Nome");
     const nomeArt = selectValue(".NomeArtistico");
     const cpf = selectValue(".cpf");
+    const cpfValid = cpfValidate(selectValue(".cpf"));
     const whatsApp = selectValue(".whatsApp");
-
-    if (!state === null) {
+    if (!cpfValid) {
+      errorFy("Este Cpf não é válido...");
+      setValueNull(".cpf");
+    } else if (state != null) {
       try {
         const createArt = await fetch("http://127.0.0.1:3333/createAcc", {
           method: "POST",
@@ -67,48 +54,24 @@ const CreateAccArtistaStepTwo = () => {
         });
 
         if (createArt.status === 200) {
-          toast.success("Conta Criada! Redirecionando... ", {
-            position: "top-right",
-            autoClose: 4000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-          });
+          successFy("Conta Criada! Redirecionando... ");
+          setTimeout(() => {
+            navigate("/login/");
+          }, 3000);
         } else {
-          errorNotify();
+          errorFy("Tivemos um erro ao criar sua conta");
         }
       } catch (err) {
-        errorNotify();
+        errorFy("Erro na Requisição!");
       }
     } else {
-      toast.warn("Você está pulando uma etapa..", {
-        position: "top-right",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      warnFy("Você está pulando uma etapa..");
       setTimeout(() => {
-        toast.warn("Redirecionando para a etapa 1", {
-          position: "top-right",
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-      }, 1500);
+        warnFy("Redirecionando para a etapa 1");
+      }, 1000);
       setTimeout(() => {
         navigate("/cadastra/artista/etapa/1");
-      }, 5000);
+      }, 4000);
     }
   };
 
@@ -124,12 +87,18 @@ const CreateAccArtistaStepTwo = () => {
           placeholder="Seu Nome Artistico"
         ></InputText>
         <br />
-        <InputText class="cpf" label="CPF" placeholder="Seu CPF"></InputText>
+        <InputText
+          class="cpf"
+          label="CPF"
+          placeholder="Seu CPF"
+          min="11"
+        ></InputText>
         <br />
         <InputText
           class="whatsApp"
           label="WhatsApp"
           placeholder="Seu whatsApp"
+          min="10"
         ></InputText>
         <br />
         <Button text="Enviar"></Button>
