@@ -1,6 +1,6 @@
 import Button from "../../../Components/Button/Button";
 import InputText from "../../../Components/InputText";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import selectValue from "../../../utils/selectValue";
@@ -92,6 +92,9 @@ const CreateAccArtistaStepOne = () => {
         <Button text="Avançar"></Button>
         <ToastContainer />
       </form>
+      <Link to={"../login"}>
+        <Button text="Já Possuo conta"></Button>
+      </Link>
     </>
   );
 };

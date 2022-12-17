@@ -5,33 +5,37 @@ import selectValue from "../../utils/selectValue";
 import errorFy from "../../utils/toastify/errorFy";
 import styles from "./login.module.css";
 import successFy from "../../utils/toastify/successFy";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const sendForm = async (e) => {
     e.preventDefault();
 
     try {
-      const login = await (
-        await fetch("http://127.0.0.1:3333/login", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "content-type": "application/json",
-          },
-          body: JSON.stringify({
-            email: selectValue(".keyLogin"),
-            pass: selectValue(".passLogin"),
-          }),
-        })
-      ).json();
-      console.log(login.userData);
-      if (login.userData == null) {
-        errorFy("Email ou senha inválidos");
-      } else {
-        successFy("Bem vindo!");
+      let login = await fetch("http://127.0.0.1:3333/login", {
+        headers: new Headers({
+          Authorization: `Basic ${btoa(
+            `${selectValue(".keyLogin")}:${selectValue(".passLogin")}`
+          )}`,
+        }),
+      });
+
+      if (login.status === 401) {
+        throw new Error(401);
+      } else if (login.status === 200) {
+        successFy("Bem vindo!", 2500);
+        setTimeout(() => {
+          navigate("/estabelecimentos/ultimos");
+        }, 2000);
+        login = await login.json();
       }
     } catch (err) {
-      console.log(err);
+      if (err == "Error: 401") {
+        errorFy("Email ou senha inválidos");
+      } else {
+        errorFy("Erro na Aplicação, tente mais tarde...");
+      }
     }
   };
 
@@ -54,8 +58,13 @@ const Login = () => {
         ></InputText>
         <br />
         <Button text="Logar"></Button>
+
         <ToastContainer />
       </form>
+
+      <Link to={"../cadastra/artista/etapa/1"}>
+        <Button text="Criar conta"></Button>
+      </Link>
     </>
   );
 };

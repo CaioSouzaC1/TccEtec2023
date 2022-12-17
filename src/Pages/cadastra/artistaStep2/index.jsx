@@ -30,7 +30,7 @@ const CreateAccArtistaStepTwo = () => {
     const nome = selectValue(".Nome");
     const nomeArt = selectValue(".NomeArtistico");
     const cpf = selectValue(".cpf");
-    const cpfValid = cpfValidate(selectValue(".cpf"));
+    const cpfValid = cpfValidate(cpf);
     const whatsApp = selectValue(".whatsApp");
     if (!cpfValid) {
       errorFy("Este Cpf não é válido...");

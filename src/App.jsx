@@ -5,6 +5,7 @@ import CreateAccArtistaStepOne from "./Pages/cadastra/artistaStep1";
 import CreateAccArtistaStepTwo from "./Pages/cadastra/artistaStep2";
 import Home from "./Pages/home";
 import Login from "./Pages/login";
+import Ultimos from "./Pages/estabelecimentos/ultimos";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           element={<CreateAccArtistaStepTwo />}
         />
         <Route path="/login" element={<Login />} />
+        <Route path="/estabelecimentos/ultimos" element={<Ultimos></Ultimos>} />
         <Route path="*" element={<div>pagina 404</div>} />`
       </Routes>
     </BrowserRouter>
