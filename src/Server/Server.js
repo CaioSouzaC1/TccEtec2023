@@ -84,14 +84,30 @@ router.get("/login", async (req, res) => {
 
 router.get("/estabelecimentos/ultimos", async (req, res) => {
   try {
-    const verifying = jwt.verify(jwtToken, secret);
-    if (verifying) {
-      const lastPlaces = await prisma.Establishments.findMany();
-      res.json(lastPlaces);
-    }
+    const lastPlaces = await prisma.Establishments.findMany();
+    res.json(lastPlaces);
   } catch (err) {
     res.sendStatus(401);
   }
+});
+
+const verifyJwt = (req, res, next) => {
+  const token = req.headers.jwtauthorization;
+  if (token == "null") {
+    res.json({ auth: false, msg: "Sem Token" });
+  } else {
+    jwt.verify(token, secret, (err, decoded) => {
+      if (err) {
+        res.json({ auth: false, msg: "Jwt não válido" });
+      } else {
+        res.json({ auth: true, msg: "Autenticado" });
+      }
+    });
+  }
+};
+
+router.get("/autenticado", verifyJwt, (req, res) => {
+  res.json({ auth: true, msg: "Autenticado resp após midleware" });
 });
 
 app.use("", router);

@@ -3,7 +3,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const infoFy = (message, time) => {
   const theTime = time != null ? time : 4000;
-  return toast.warn(`${message}`, {
+  return toast.info(`${message}`, {
     position: "top-right",
     autoClose: theTime,
     hideProgressBar: false,

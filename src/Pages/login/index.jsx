@@ -5,10 +5,21 @@ import selectValue from "../../utils/selectValue";
 import errorFy from "../../utils/toastify/errorFy";
 import styles from "./login.module.css";
 import successFy from "../../utils/toastify/successFy";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import infoFy from "../../utils/toastify/infoFy";
 
 const Login = () => {
   const navigate = useNavigate();
+
+  const { state } = useLocation();
+  //Todo, state renderizando 4x
+  if (state.isAuth === false) {
+    errorFy("Você precisa estar logado para acessar essa página");
+    setTimeout(() => {
+      infoFy("Efetue o login");
+    }, 500);
+  }
+
   const sendForm = async (e) => {
     e.preventDefault();
 
@@ -25,10 +36,12 @@ const Login = () => {
         throw new Error(401);
       } else if (login.status === 200) {
         successFy("Bem vindo!", 2500);
+        login = await login.json();
+        sessionStorage.setItem("VoiceJwt", login.token);
+        sessionStorage.setItem("VoiceName", login.userData.name);
         setTimeout(() => {
           navigate("/estabelecimentos/ultimos");
         }, 2000);
-        login = await login.json();
       }
     } catch (err) {
       if (err == "Error: 401") {
