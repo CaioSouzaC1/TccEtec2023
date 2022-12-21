@@ -111,5 +111,4 @@ router.get("/autenticado", verifyJwt, (req, res) => {
 });
 
 app.use("", router);
-
 app.listen(3333);

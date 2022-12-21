@@ -13,12 +13,15 @@ const Login = () => {
 
   const { state } = useLocation();
   //Todo, state renderizando 4x
-  if (state.isAuth === false) {
-    errorFy("Você precisa estar logado para acessar essa página");
-    setTimeout(() => {
-      infoFy("Efetue o login");
-    }, 500);
-  }
+
+  useNavigate(() => {
+    if (state && state.isAuth === false) {
+      errorFy("Você precisa estar logado para acessar essa página");
+      setTimeout(() => {
+        infoFy("Efetue o login");
+      }, 500);
+    }
+  }, state);
 
   const sendForm = async (e) => {
     e.preventDefault();

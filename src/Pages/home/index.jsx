@@ -10,6 +10,10 @@ const Home = () => {
       <Link to={"cadastra/artista/etapa/1"}>
         <Button text="Criar Artista"></Button>
       </Link>
+      <br />
+      <Link to={"/login"}>
+        <Button text="Login"></Button>
+      </Link>
     </>
   );
 };
