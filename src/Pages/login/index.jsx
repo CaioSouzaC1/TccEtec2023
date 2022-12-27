@@ -43,7 +43,7 @@ const Login = () => {
         sessionStorage.setItem("VoiceJwt", login.token);
         sessionStorage.setItem("VoiceName", login.userData.name);
         setTimeout(() => {
-          navigate("/estabelecimentos/ultimos");
+          navigate("/artista/perfil");
         }, 2000);
       }
     } catch (err) {

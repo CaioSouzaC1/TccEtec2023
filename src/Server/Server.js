@@ -28,8 +28,6 @@ const prisma = new PrismaClient({
   log: ["query"],
 });
 
-//To do: Fazer função global para verificação se está logado
-
 const secret = "eyJhbGciOiJIUzI1NiJ9";
 let jwtToken = "";
 
@@ -56,10 +54,17 @@ router.post("/validateEmail", async (req, res) => {
   res.json({ emails: rowEmail.length });
 });
 
+router.get("/getArtistsInfo/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const data = await prisma.Artists.findUnique({ where: { id: id } });
+    res.json(data);
+  } catch (err) {}
+});
+
 router.get("/login", async (req, res) => {
   const [hashType, hash] = req.headers.authorization.split(" ");
   const [email, password] = Buffer.from(hash, "base64").toString().split(":");
-
   try {
     const login = await prisma.Artists.findFirst({
       where: {
@@ -67,7 +72,6 @@ router.get("/login", async (req, res) => {
         pass: password,
       },
     });
-
     if (!login) {
       res.sendStatus(401);
     } else {
@@ -94,13 +98,16 @@ router.get("/estabelecimentos/ultimos", async (req, res) => {
 const verifyJwt = (req, res, next) => {
   const token = req.headers.jwtauthorization;
   if (token == "null") {
-    res.json({ auth: false, msg: "Sem Token" });
+    res.json({ auth: false, user: false });
   } else {
     jwt.verify(token, secret, (err, decoded) => {
       if (err) {
-        res.json({ auth: false, msg: "Jwt não válido" });
+        res.json({ auth: false, user: false });
       } else {
-        res.json({ auth: true, msg: "Autenticado" });
+        res.json({
+          auth: true,
+          user: jwt.verify(token, secret).user,
+        });
       }
     });
   }

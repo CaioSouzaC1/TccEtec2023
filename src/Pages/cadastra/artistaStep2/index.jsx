@@ -29,9 +29,20 @@ const CreateAccArtistaStepTwo = () => {
 
     const nome = selectValue(".Nome");
     const nomeArt = selectValue(".NomeArtistico");
-    const cpf = selectValue(".cpf");
+    let cpf = selectValue(".cpf");
     const cpfValid = cpfValidate(cpf);
-    const whatsApp = selectValue(".whatsApp");
+    let whatsApp = selectValue(".whatsApp");
+
+    //Trocar essa merda por um regex barato
+    whatsApp = whatsApp.replace("-", "");
+    whatsApp = whatsApp.replace("(", "");
+    whatsApp = whatsApp.replace(")", "");
+    whatsApp = whatsApp.replace(" ", "");
+    cpf = cpf.replace(".", "");
+    cpf = cpf.replace(".", "");
+    cpf = cpf.replace("-", "");
+    console.log(whatsApp);
+    console.log(cpf);
     if (!cpfValid) {
       errorFy("Este Cpf não é válido...");
       setValueNull(".cpf");
@@ -46,10 +57,10 @@ const CreateAccArtistaStepTwo = () => {
           body: JSON.stringify({
             name: nome,
             nameArt: nomeArt,
-            cpf: cpf,
+            cpf: Number(cpf),
             email: state.email,
             pass: state.pass,
-            whatsApp: whatsApp,
+            whatsApp: Number(whatsApp),
           }),
         });
 

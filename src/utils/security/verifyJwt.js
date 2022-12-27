@@ -6,7 +6,7 @@ const verifyJwt = async () => {
   });
 
   const reqJson = await req.json();
-  return { status: req.status, auth: reqJson.auth, msg: reqJson.msg };
+  return { status: req.status, auth: reqJson.auth, user: reqJson.user };
 };
 
 export default verifyJwt;
