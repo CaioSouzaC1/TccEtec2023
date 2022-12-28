@@ -1,3 +1,2 @@
 --- Criptografar senhas pra colocar no banco
---- Não enviar senhas no objt do verifyJwt
 --- Depois de criar conta enviar pro meu perfil

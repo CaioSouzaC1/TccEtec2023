@@ -57,7 +57,18 @@ router.post("/validateEmail", async (req, res) => {
 router.get("/getArtistsInfo/:id", async (req, res) => {
   const id = req.params.id;
   try {
-    const data = await prisma.Artists.findUnique({ where: { id: id } });
+    const data = await prisma.Artists.findUnique({
+      where: { id: id },
+      select: {
+        id: true,
+        name: true,
+        nameArt: true,
+        email: true,
+        whatsApp: true,
+        cpf: true,
+        createdAt: true,
+      },
+    });
     res.json(data);
   } catch (err) {}
 });
