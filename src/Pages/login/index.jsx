@@ -38,12 +38,12 @@ const Login = () => {
       if (login.status === 401) {
         throw new Error(401);
       } else if (login.status === 200) {
-        successFy("Bem vindo!", 2500);
+        successFy("Bem vindo!", 2000);
         login = await login.json();
         sessionStorage.setItem("VoiceJwt", login.token);
         sessionStorage.setItem("VoiceName", login.userData.name);
         setTimeout(() => {
-          navigate("/artista/perfil");
+          navigate("/meu-perfil");
         }, 2000);
       }
     } catch (err) {

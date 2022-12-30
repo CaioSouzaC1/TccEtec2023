@@ -7,6 +7,7 @@ import Home from "./Pages/home";
 import Login from "./Pages/login";
 import Ultimos from "./Pages/estabelecimentos/ultimos";
 import MyProfArtist from "./Pages/myProfile/Artists";
+import ProfileArtists from "./Pages/profile/Artists";
 
 function App() {
   return (
@@ -18,11 +19,12 @@ function App() {
           path="/cadastra/artista/etapa/1"
           element={<CreateAccArtistaStepOne />}
         />
-        <Route path="/artista/perfil" element={<MyProfArtist />} />
         <Route
           path="/cadastra/artista/etapa/2"
           element={<CreateAccArtistaStepTwo />}
         />
+        <Route path="/artista/:id" element={<ProfileArtists />} />
+        <Route path="/meu-perfil" element={<MyProfArtist />} />
         <Route path="/login" element={<Login />} />
         <Route path="/estabelecimentos/ultimos" element={<Ultimos></Ultimos>} />
         <Route path="*" element={<div>pagina 404</div>} />`

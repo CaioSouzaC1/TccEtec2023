@@ -41,8 +41,6 @@ const CreateAccArtistaStepTwo = () => {
     cpf = cpf.replace(".", "");
     cpf = cpf.replace(".", "");
     cpf = cpf.replace("-", "");
-    console.log(whatsApp);
-    console.log(cpf);
     if (!cpfValid) {
       errorFy("Este Cpf não é válido...");
       setValueNull(".cpf");

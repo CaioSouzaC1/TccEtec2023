@@ -67,6 +67,7 @@ router.get("/getArtistsInfo/:id", async (req, res) => {
         whatsApp: true,
         cpf: true,
         createdAt: true,
+        pubId: true,
       },
     });
     res.json(data);
@@ -126,6 +127,34 @@ const verifyJwt = (req, res, next) => {
 
 router.get("/autenticado", verifyJwt, (req, res) => {
   res.json({ auth: true, msg: "Autenticado resp após midleware" });
+});
+
+router.get("/artista/:id", async (req, res) => {
+  try {
+    const pubId = req.params.id;
+    const artistInfo = await prisma.Artists.findFirst({
+      where: {
+        pubId: pubId,
+      },
+      select: {
+        name: true,
+        nameArt: true,
+        email: true,
+        whatsApp: true,
+        createdAt: true,
+        pubId: true,
+      },
+    });
+
+    if (artistInfo) {
+      res.json(artistInfo);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(404);
+  }
 });
 
 app.use("", router);
