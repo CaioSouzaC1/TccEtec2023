@@ -86,7 +86,7 @@ const CreateAccArtistaStepTwo = () => {
 
   return (
     <>
-      <h1>Etapa 2</h1>
+      <h1>Artista Etapa 2</h1>
       <form className="Form" onSubmit={sendForm}>
         <InputText class="Nome" label="Nome" placeholder="Seu nome"></InputText>
         <br />

@@ -29,7 +29,6 @@ const prisma = new PrismaClient({
 });
 
 const secret = "eyJhbGciOiJIUzI1NiJ9";
-let jwtToken = "";
 
 router.post("/createAcc", async (req, res) => {
   await prisma.Artists.create({
@@ -90,7 +89,6 @@ router.get("/login", async (req, res) => {
       const token = jwt.sign({ user: login.id }, secret, {
         expiresIn: 86400,
       });
-      jwtToken = token;
       res.json({ userData: login, token: token });
     }
   } catch (err) {
@@ -154,6 +152,19 @@ router.get("/artista/:id", async (req, res) => {
   } catch (err) {
     console.log(err);
     res.sendStatus(404);
+  }
+});
+
+router.get("/validateEmailEstableshiment", async (req, res) => {
+  try {
+    const [hashType, hash] = req.headers.authorization.split(" ");
+    const email = Buffer.from(hash, "base64").toString();
+    const EmailEstableshiment = await prisma.Establishments.findMany({
+      where: { email: email },
+    });
+    res.json({ emails: EmailEstableshiment.length });
+  } catch (err) {
+    console.log(err);
   }
 });
 

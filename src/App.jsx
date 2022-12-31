@@ -8,6 +8,8 @@ import Login from "./Pages/login";
 import Ultimos from "./Pages/estabelecimentos/ultimos";
 import MyProfArtist from "./Pages/myProfile/Artists";
 import ProfileArtists from "./Pages/profile/Artists";
+import CreateAccEstableshimentStepOne from "./Pages/cadastra/estableshimentStep1";
+import CreateAccEstableshimentStepTwo from "./Pages/cadastra/estableshimentStep2";
 
 function App() {
   return (
@@ -22,6 +24,14 @@ function App() {
         <Route
           path="/cadastra/artista/etapa/2"
           element={<CreateAccArtistaStepTwo />}
+        />
+        <Route
+          path="/cadastra/estabelecimento/etapa/1"
+          element={<CreateAccEstableshimentStepOne />}
+        />
+        <Route
+          path="/cadastra/estabelecimento/etapa/2"
+          element={<CreateAccEstableshimentStepTwo />}
         />
         <Route path="/artista/:id" element={<ProfileArtists />} />
         <Route path="/meu-perfil" element={<MyProfArtist />} />

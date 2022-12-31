@@ -7,21 +7,21 @@ import styles from "./login.module.css";
 import successFy from "../../utils/toastify/successFy";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import infoFy from "../../utils/toastify/infoFy";
+import { useEffect } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
-
   const { state } = useLocation();
   //Todo, state renderizando 4x
 
-  useNavigate(() => {
+  useEffect(() => {
     if (state && state.isAuth === false) {
       errorFy("Você precisa estar logado para acessar essa página");
       setTimeout(() => {
         infoFy("Efetue o login");
-      }, 500);
+      }, 250);
     }
-  }, state);
+  }, []);
 
   const sendForm = async (e) => {
     e.preventDefault();
@@ -38,7 +38,7 @@ const Login = () => {
       if (login.status === 401) {
         throw new Error(401);
       } else if (login.status === 200) {
-        successFy("Bem vindo!", 2000);
+        successFy("Bem vindo!", 1100);
         login = await login.json();
         sessionStorage.setItem("VoiceJwt", login.token);
         sessionStorage.setItem("VoiceName", login.userData.name);
@@ -74,10 +74,8 @@ const Login = () => {
         ></InputText>
         <br />
         <Button text="Logar"></Button>
-
-        <ToastContainer />
       </form>
-
+      <ToastContainer />
       <Link to={"../cadastra/artista/etapa/1"}>
         <Button text="Criar conta"></Button>
       </Link>

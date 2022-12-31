@@ -1,38 +1,39 @@
-import Button from "../../../Components/Button/Button";
-import InputText from "../../../Components/InputText";
-import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
+import InputText from "../../../Components/InputText";
+import Button from "../../../Components/Button/Button";
 import selectValue from "../../../utils/selectValue";
 import setValueNull from "../../../utils/setValueNull";
 import errorFy from "../../../utils/toastify/errorFy";
+import { useEffect, useState } from "react";
 import warnFy from "../../../utils/toastify/warnFy";
+import { useNavigate } from "react-router-dom";
 
-const CreateAccArtistaStepOne = () => {
-  const [emailsRows, setEmailsRows] = useState(false);
+const CreateAccEstableshimentStepOne = () => {
+  const [emailState, SetEmailState] = useState(false);
+  const navigate = useNavigate();
 
-  const emailValidation = async (event) => {
-    event.preventDefault();
+  const validateEmail = async (e) => {
+    e.preventDefault();
     const email = selectValue(".Email");
     try {
-      const emailRows = await (
-        await fetch("http://127.0.0.1:3333/validateEmail", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: email,
+      let emailRow = await fetch(
+        "http://127.0.0.1:3333/validateEmailEstableshiment",
+        {
+          headers: new Headers({
+            Authorization: `Basic ${btoa(`${email}`)}`,
           }),
-        })
-      ).json();
-      setEmailsRows(emailRows.emails);
+        }
+      );
+      if (emailRow.status == 200) {
+        emailRow = await emailRow.json();
+        SetEmailState(emailRow.emails);
+      } else {
+        errorFy("Error validating email");
+      }
     } catch (err) {
-      errorFy("Erro na Requisição!");
+      console.log(err);
     }
   };
-  const navigate = useNavigate();
 
   useEffect(() => {
     const PassEquals = selectValue(".Senha") === selectValue(".ConfirmaSenha");
@@ -40,27 +41,30 @@ const CreateAccArtistaStepOne = () => {
       errorFy("As Senhas não coincidem");
       setValueNull(".Senha");
       setValueNull(".ConfirmaSenha");
-      setEmailsRows(false);
+      SetEmailState(false);
     }
-    if (emailsRows === 0 && PassEquals) {
-      navigate("/cadastra/artista/etapa/2", {
+
+    if (emailState > 0) {
+      warnFy("Email já cadastrado");
+      setValueNull(".Email");
+      SetEmailState(false);
+    }
+
+    if (PassEquals && emailState === 0) {
+      navigate("/cadastra/estabelecimento/etapa/2", {
         state: {
           email: selectValue(".Email"),
           pass: selectValue(".Senha"),
         },
       });
     }
-    if (emailsRows === 1) {
-      setValueNull(".Email");
-      warnFy("Email Já cadastrado");
-      setEmailsRows(false);
-    }
-  }, [emailsRows]);
+  }, [emailState]);
 
   return (
     <>
-      <h1>Artista Etapa 1</h1>
-      <form className="Form" onSubmit={emailValidation}>
+      <h1>Create Estabelecimento Step 1</h1>
+
+      <form className="Form" onSubmit={validateEmail}>
         <InputText
           type="email"
           class="Email"
@@ -89,10 +93,8 @@ const CreateAccArtistaStepOne = () => {
         <Button text="Avançar"></Button>
         <ToastContainer />
       </form>
-      <Link to={"../login"}>
-        <Button text="Já Possuo conta"></Button>
-      </Link>
     </>
   );
 };
-export default CreateAccArtistaStepOne;
+
+export default CreateAccEstableshimentStepOne;
