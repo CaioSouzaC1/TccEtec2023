@@ -10,6 +10,7 @@ import MyProfArtist from "./Pages/myProfile/Artists";
 import ProfileArtists from "./Pages/profile/Artists";
 import CreateAccEstableshimentStepOne from "./Pages/cadastra/estableshimentStep1";
 import CreateAccEstableshimentStepTwo from "./Pages/cadastra/estableshimentStep2";
+import CreateAccEstableshimentStepThree from "./Pages/cadastra/estableshimentStep3";
 
 function App() {
   return (
@@ -32,6 +33,10 @@ function App() {
         <Route
           path="/cadastra/estabelecimento/etapa/2"
           element={<CreateAccEstableshimentStepTwo />}
+        />
+        <Route
+          path="/cadastra/estabelecimento/etapa/3"
+          element={<CreateAccEstableshimentStepThree />}
         />
         <Route path="/artista/:id" element={<ProfileArtists />} />
         <Route path="/meu-perfil" element={<MyProfArtist />} />

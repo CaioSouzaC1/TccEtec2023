@@ -2,3 +2,5 @@
 --- Depois de criar conta enviar pro meu perfil
 --- Criar um regex pra tirar os replaces porcos que fiz na segunda etapa do artist
 --- Corrigir número de render de diversas páginas
+--- Finalizar Etapa 3 create account establishment
+--- Iniciar a criação de eventos

@@ -76,7 +76,7 @@ const Login = () => {
         <Button text="Logar"></Button>
       </form>
       <ToastContainer />
-      <Link to={"../cadastra/artista/etapa/1"}>
+      <Link to={"../cadastra/"}>
         <Button text="Criar conta"></Button>
       </Link>
     </>
