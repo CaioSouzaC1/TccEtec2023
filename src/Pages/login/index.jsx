@@ -8,6 +8,7 @@ import successFy from "../../utils/toastify/successFy";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import infoFy from "../../utils/toastify/infoFy";
 import { useEffect } from "react";
+import ButtonBack from "../../Components/ButtonBack";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -41,7 +42,6 @@ const Login = () => {
         successFy("Bem vindo!", 1100);
         login = await login.json();
         sessionStorage.setItem("VoiceJwt", login.token);
-        sessionStorage.setItem("VoiceName", login.userData.name);
         setTimeout(() => {
           navigate("/meu-perfil");
         }, 2000);
@@ -79,6 +79,8 @@ const Login = () => {
       <Link to={"../cadastra/"}>
         <Button text="Criar conta"></Button>
       </Link>
+      <br />
+      <ButtonBack />
     </>
   );
 };

@@ -89,7 +89,7 @@ router.get("/login", async (req, res) => {
       const token = jwt.sign({ user: login.id }, secret, {
         expiresIn: 86400,
       });
-      res.json({ userData: login, token: token });
+      res.json({ token: token });
     }
   } catch (err) {
     res.sendStatus(400);
@@ -165,6 +165,70 @@ router.get("/validateEmailEstableshiment", async (req, res) => {
     res.json({ emails: EmailEstableshiment.length });
   } catch (err) {
     console.log(err);
+  }
+});
+
+router.post("/createAccEstableshiment", async (req, res) => {
+  try {
+    const acc = await prisma.Establishments.create({
+      data: {
+        email: req.body.email,
+        pass: req.body.pass,
+        nomeResponsavel: req.body.nomeResponsavel,
+        cnpj: req.body.cnpj,
+        whatsApp: req.body.whatsApp,
+        name: req.body.name,
+        cep: req.body.cep,
+        numEnd: req.body.numEnd,
+        logradouro: req.body.logradouro,
+        bairro: req.body.bairro,
+        cidade: req.body.cidade,
+      },
+    });
+
+    if (!acc) {
+      res.sendStatus(401);
+    } else {
+      const token = jwt.sign({ user: acc.id }, secret, {
+        expiresIn: 86400,
+      });
+      res.json(token);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.get("/estabelecimento/:id", async (req, res) => {
+  try {
+    const pubId = req.params.id;
+    const EstablishmentsInfo = await prisma.Establishments.findFirst({
+      where: {
+        pubId: pubId,
+      },
+      select: {
+        name: true,
+        nomeResponsavel: true,
+        email: true,
+        whatsApp: true,
+        createdAt: true,
+        pubId: true,
+        cep: true,
+        numEnd: true,
+        logradouro: true,
+        bairro: true,
+        cidade: true,
+      },
+    });
+
+    if (EstablishmentsInfo) {
+      res.json(EstablishmentsInfo);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(404);
   }
 });
 

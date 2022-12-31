@@ -11,6 +11,8 @@ import ProfileArtists from "./Pages/profile/Artists";
 import CreateAccEstableshimentStepOne from "./Pages/cadastra/estableshimentStep1";
 import CreateAccEstableshimentStepTwo from "./Pages/cadastra/estableshimentStep2";
 import CreateAccEstableshimentStepThree from "./Pages/cadastra/estableshimentStep3";
+import Feed from "./Pages/feed";
+import ProfileEstablishments from "./Pages/profile/establishments";
 
 function App() {
   return (
@@ -41,7 +43,12 @@ function App() {
         <Route path="/artista/:id" element={<ProfileArtists />} />
         <Route path="/meu-perfil" element={<MyProfArtist />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/feed" element={<Feed />} />
         <Route path="/estabelecimentos/ultimos" element={<Ultimos></Ultimos>} />
+        <Route
+          path="/estabelecimento/:id"
+          element={<ProfileEstablishments />}
+        />
         <Route path="*" element={<div>pagina 404</div>} />`
       </Routes>
     </BrowserRouter>

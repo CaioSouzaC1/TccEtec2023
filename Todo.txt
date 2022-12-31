@@ -4,3 +4,5 @@
 --- Corrigir número de render de diversas páginas
 --- Finalizar Etapa 3 create account establishment
 --- Iniciar a criação de eventos
+--- Colocar os campos required no model Prisma
+--- Melhorar arquitetura do Server.js

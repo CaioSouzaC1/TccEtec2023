@@ -7,6 +7,7 @@ import errorFy from "../../../utils/toastify/errorFy";
 import { useEffect, useState } from "react";
 import warnFy from "../../../utils/toastify/warnFy";
 import { useNavigate } from "react-router-dom";
+import ButtonBack from "../../../Components/ButtonBack";
 
 const CreateAccEstableshimentStepOne = () => {
   const [emailState, SetEmailState] = useState(false);
@@ -62,7 +63,7 @@ const CreateAccEstableshimentStepOne = () => {
 
   return (
     <>
-      <h1>Create Estabelecimento Step 1</h1>
+      <h1>Estabelecimento Step 1</h1>
 
       <form className="Form" onSubmit={validateEmail}>
         <InputText
@@ -93,6 +94,7 @@ const CreateAccEstableshimentStepOne = () => {
         <Button text="Avançar"></Button>
         <ToastContainer />
       </form>
+      <ButtonBack />
     </>
   );
 };

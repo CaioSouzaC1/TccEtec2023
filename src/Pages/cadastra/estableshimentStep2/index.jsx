@@ -8,6 +8,7 @@ import selectInput from "../../../utils/selectInput";
 import cnpjValidate from "../../../utils/cnpjValidate";
 import selectValue from "../../../utils/selectValue";
 import warnFy from "../../../utils/toastify/warnFy";
+import ButtonBack from "../../../Components/ButtonBack";
 
 const CreateAccEstableshimentStepTwo = () => {
   const navigate = useNavigate();
@@ -79,6 +80,7 @@ const CreateAccEstableshimentStepTwo = () => {
         <Button text="Enviar"></Button>
       </form>
       <ToastContainer />
+      <ButtonBack />
     </>
   );
 };

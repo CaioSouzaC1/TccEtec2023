@@ -10,6 +10,7 @@ import warnFy from "../../../utils/toastify/warnFy";
 import putImask from "../../../utils/putImask";
 import cpfValidate from "../../../utils/cpfValidate";
 import setValueNull from "../../../utils/setValueNull";
+import ButtonBack from "../../../Components/ButtonBack";
 
 const CreateAccArtistaStepTwo = () => {
   //To Do: Não deixar o form enviável após o envio
@@ -113,6 +114,7 @@ const CreateAccArtistaStepTwo = () => {
         <Button text="Enviar"></Button>
         <ToastContainer />
       </form>
+      <ButtonBack />
     </>
   );
 };

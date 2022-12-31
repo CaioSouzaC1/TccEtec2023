@@ -7,6 +7,7 @@ import selectValue from "../../../utils/selectValue";
 import setValueNull from "../../../utils/setValueNull";
 import errorFy from "../../../utils/toastify/errorFy";
 import warnFy from "../../../utils/toastify/warnFy";
+import ButtonBack from "../../../Components/ButtonBack";
 
 const CreateAccArtistaStepOne = () => {
   const [emailsRows, setEmailsRows] = useState(false);
@@ -92,6 +93,7 @@ const CreateAccArtistaStepOne = () => {
       <Link to={"../login"}>
         <Button text="Já Possuo conta"></Button>
       </Link>
+      <ButtonBack />
     </>
   );
 };

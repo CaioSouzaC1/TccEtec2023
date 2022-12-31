@@ -14,7 +14,7 @@ const Ultimos = () => {
       );
       let isAuth = await (await verifyJwt()).auth;
       if (isAuth) {
-        setNameUser(sessionStorage.getItem("VoiceName"));
+        setNameUser("VoiceName");
         ultimos = await ultimos.json();
         setLasts(ultimos);
       } else {

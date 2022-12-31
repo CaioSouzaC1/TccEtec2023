@@ -12,7 +12,7 @@ const ProfileArtists = () => {
 
   const getArtInfo = async () => {
     try {
-      let artData = await fetch(`http://127.0.0.1:3333//artista/${id}`);
+      let artData = await fetch(`http://127.0.0.1:3333/artista/${id}`);
       if (artData.status !== 200) {
         errorFy("Usuário não encontrado");
       } else {

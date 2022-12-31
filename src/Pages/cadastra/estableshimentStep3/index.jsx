@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import InputText from "../../../Components/InputText";
 import { ToastContainer } from "react-toastify";
 import Button from "../../../Components/Button/Button";
@@ -7,10 +7,11 @@ import selectInput from "../../../utils/selectInput";
 import selectValue from "../../../utils/selectValue";
 import putImask from "../../../utils/putImask";
 import errorFy from "../../../utils/toastify/errorFy";
+import ButtonBack from "../../../Components/ButtonBack";
 
 const CreateAccEstableshimentStepThree = () => {
   const { state } = useLocation();
-  console.log(state);
+  const navigate = useNavigate();
 
   useEffect(() => {
     putImask(".Cep", "00000-000");
@@ -28,8 +29,47 @@ const CreateAccEstableshimentStepThree = () => {
     });
   }, []);
 
-  const sendForm = (e) => {
+  const sendForm = async (e) => {
     e.preventDefault();
+    if (state == null) {
+      warnFy("Você está pulando uma etapa");
+      setTimeout(() => {
+        navigate("/cadastra/estabelecimento/etapa/1");
+      }, 3000);
+    } else {
+      try {
+        let createAccEstableshiment = await fetch(
+          "http://127.0.0.1:3333/createAccEstableshiment",
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: state.email,
+              pass: state.pass,
+              nomeResponsavel: state.nomeResponsavel,
+              cnpj: state.Cnpj,
+              whatsApp: state.whatsApp,
+              name: state.nomeEstabelecimento,
+              cep: selectValue(".Cep"),
+              numEnd: selectValue(".numero"),
+              logradouro: selectValue(".rua"),
+              bairro: selectValue(".bairro"),
+              cidade: selectValue(".cidade"),
+            }),
+          }
+        );
+        if (createAccEstableshiment.status === 200) {
+          createAccEstableshiment = await createAccEstableshiment.json();
+          sessionStorage.setItem("VoiceJwt", createAccEstableshiment);
+          navigate("/feed");
+        }
+      } catch (err) {
+        errorFy(err);
+      }
+    }
   };
   return (
     <>
@@ -46,7 +86,7 @@ const CreateAccEstableshimentStepThree = () => {
         <br />
         <InputText
           class="rua"
-          label="Rua"
+          label="Logradouro"
           placeholder="Rua Getúlio Vargas"
         ></InputText>
         <br />
@@ -65,6 +105,7 @@ const CreateAccEstableshimentStepThree = () => {
         <Button text="Enviar"></Button>
       </form>
       <ToastContainer />
+      <ButtonBack />
     </>
   );
 };
