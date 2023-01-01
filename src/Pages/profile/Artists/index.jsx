@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import errorFy from "../../../utils/toastify/errorFy";
 import { ToastContainer } from "react-toastify";
+import ButtonBack from "../../../Components/ButtonBack";
 
 const ProfileArtists = () => {
   const [artInfo, setArtInfo] = useState(false);
@@ -35,6 +36,7 @@ const ProfileArtists = () => {
         <h2>{artInfo == false && `Artista não encontrado`}</h2>
       </>
       <ToastContainer />
+      <ButtonBack />
     </>
   );
 };

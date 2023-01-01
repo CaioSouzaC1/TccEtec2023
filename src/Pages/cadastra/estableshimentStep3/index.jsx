@@ -62,9 +62,12 @@ const CreateAccEstableshimentStepThree = () => {
           }
         );
         if (createAccEstableshiment.status === 200) {
+          successFy("Conta Criada! Redirecionando... ");
           createAccEstableshiment = await createAccEstableshiment.json();
           sessionStorage.setItem("VoiceJwt", createAccEstableshiment);
-          navigate("/feed");
+          setTimeout(() => {
+            navigate("/feed");
+          }, 3000);
         }
       } catch (err) {
         errorFy(err);

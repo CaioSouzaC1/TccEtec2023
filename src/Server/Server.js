@@ -31,17 +31,30 @@ const prisma = new PrismaClient({
 const secret = "eyJhbGciOiJIUzI1NiJ9";
 
 router.post("/createAcc", async (req, res) => {
-  await prisma.Artists.create({
-    data: {
-      name: req.body.name,
-      nameArt: req.body.nameArt,
-      cpf: req.body.cpf,
-      email: req.body.email,
-      pass: req.body.pass,
-      whatsApp: req.body.whatsApp,
-    },
-  });
-  return res.sendStatus(200);
+  try {
+    const artist = await prisma.Artists.create({
+      data: {
+        name: req.body.name,
+        nameArt: req.body.nameArt,
+        cpf: req.body.cpf,
+        email: req.body.email,
+        pass: req.body.pass,
+        whatsApp: req.body.whatsApp,
+      },
+    });
+
+    if (!artist) {
+      res.sendStatus(402);
+    } else {
+      const token = jwt.sign({ user: artist.id }, secret, {
+        expiresIn: 86400,
+      });
+      res.json(token);
+    }
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
 });
 
 router.post("/validateEmail", async (req, res) => {
@@ -53,13 +66,12 @@ router.post("/validateEmail", async (req, res) => {
   res.json({ emails: rowEmail.length });
 });
 
-router.get("/getArtistsInfo/:id", async (req, res) => {
+router.get("/getInfo/:id", async (req, res) => {
   const id = req.params.id;
   try {
-    const data = await prisma.Artists.findUnique({
+    let data = await prisma.Artists.findUnique({
       where: { id: id },
       select: {
-        id: true,
         name: true,
         nameArt: true,
         email: true,
@@ -69,20 +81,57 @@ router.get("/getArtistsInfo/:id", async (req, res) => {
         pubId: true,
       },
     });
-    res.json(data);
-  } catch (err) {}
+
+    if (data) {
+      res.json({ data: data, type: "Artist" });
+    } else if (!data) {
+      data = await prisma.Establishments.findUnique({
+        where: { id: id },
+        select: {
+          name: true,
+          nomeResponsavel: true,
+          email: true,
+          whatsApp: true,
+          cep: true,
+          numEnd: true,
+          logradouro: true,
+          bairro: true,
+          cidade: true,
+          createdAt: true,
+          pubId: true,
+        },
+      });
+      if (data) {
+        res.json({ data: data, type: "Establishment" });
+      }
+    } else {
+      res.sendStatus(401);
+    }
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
 });
 
 router.get("/login", async (req, res) => {
   const [hashType, hash] = req.headers.authorization.split(" ");
   const [email, password] = Buffer.from(hash, "base64").toString().split(":");
   try {
-    const login = await prisma.Artists.findFirst({
+    let login = await prisma.Artists.findFirst({
       where: {
         email: email,
         pass: password,
       },
     });
+    if (!login) {
+      login = await prisma.Establishments.findFirst({
+        where: {
+          email: email,
+          pass: password,
+        },
+      });
+    }
+    console.log(login);
     if (!login) {
       res.sendStatus(401);
     } else {
@@ -98,7 +147,14 @@ router.get("/login", async (req, res) => {
 
 router.get("/estabelecimentos/ultimos", async (req, res) => {
   try {
-    const lastPlaces = await prisma.Establishments.findMany();
+    const lastPlaces = await prisma.Establishments.findMany({
+      select: {
+        bairro: true,
+        name: true,
+        logradouro: true,
+        pubId: true,
+      },
+    });
     res.json(lastPlaces);
   } catch (err) {
     res.sendStatus(401);

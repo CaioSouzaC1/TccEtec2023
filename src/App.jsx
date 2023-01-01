@@ -6,13 +6,13 @@ import CreateAccArtistaStepTwo from "./Pages/cadastra/artistaStep2";
 import Home from "./Pages/home";
 import Login from "./Pages/login";
 import Ultimos from "./Pages/estabelecimentos/ultimos";
-import MyProfArtist from "./Pages/myProfile/Artists";
 import ProfileArtists from "./Pages/profile/Artists";
 import CreateAccEstableshimentStepOne from "./Pages/cadastra/estableshimentStep1";
 import CreateAccEstableshimentStepTwo from "./Pages/cadastra/estableshimentStep2";
 import CreateAccEstableshimentStepThree from "./Pages/cadastra/estableshimentStep3";
 import Feed from "./Pages/feed";
 import ProfileEstablishments from "./Pages/profile/establishments";
+import MyProfile from "./Pages/myProfile";
 
 function App() {
   return (
@@ -41,7 +41,7 @@ function App() {
           element={<CreateAccEstableshimentStepThree />}
         />
         <Route path="/artista/:id" element={<ProfileArtists />} />
-        <Route path="/meu-perfil" element={<MyProfArtist />} />
+        <Route path="/meu-perfil" element={<MyProfile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/feed" element={<Feed />} />
         <Route path="/estabelecimentos/ultimos" element={<Ultimos></Ultimos>} />

@@ -43,7 +43,7 @@ const Login = () => {
         login = await login.json();
         sessionStorage.setItem("VoiceJwt", login.token);
         setTimeout(() => {
-          navigate("/meu-perfil");
+          navigate("/feed");
         }, 2000);
       }
     } catch (err) {
@@ -70,6 +70,7 @@ const Login = () => {
           class="passLogin"
           label="Senha"
           placeholder="Senha"
+          type="password"
           min="8"
         ></InputText>
         <br />

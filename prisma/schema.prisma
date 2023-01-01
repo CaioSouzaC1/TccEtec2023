@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Artists {
+  
+  id   String @id @default(uuid())
+  pubId String @default(cuid())
+  name String
+  nameArt String
+  email String
+  pass String
+  whatsApp Float
+  cpf Float
+  ArtistsEvents Events[]
+  createdAt DateTime @default(now())
+}
+
+model Events {
+  id   String @id @default(uuid())
+  eventName String
+  hour DateTime
+  createdAt DateTime @default(now())
+  artistCreator String
+  artist Artists @relation(fields: [artistCreator], references: [id])
+  eventSpace String
+  establishment Establishments @relation(fields: [eventSpace], references: [id])
+}
+
+model Establishments {
+  id   String @id @default(uuid())
+  pubId String @default(cuid())
+  email String
+  pass String
+  nomeResponsavel String
+  cnpj String
+  whatsApp String
+  name String
+  cep String
+  numEnd String
+  logradouro String
+  bairro String
+  cidade String
+  tema String?
+  horaFunc String?
+  EstablishmentEvents Events[]
+  createdAt DateTime @default(now())
+}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import errorFy from "../../../utils/toastify/errorFy";
 import { useParams } from "react-router-dom";
+import ButtonBack from "../../../Components/ButtonBack";
 
 const ProfileEstablishments = () => {
   let { id } = useParams();
@@ -37,6 +38,7 @@ const ProfileEstablishments = () => {
           `Conta Criada em:${estableshimentData.createdAt}`}
       </h6>
       <h2>{estableshimentData == false && `Estabelecimento não encontrado`}</h2>
+      <ButtonBack />
     </>
   );
 };

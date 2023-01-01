@@ -47,7 +47,7 @@ const CreateAccArtistaStepTwo = () => {
       setValueNull(".cpf");
     } else if (state != null) {
       try {
-        const createArt = await fetch("http://127.0.0.1:3333/createAcc", {
+        let createArt = await fetch("http://127.0.0.1:3333/createAcc", {
           method: "POST",
           headers: {
             Accept: "application/json",
@@ -62,16 +62,18 @@ const CreateAccArtistaStepTwo = () => {
             whatsApp: Number(whatsApp),
           }),
         });
-
+        const resCreateArt = await createArt.json();
         if (createArt.status === 200) {
-          successFy("Conta Criada! Redirecionando... ");
+          successFy("Conta Criada! Redirecionando... ", 2500);
+          sessionStorage.setItem("VoiceJwt", resCreateArt);
           setTimeout(() => {
-            navigate("/login/");
+            navigate("/feed");
           }, 3000);
         } else {
           errorFy("Tivemos um erro ao criar sua conta");
         }
       } catch (err) {
+        console.log(err);
         errorFy("Erro na Requisição!");
       }
     } else {
