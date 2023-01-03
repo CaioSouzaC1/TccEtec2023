@@ -11,7 +11,6 @@ datasource db {
 }
 
 model Artists {
-  
   id   String @id @default(uuid())
   pubId String @default(cuid())
   name String
@@ -22,17 +21,26 @@ model Artists {
   cpf Float
   ArtistsEvents Events[]
   createdAt DateTime @default(now())
+  artistsMeta ArtistsMeta?
+}
+
+model ArtistsMeta {
+  id   String @id @unique
+  artists Artists @relation(fields: [id], references: [id])
+  profileViews Int
+  updatedAt DateTime @default(now())
 }
 
 model Events {
   id   String @id @default(uuid())
   eventName String
-  hour DateTime
+  hour DateTime?
   createdAt DateTime @default(now())
   artistCreator String
   artist Artists @relation(fields: [artistCreator], references: [id])
   eventSpace String
   establishment Establishments @relation(fields: [eventSpace], references: [id])
+  eventStatus String
 }
 
 model Establishments {
@@ -53,4 +61,10 @@ model Establishments {
   horaFunc String?
   EstablishmentEvents Events[]
   createdAt DateTime @default(now())
+  establishments EstablishmentsMeta?
+}
+model EstablishmentsMeta {
+  id   String @id @unique
+  establishments Establishments @relation(fields: [id], references: [id])
+  updatedAt DateTime @default(now())
 }

@@ -46,9 +46,17 @@ router.post("/createAcc", async (req, res) => {
     if (!artist) {
       res.sendStatus(402);
     } else {
-      const token = jwt.sign({ user: artist.id }, secret, {
+      const token = jwt.sign({ user: artist.id, type: "artist" }, secret, {
         expiresIn: 86400,
       });
+
+      await prisma.ArtistsMeta.create({
+        data: {
+          id: artist.id,
+          profileViews: 0,
+        },
+      });
+
       res.json(token);
     }
   } catch (err) {
@@ -117,6 +125,7 @@ router.get("/login", async (req, res) => {
   const [hashType, hash] = req.headers.authorization.split(" ");
   const [email, password] = Buffer.from(hash, "base64").toString().split(":");
   try {
+    let type = "artist";
     let login = await prisma.Artists.findFirst({
       where: {
         email: email,
@@ -124,6 +133,7 @@ router.get("/login", async (req, res) => {
       },
     });
     if (!login) {
+      type = "establishments";
       login = await prisma.Establishments.findFirst({
         where: {
           email: email,
@@ -131,11 +141,10 @@ router.get("/login", async (req, res) => {
         },
       });
     }
-    console.log(login);
     if (!login) {
       res.sendStatus(401);
     } else {
-      const token = jwt.sign({ user: login.id }, secret, {
+      const token = jwt.sign({ user: login.id, type: type }, secret, {
         expiresIn: 86400,
       });
       res.json({ token: token });
@@ -163,6 +172,7 @@ router.get("/estabelecimentos/ultimos", async (req, res) => {
 
 const verifyJwt = (req, res, next) => {
   const token = req.headers.jwtauthorization;
+
   if (token == "null") {
     res.json({ auth: false, user: false });
   } else {
@@ -173,6 +183,7 @@ const verifyJwt = (req, res, next) => {
         res.json({
           auth: true,
           user: jwt.verify(token, secret).user,
+          type: jwt.verify(token, secret).type,
         });
       }
     });
@@ -245,7 +256,7 @@ router.post("/createAccEstableshiment", async (req, res) => {
     if (!acc) {
       res.sendStatus(401);
     } else {
-      const token = jwt.sign({ user: acc.id }, secret, {
+      const token = jwt.sign({ user: acc.id, type: "establishments" }, secret, {
         expiresIn: 86400,
       });
       res.json(token);
@@ -285,6 +296,33 @@ router.get("/estabelecimento/:id", async (req, res) => {
   } catch (err) {
     console.log(err);
     res.sendStatus(404);
+  }
+});
+
+router.post("/ArtistCreateEvent", async (req, res) => {
+  try {
+    const establishmentIdPrime = await prisma.Establishments.findFirst({
+      where: { pubId: req.body.idEstablishment },
+      select: { id: true },
+    });
+    if (establishmentIdPrime.id) {
+      try {
+        const EventCreated = await prisma.Events.create({
+          data: {
+            artistCreator: req.body.idArtist,
+            eventSpace: establishmentIdPrime.id,
+            eventStatus: "Pendente Estabelecimento",
+            eventName: "Fixed Name",
+          },
+        });
+        res.json(EventCreated.id);
+      } catch (err) {
+        console.log(err);
+        res.sendStatus(400);
+      }
+    }
+  } catch (err) {
+    res.sendStatus(400);
   }
 });
 

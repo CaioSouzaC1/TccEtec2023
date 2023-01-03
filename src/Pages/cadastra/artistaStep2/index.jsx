@@ -11,6 +11,7 @@ import putImask from "../../../utils/putImask";
 import cpfValidate from "../../../utils/cpfValidate";
 import setValueNull from "../../../utils/setValueNull";
 import ButtonBack from "../../../Components/ButtonBack";
+import arrayReplace from "../../../utils/arrayReplace";
 
 const CreateAccArtistaStepTwo = () => {
   //To Do: Não deixar o form enviável após o envio
@@ -34,14 +35,8 @@ const CreateAccArtistaStepTwo = () => {
     const cpfValid = cpfValidate(cpf);
     let whatsApp = selectValue(".whatsApp");
 
-    //Trocar essa merda por um regex barato
-    whatsApp = whatsApp.replace("-", "");
-    whatsApp = whatsApp.replace("(", "");
-    whatsApp = whatsApp.replace(")", "");
-    whatsApp = whatsApp.replace(" ", "");
-    cpf = cpf.replace(".", "");
-    cpf = cpf.replace(".", "");
-    cpf = cpf.replace("-", "");
+    whatsApp = arrayReplace(["-", "(", ")", " "], "", whatsApp);
+    cpf = arrayReplace(["-", ".", "."], "", cpf);
     if (!cpfValid) {
       errorFy("Este Cpf não é válido...");
       setValueNull(".cpf");
@@ -64,7 +59,7 @@ const CreateAccArtistaStepTwo = () => {
         });
         const resCreateArt = await createArt.json();
         if (createArt.status === 200) {
-          successFy("Conta Criada! Redirecionando... ", 2500);
+          successFy("Conta Criada! Redirecionando... ", 2100);
           sessionStorage.setItem("VoiceJwt", resCreateArt);
           setTimeout(() => {
             navigate("/feed");

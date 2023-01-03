@@ -3,6 +3,7 @@ import styles from "./Profile.module.css";
 import verifyJwt from "../../utils/security/verifyJwt";
 import { useNavigate } from "react-router-dom";
 import ButtonBack from "../../Components/ButtonBack";
+import errorFy from "../../utils/toastify/errorFy";
 
 const MyProfile = () => {
   const [userDatas, setUserDatas] = useState(false);
@@ -28,7 +29,7 @@ const MyProfile = () => {
         });
       }
     } catch (err) {
-      console.log(err);
+      errorFy(err);
     }
   };
 

@@ -26,6 +26,7 @@ const Feed = () => {
     loop: true,
     margin: 10,
     nav: true,
+    dots: true,
     responsive: {
       0: {
         items: 1,
@@ -36,6 +37,8 @@ const Feed = () => {
       },
       1000: {
         items: 5,
+        nav: true,
+        dots: true,
       },
     },
   };
