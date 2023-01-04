@@ -232,6 +232,7 @@ router.get("/validateEmailEstableshiment", async (req, res) => {
     res.json({ emails: EmailEstableshiment.length });
   } catch (err) {
     console.log(err);
+    res.sendStatus(400);
   }
 });
 
@@ -263,6 +264,7 @@ router.post("/createAccEstableshiment", async (req, res) => {
     }
   } catch (err) {
     console.log(err);
+    res.sendStatus(400);
   }
 });
 

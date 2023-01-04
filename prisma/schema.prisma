@@ -13,12 +13,12 @@ datasource db {
 model Artists {
   id   String @id @default(uuid())
   pubId String @default(cuid())
-  name String
+  name String 
   nameArt String
-  email String
+  email String @unique
   pass String
   whatsApp Float
-  cpf Float
+  cpf Float @unique
   ArtistsEvents Events[]
   createdAt DateTime @default(now())
   artistsMeta ArtistsMeta?
@@ -46,10 +46,10 @@ model Events {
 model Establishments {
   id   String @id @default(uuid())
   pubId String @default(cuid())
-  email String
+  email String @unique
   pass String
   nomeResponsavel String
-  cnpj String
+  cnpj String @unique
   whatsApp String
   name String
   cep String

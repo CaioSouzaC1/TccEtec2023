@@ -8,6 +8,7 @@ import selectValue from "../../../utils/selectValue";
 import putImask from "../../../utils/putImask";
 import errorFy from "../../../utils/toastify/errorFy";
 import ButtonBack from "../../../Components/ButtonBack";
+import successFy from "../../../utils/toastify/successFy";
 
 const CreateAccEstableshimentStepThree = () => {
   const { state } = useLocation();
@@ -62,7 +63,7 @@ const CreateAccEstableshimentStepThree = () => {
           }
         );
         if (createAccEstableshiment.status === 200) {
-          successFy("Conta Criada! Redirecionando... ");
+          successFy("Conta Criada! Redirecionando... ", 2100);
           createAccEstableshiment = await createAccEstableshiment.json();
           sessionStorage.setItem("VoiceJwt", createAccEstableshiment);
           setTimeout(() => {
