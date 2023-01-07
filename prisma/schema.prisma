@@ -27,7 +27,7 @@ model Artists {
 model ArtistsMeta {
   id   String @id @unique
   artists Artists @relation(fields: [id], references: [id])
-  profileViews Int
+  profileViews Int @default(0)
   updatedAt DateTime @default(now())
 }
 
@@ -66,5 +66,6 @@ model Establishments {
 model EstablishmentsMeta {
   id   String @id @unique
   establishments Establishments @relation(fields: [id], references: [id])
+  profileViews Int @default(0)
   updatedAt DateTime @default(now())
 }

@@ -6,3 +6,4 @@
 --- Iniciar a criação de eventos
 --- Colocar os campos required no model Prisma
 --- Melhorar arquitetura do Server.js
+--- Profile Views inputando 2 vezes
