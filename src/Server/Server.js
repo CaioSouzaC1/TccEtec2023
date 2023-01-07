@@ -3,13 +3,21 @@ import express from "express";
 import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import SecretJwtGenerator from "./SecretJwtGenerator.js";
 
 /*START - Server Configurations*/
 const app = express();
 const router = express.Router();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+/*Exemplo de uso do cors para permitir apenas uma única rota
+app.use(cors({
+  origin: '127.0.0.01'
+}));
+Subistituindo a linha abaixo
+*/
 app.use(cors());
+
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
@@ -27,7 +35,7 @@ app.use((req, res, next) => {
 const prisma = new PrismaClient({
   log: ["query"],
 });
-const secret = "eyJhbGciOiJIUzI1NiJ9";
+const secret = SecretJwtGenerator();
 const saltRounds = 10;
 /*END - Server Configurations*/
 
