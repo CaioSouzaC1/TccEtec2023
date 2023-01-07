@@ -2,6 +2,7 @@ import cors from "cors";
 import express from "express";
 import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 const app = express();
 const router = express.Router();
@@ -30,35 +31,39 @@ const prisma = new PrismaClient({
 
 const secret = "eyJhbGciOiJIUzI1NiJ9";
 
+const saltRounds = 10;
+
 router.post("/createAcc", async (req, res) => {
   try {
-    const artist = await prisma.Artists.create({
-      data: {
-        name: req.body.name,
-        nameArt: req.body.nameArt,
-        cpf: req.body.cpf,
-        email: req.body.email,
-        pass: req.body.pass,
-        whatsApp: req.body.whatsApp,
-      },
-    });
-
-    if (!artist) {
-      res.sendStatus(402);
-    } else {
-      const token = jwt.sign({ user: artist.id, type: "artist" }, secret, {
-        expiresIn: 86400,
-      });
-
-      await prisma.ArtistsMeta.create({
+    bcrypt.hash(req.body.pass, saltRounds, async (err, hash) => {
+      const artist = await prisma.Artists.create({
         data: {
-          id: artist.id,
-          profileViews: 0,
+          name: req.body.name,
+          nameArt: req.body.nameArt,
+          cpf: req.body.cpf,
+          email: req.body.email,
+          pass: hash,
+          whatsApp: req.body.whatsApp,
         },
       });
 
-      res.json(token);
-    }
+      if (!artist) {
+        res.sendStatus(402);
+      } else {
+        const token = jwt.sign({ user: artist.id, type: "artist" }, secret, {
+          expiresIn: 86400,
+        });
+
+        await prisma.ArtistsMeta.create({
+          data: {
+            id: artist.id,
+            profileViews: 0,
+          },
+        });
+
+        res.json(token);
+      }
+    });
   } catch (err) {
     console.log(err);
     res.sendStatus(400);
@@ -126,28 +131,52 @@ router.get("/login", async (req, res) => {
   const [email, password] = Buffer.from(hash, "base64").toString().split(":");
   try {
     let type = "artist";
+
     let login = await prisma.Artists.findFirst({
       where: {
         email: email,
-        pass: password,
+      },
+      select: {
+        pass: true,
+        id: true,
       },
     });
-    if (!login) {
-      type = "establishments";
-      login = await prisma.Establishments.findFirst({
-        where: {
-          email: email,
-          pass: password,
-        },
-      });
-    }
-    if (!login) {
-      res.sendStatus(401);
-    } else {
-      const token = jwt.sign({ user: login.id, type: type }, secret, {
-        expiresIn: 86400,
-      });
-      res.json({ token: token });
+
+    try {
+      if (
+        login != null &&
+        (await bcrypt.compare(password, login.pass)) === true
+      ) {
+        const token = jwt.sign({ user: login.id, type: type }, secret, {
+          expiresIn: 86400,
+        });
+        res.json({ token: token });
+      } else {
+        type = "establishments";
+        login = await prisma.Establishments.findFirst({
+          where: {
+            email: email,
+          },
+          select: {
+            pass: true,
+            id: true,
+          },
+        });
+        if (login != null) {
+          if ((await bcrypt.compare(password, login.pass)) === true) {
+            const token = jwt.sign({ user: login.id, type: type }, secret, {
+              expiresIn: 86400,
+            });
+            res.json({ token: token });
+          } else {
+            res.sendStatus(401);
+          }
+        } else {
+          res.sendStatus(401);
+        }
+      }
+    } catch (err) {
+      console.log(err);
     }
   } catch (err) {
     res.sendStatus(400);
@@ -238,30 +267,36 @@ router.get("/validateEmailEstableshiment", async (req, res) => {
 
 router.post("/createAccEstableshiment", async (req, res) => {
   try {
-    const acc = await prisma.Establishments.create({
-      data: {
-        email: req.body.email,
-        pass: req.body.pass,
-        nomeResponsavel: req.body.nomeResponsavel,
-        cnpj: req.body.cnpj,
-        whatsApp: req.body.whatsApp,
-        name: req.body.name,
-        cep: req.body.cep,
-        numEnd: req.body.numEnd,
-        logradouro: req.body.logradouro,
-        bairro: req.body.bairro,
-        cidade: req.body.cidade,
-      },
-    });
-
-    if (!acc) {
-      res.sendStatus(401);
-    } else {
-      const token = jwt.sign({ user: acc.id, type: "establishments" }, secret, {
-        expiresIn: 86400,
+    bcrypt.hash(req.body.pass, saltRounds, async (err, hash) => {
+      const acc = await prisma.Establishments.create({
+        data: {
+          email: req.body.email,
+          pass: hash,
+          nomeResponsavel: req.body.nomeResponsavel,
+          cnpj: req.body.cnpj,
+          whatsApp: req.body.whatsApp,
+          name: req.body.name,
+          cep: req.body.cep,
+          numEnd: req.body.numEnd,
+          logradouro: req.body.logradouro,
+          bairro: req.body.bairro,
+          cidade: req.body.cidade,
+        },
       });
-      res.json(token);
-    }
+
+      if (!acc) {
+        res.sendStatus(401);
+      } else {
+        const token = jwt.sign(
+          { user: acc.id, type: "establishments" },
+          secret,
+          {
+            expiresIn: 86400,
+          }
+        );
+        res.json(token);
+      }
+    });
   } catch (err) {
     console.log(err);
     res.sendStatus(400);
