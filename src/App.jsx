@@ -13,6 +13,7 @@ import CreateAccEstableshimentStepThree from "./Pages/cadastra/estableshimentSte
 import Feed from "./Pages/feed";
 import ProfileEstablishments from "./Pages/profile/establishments";
 import MyProfile from "./Pages/myProfile";
+import MyEvents from "./Pages/myEvents";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
         <Route path="/meu-perfil" element={<MyProfile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/feed" element={<Feed />} />
+        <Route path="/meus-eventos" element={<MyEvents></MyEvents>} />
         <Route path="/estabelecimentos/ultimos" element={<Ultimos></Ultimos>} />
         <Route
           path="/estabelecimento/:id"

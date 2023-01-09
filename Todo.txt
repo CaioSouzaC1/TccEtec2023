@@ -1,2 +1,7 @@
 --- Corrigir número de render de diversas páginas
 --- Profile Views inputando 2 vezes
+--- Perfil do Artista achando perfil e dando erroFy de artista não encontrado
+--- Corrigir OwlCarousel (UNSAFE Components)
+--- Corrigir fontawesome
+--- Alterar fetch do myProfile, passar o id por get em basic auth (base64)
+--- Alterar btoa to buffer em todas as get fetch

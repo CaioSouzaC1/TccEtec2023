@@ -64,7 +64,8 @@ const Feed = () => {
 
   return (
     <>
-      Feed <br />
+      <h1>Feed</h1>
+      <br />
       <Link to="/meu-perfil">
         <Button text="Meu Perfil"></Button>
       </Link>
@@ -84,6 +85,10 @@ const Feed = () => {
           })}
         </OwlCarousel>
       )}
+      <br />
+      <Link to="/meus-eventos">
+        <Button text="Meus Eventos"></Button>
+      </Link>
     </>
   );
 };

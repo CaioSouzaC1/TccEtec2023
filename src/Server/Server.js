@@ -418,6 +418,71 @@ router.post("/createAccEstableshiment", async (req, res) => {
 });
 /*END - Estableshiment Configurations*/
 
+/*START - Events Configurations*/
+router.get("/meus-eventos", async (req, res) => {
+  try {
+    const id = Buffer.from(req.headers.authorization, "base64").toString();
+    let events = await prisma.Events.findMany({
+      where: {
+        OR: [
+          {
+            artistCreator: id,
+          },
+          {
+            eventSpace: id,
+          },
+        ],
+      },
+      select: {
+        id: true,
+        eventName: true,
+        artistCreator: true,
+        eventSpace: true,
+        createdAt: true,
+        eventStatus: true,
+      },
+    });
+    if (events.length > 0) {
+      let eventsArray = [];
+      await Promise.all(
+        events.map(async (e) => {
+          const artistData = await prisma.Artists.findUnique({
+            where: {
+              id: e.artistCreator,
+            },
+            select: {
+              pubId: true,
+              nameArt: true,
+              createdAt: true,
+            },
+          });
+          e.ArtistData = artistData;
+
+          const EstablishmentsData = await prisma.Establishments.findUnique({
+            where: {
+              id: e.eventSpace,
+            },
+            select: {
+              pubId: true,
+              name: true,
+              cep: true,
+            },
+          });
+          e.EstablishmentsData = EstablishmentsData;
+          eventsArray.push(e);
+        })
+      );
+      res.json(eventsArray);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+/*END - Events Configurations*/
+
 /*START - App Listen Configurations*/
 app.use("", router);
 app.listen(3333);
