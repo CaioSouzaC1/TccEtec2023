@@ -9,6 +9,7 @@ import putImask from "../../../utils/putImask";
 import errorFy from "../../../utils/toastify/errorFy";
 import ButtonBack from "../../../Components/ButtonBack";
 import successFy from "../../../utils/toastify/successFy";
+import ThePageText from "../../../Components/ThePageText";
 
 const CreateAccEstableshimentStepThree = () => {
   const { state } = useLocation();
@@ -77,7 +78,7 @@ const CreateAccEstableshimentStepThree = () => {
   };
   return (
     <>
-      <h1>Estabelecimento Step 3</h1>
+      <ThePageText text="Estabelecimento Etapa 3" />
       <form className="Form" onSubmit={sendForm}>
         <InputText
           class="Cep"

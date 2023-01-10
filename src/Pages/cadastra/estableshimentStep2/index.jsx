@@ -9,6 +9,7 @@ import cnpjValidate from "../../../utils/cnpjValidate";
 import selectValue from "../../../utils/selectValue";
 import warnFy from "../../../utils/toastify/warnFy";
 import ButtonBack from "../../../Components/ButtonBack";
+import ThePageText from "../../../Components/ThePageText";
 
 const CreateAccEstableshimentStepTwo = () => {
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ const CreateAccEstableshimentStepTwo = () => {
   };
   return (
     <>
-      <h1>Estabelecimento Step 2</h1>
+      <ThePageText text="Estabelecimento Etapa 2" />
       <form className="Form" onSubmit={sendStepThree}>
         <InputText
           class="NomeResponsavel"

@@ -5,6 +5,7 @@ import errorFy from "../../utils/toastify/errorFy";
 import infoFy from "../../utils/toastify/infoFy";
 import ButtonBack from "../../Components/ButtonBack";
 import Button from "../../Components/Button/Button";
+import ThePageText from "../../Components/ThePageText";
 
 const MyEvents = () => {
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ const MyEvents = () => {
 
   return (
     <>
-      <h1>Meus Eventos</h1>
+      <ThePageText text="Meus Eventos" />
 
       {events && (
         <>

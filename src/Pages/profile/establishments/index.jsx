@@ -7,6 +7,7 @@ import Button from "../../../Components/Button/Button";
 import successFy from "../../../utils/toastify/successFy";
 import infoFy from "../../../utils/toastify/infoFy";
 import { ToastContainer } from "react-toastify";
+import ThePageText from "../../../Components/ThePageText";
 
 const ProfileEstablishments = () => {
   let { id } = useParams();
@@ -80,7 +81,9 @@ const ProfileEstablishments = () => {
 
   return (
     <>
-      <h1>{estableshimentData && "Estabelecimento Profile"}</h1>
+      <h1>
+        {estableshimentData && <ThePageText text="Perfil do Estabelecimento" />}
+      </h1>
       <h2>{estableshimentData && estableshimentData.name}</h2>
       <h4>{estableshimentData && `Email:${estableshimentData.email}`}</h4>
       <h4>{estableshimentData && `WhatsApp:${estableshimentData.whatsApp}`}</h4>

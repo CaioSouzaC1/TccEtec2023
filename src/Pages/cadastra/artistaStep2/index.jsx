@@ -12,6 +12,7 @@ import cpfValidate from "../../../utils/cpfValidate";
 import setValueNull from "../../../utils/setValueNull";
 import ButtonBack from "../../../Components/ButtonBack";
 import arrayReplace from "../../../utils/arrayReplace";
+import ThePageText from "../../../Components/ThePageText";
 
 const CreateAccArtistaStepTwo = () => {
   //To Do: Não deixar o form enviável após o envio
@@ -84,7 +85,7 @@ const CreateAccArtistaStepTwo = () => {
 
   return (
     <>
-      <h1>Artista Etapa 2</h1>
+      <ThePageText text="Artista Etapa 2" />
       <form className="Form" onSubmit={sendForm}>
         <InputText class="Nome" label="Nome" placeholder="Seu nome"></InputText>
         <br />

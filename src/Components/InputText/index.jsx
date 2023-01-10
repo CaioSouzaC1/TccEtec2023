@@ -1,10 +1,11 @@
+import styles from "./InputText.module.css";
+
 const InputText = (props) => {
   const type = props.type != null ? props.type : "text";
   const min = props.min != null ? props.min : "0";
   const max = props.max != null ? props.max : "60";
   return (
-    <>
-      <label>{props.label}</label>
+    <div className={styles.filds}>
       <input
         required
         className={props.class}
@@ -14,7 +15,8 @@ const InputText = (props) => {
         minLength={min}
         maxLength={max}
       />
-    </>
+      <label>{props.label}</label>
+    </div>
   );
 };
 

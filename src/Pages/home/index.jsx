@@ -1,12 +1,12 @@
 import styles from "./home.module.css";
-import Text from "../../Components/text";
 import { Link } from "react-router-dom";
 import Button from "../../Components/Button/Button";
+import ThePageText from "../../Components/ThePageText";
 
 const Home = () => {
   return (
     <>
-      <Text size={25} text="Home Page"></Text>
+      <ThePageText text="Home Page"></ThePageText>
       <Link to={"cadastra"}>
         <Button text="Criar conta"></Button>
       </Link>

@@ -25,3 +25,5 @@ dist-ssr
 
 prisma/migrations
 prisma/src
+
+public/OpenPeeps

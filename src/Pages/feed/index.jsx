@@ -5,6 +5,7 @@ import Button from "../../Components/Button/Button";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
+import ThePageText from "../../Components/ThePageText";
 
 const Feed = () => {
   const [lastPlacesState, setLastPlacesState] = useState(false);
@@ -64,8 +65,7 @@ const Feed = () => {
 
   return (
     <>
-      <h1>Feed</h1>
-      <br />
+      <ThePageText text="Voice Feed" />
       <Link to="/meu-perfil">
         <Button text="Meu Perfil"></Button>
       </Link>

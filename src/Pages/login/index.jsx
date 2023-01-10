@@ -9,6 +9,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import infoFy from "../../utils/toastify/infoFy";
 import { useEffect } from "react";
 import ButtonBack from "../../Components/ButtonBack";
+import ThePageText from "../../Components/ThePageText";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -57,12 +58,12 @@ const Login = () => {
 
   return (
     <>
-      <h1>Login</h1>
+      <ThePageText text="Login" />
       <form className="Form" onSubmit={sendForm}>
         <InputText
           class="keyLogin"
-          label="Email ou WhatsApp"
-          placeholder="Email ou WhatsApp"
+          label="Email"
+          placeholder="Email"
         ></InputText>
         <br />
 

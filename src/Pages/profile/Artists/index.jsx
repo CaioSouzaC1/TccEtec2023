@@ -28,7 +28,7 @@ const ProfileArtists = () => {
   return (
     <>
       <>
-        <h1>{artInfo && "Artist Profile"}</h1>
+        <h1>{artInfo && <ThePageText text="Perfil do Artista" />}</h1>
         <h2>{artInfo && artInfo.name}</h2>
         <h4>{artInfo && `Email:${artInfo.email}`}</h4>
         <h4>{artInfo && `WhatsApp:${artInfo.whatsApp}`}</h4>

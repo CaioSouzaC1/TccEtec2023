@@ -4,6 +4,7 @@ import verifyJwt from "../../utils/security/verifyJwt";
 import { useNavigate } from "react-router-dom";
 import ButtonBack from "../../Components/ButtonBack";
 import errorFy from "../../utils/toastify/errorFy";
+import ThePageText from "../../Components/ThePageText";
 
 const MyProfile = () => {
   const [userDatas, setUserDatas] = useState(false);
@@ -40,7 +41,7 @@ const MyProfile = () => {
   if (userType == "Artist") {
     return (
       <>
-        <h1>Meu Perfil - Artista</h1>
+        <ThePageText text="Meu Perfil - Artista" />
         <h2>{userDatas && userDatas.name}</h2>
         <h4>{userDatas && `Email:${userDatas.email}`}</h4>
         <h4>{userDatas && `WhatsApp:${userDatas.whatsApp}`}</h4>
@@ -62,7 +63,7 @@ const MyProfile = () => {
   if (userType == "Establishment") {
     return (
       <>
-        <h1>Meu Perfil - Estabelecimento</h1>
+        <ThePageText text="Meu Perfil - Estabelecimento" />
         <h2>{userDatas && userDatas.name}</h2>
         <h4>{userDatas && `Email:${userDatas.email}`}</h4>
         <h4>{userDatas && `WhatsApp:${userDatas.whatsApp}`}</h4>

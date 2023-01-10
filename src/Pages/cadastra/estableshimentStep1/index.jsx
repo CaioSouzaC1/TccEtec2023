@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import warnFy from "../../../utils/toastify/warnFy";
 import { useNavigate } from "react-router-dom";
 import ButtonBack from "../../../Components/ButtonBack";
+import ThePageText from "../../../Components/ThePageText";
 
 const CreateAccEstableshimentStepOne = () => {
   const [emailState, SetEmailState] = useState(false);
@@ -63,8 +64,7 @@ const CreateAccEstableshimentStepOne = () => {
 
   return (
     <>
-      <h1>Estabelecimento Step 1</h1>
-
+      <ThePageText text="Estabelecimento Etapa 1" />
       <form className="Form" onSubmit={validateEmail}>
         <InputText
           type="email"

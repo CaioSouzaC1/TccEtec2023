@@ -5,3 +5,5 @@
 --- Corrigir fontawesome
 --- Alterar fetch do myProfile, passar o id por get em basic auth (base64)
 --- Alterar btoa to buffer em todas as get fetch
+--- Bug Cpf artist step 2
+--- Feed quebrou ao voltar do carrossel de estabs

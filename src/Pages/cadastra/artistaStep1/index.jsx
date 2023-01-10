@@ -8,6 +8,7 @@ import setValueNull from "../../../utils/setValueNull";
 import errorFy from "../../../utils/toastify/errorFy";
 import warnFy from "../../../utils/toastify/warnFy";
 import ButtonBack from "../../../Components/ButtonBack";
+import ThePageText from "../../../Components/ThePageText";
 
 const CreateAccArtistaStepOne = () => {
   const [emailsRows, setEmailsRows] = useState(false);
@@ -60,7 +61,7 @@ const CreateAccArtistaStepOne = () => {
 
   return (
     <>
-      <h1>Artista Etapa 1</h1>
+      <ThePageText text="Artista Etapa 1" />
       <form className="Form" onSubmit={emailValidation}>
         <InputText
           type="email"
@@ -93,6 +94,7 @@ const CreateAccArtistaStepOne = () => {
       <Link to={"../login"}>
         <Button text="Já Possuo conta"></Button>
       </Link>
+      <br />
       <ButtonBack />
     </>
   );

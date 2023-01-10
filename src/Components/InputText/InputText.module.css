@@ -1,0 +1,50 @@
+.filds {
+  width: 50%;
+  height: auto;
+  display: inline-block;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.filds input {
+  width: 100%;
+  height: 36px;
+  border: 0px;
+  border-bottom: 1px solid #cfcfcf;
+  border-radius: 4px;
+  margin: 8px 0;
+  transition: border-bottom, box-shadow 0.25s ease-in-out;
+  cursor: pointer;
+}
+.filds label {
+  position: absolute;
+  top: 0;
+  left: 8px;
+  cursor: text;
+  color: #9e9e9e;
+  transform: translateY(16px);
+  transition: transform 0.25s ease-in-out;
+  transform-origin: 0% 100%;
+  cursor: pointer;
+}
+.filds input:focus {
+  border-bottom: 1px solid #da0037;
+  box-shadow: 0 1px 0 0 #da0037;
+  outline: 1px solid transparent;
+}
+.filds input:focus + label {
+  transform: translateY(-22px) translateX(-8px) scale(0.8);
+}
+.filds input::-webkit-input-placeholder,
+.filds input::-moz-input-placeholder {
+  color: transparent;
+}
+.filds input::placeholder {
+  color: transparent;
+}
+.filds input:not(:placeholder-shown) {
+  border-bottom: 1px solid #9e9e9e;
+}
+.filds input:not(:placeholder-shown) + label {
+  transform: translateY(-14px) scale(0.8);
+}
