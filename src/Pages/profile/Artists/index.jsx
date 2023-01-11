@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import errorFy from "../../../utils/toastify/errorFy";
 import { ToastContainer } from "react-toastify";
 import ButtonBack from "../../../Components/ButtonBack";
+import ThePageText from "../../../Components/ThePageText";
 
 const ProfileArtists = () => {
   const [artInfo, setArtInfo] = useState(false);

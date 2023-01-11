@@ -85,8 +85,8 @@ router.post("/validateEmail", async (req, res) => {
   res.json({ emails: rowEmail.length });
 });
 
-router.get("/getInfo/:id", async (req, res) => {
-  const id = req.params.id;
+router.get("/getInfo", async (req, res) => {
+  const id = Buffer.from(req.headers.authorization, "base64").toString();
   try {
     let data = await prisma.Artists.findUnique({
       where: { id: id },

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import ButtonBack from "../../Components/ButtonBack";
 import errorFy from "../../utils/toastify/errorFy";
 import ThePageText from "../../Components/ThePageText";
+import { Buffer } from "buffer";
 
 const MyProfile = () => {
   const [userDatas, setUserDatas] = useState(false);
@@ -15,9 +16,12 @@ const MyProfile = () => {
       if (await (await verifyJwt()).auth) {
         let user = await (await verifyJwt()).user;
         let userData = await (
-          await fetch(`http://127.0.0.1:3333/getInfo/${user}`)
+          await fetch(`http://127.0.0.1:3333/getInfo`, {
+            headers: new Headers({
+              Authorization: `${Buffer.from(`${user}`).toString("base64")}`,
+            }),
+          })
         ).json();
-        console.log(userData);
         setUserDatas(userData.data);
         if (userData.type == "Establishment") {
           setUserType("Establishment");
@@ -30,6 +34,7 @@ const MyProfile = () => {
         });
       }
     } catch (err) {
+      console.log(err);
       errorFy(err);
     }
   };

@@ -43,8 +43,8 @@
   color: transparent;
 }
 .filds input:not(:placeholder-shown) {
-  border-bottom: 1px solid #9e9e9e;
+  border-bottom: 1px solid #da0037;
 }
 .filds input:not(:placeholder-shown) + label {
-  transform: translateY(-14px) scale(0.8);
+  transform: translateY(-22px) translateX(-8px) scale(0.8);
 }
