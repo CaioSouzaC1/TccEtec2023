@@ -422,6 +422,7 @@ router.post("/createAccEstableshiment", async (req, res) => {
 router.get("/meus-eventos", async (req, res) => {
   try {
     const id = Buffer.from(req.headers.authorization, "base64").toString();
+    console.log(id);
     let events = await prisma.Events.findMany({
       where: {
         OR: [

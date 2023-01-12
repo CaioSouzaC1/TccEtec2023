@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import errorFy from "../../../utils/toastify/errorFy";
 import { ToastContainer } from "react-toastify";
@@ -7,9 +7,13 @@ import ThePageText from "../../../Components/ThePageText";
 
 const ProfileArtists = () => {
   const [artInfo, setArtInfo] = useState(false);
+  const stateRef = useRef(null);
   let { id } = useParams();
   useEffect(() => {
-    getArtInfo();
+    if (stateRef.current === null) {
+      stateRef.current = true;
+      getArtInfo();
+    }
   }, []);
 
   const getArtInfo = async () => {

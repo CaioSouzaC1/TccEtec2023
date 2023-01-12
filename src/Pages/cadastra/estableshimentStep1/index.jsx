@@ -9,6 +9,7 @@ import warnFy from "../../../utils/toastify/warnFy";
 import { useNavigate } from "react-router-dom";
 import ButtonBack from "../../../Components/ButtonBack";
 import ThePageText from "../../../Components/ThePageText";
+import { Buffer } from "buffer";
 
 const CreateAccEstableshimentStepOne = () => {
   const [emailState, SetEmailState] = useState(false);
@@ -22,7 +23,9 @@ const CreateAccEstableshimentStepOne = () => {
         "http://127.0.0.1:3333/validateEmailEstableshiment",
         {
           headers: new Headers({
-            Authorization: `Basic ${btoa(`${email}`)}`,
+            Authorization: `Basic ${Buffer.from(`${email}`).toString(
+              "base64"
+            )}`,
           }),
         }
       );

@@ -91,7 +91,7 @@ const CreateAccArtistaStepTwo = () => {
         <br />
         <InputText
           class="NomeArtistico"
-          label="NomeArtistico"
+          label="Nome Artistico"
           placeholder="Seu Nome Artistico"
         ></InputText>
         <br />

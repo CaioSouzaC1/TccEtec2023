@@ -7,21 +7,25 @@ import styles from "./login.module.css";
 import successFy from "../../utils/toastify/successFy";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import infoFy from "../../utils/toastify/infoFy";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import ButtonBack from "../../Components/ButtonBack";
 import ThePageText from "../../Components/ThePageText";
+import { Buffer } from "buffer";
 
 const Login = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
-  //Todo, state renderizando 4x
+  const stateRef = useRef(null);
 
   useEffect(() => {
     if (state && state.isAuth === false) {
-      errorFy("Você precisa estar logado para acessar essa página");
-      setTimeout(() => {
-        infoFy("Efetue o login");
-      }, 250);
+      if (stateRef.current === null) {
+        stateRef.current = true;
+        errorFy("Você precisa estar logado para acessar essa página");
+        setTimeout(() => {
+          infoFy("Efetue o login");
+        }, 500);
+      }
     }
   }, []);
 
@@ -31,9 +35,9 @@ const Login = () => {
     try {
       let login = await fetch("http://127.0.0.1:3333/login", {
         headers: new Headers({
-          Authorization: `Basic ${btoa(
+          Authorization: `Basic ${Buffer.from(
             `${selectValue(".keyLogin")}:${selectValue(".passLogin")}`
-          )}`,
+          ).toString("base64")}`,
         }),
       });
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import verifyJwt from "../../utils/security/verifyJwt";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../Components/Button/Button";
@@ -9,6 +9,7 @@ import ThePageText from "../../Components/ThePageText";
 
 const Feed = () => {
   const [lastPlacesState, setLastPlacesState] = useState(false);
+  const stateRef = useRef(null);
   const lastPlaces = async () => {
     try {
       let ultimos = await fetch(
@@ -47,8 +48,11 @@ const Feed = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    verifyAuth();
-    lastPlaces();
+    if (stateRef.current === null) {
+      stateRef.current = true;
+      verifyAuth();
+      lastPlaces();
+    }
   }, []);
 
   const verifyAuth = async () => {

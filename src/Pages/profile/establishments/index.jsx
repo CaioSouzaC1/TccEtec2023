@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import errorFy from "../../../utils/toastify/errorFy";
 import { useNavigate, useParams } from "react-router-dom";
 import ButtonBack from "../../../Components/ButtonBack";
@@ -14,10 +14,14 @@ const ProfileEstablishments = () => {
   const navigate = useNavigate();
   const [estableshimentData, setEstableshimentData] = useState(false);
   const [eventButton, setEventButton] = useState(false);
+  const stateRef = useRef(null);
 
   useEffect(() => {
-    getEstablishmentsInfo();
-    renderEventButton();
+    if (stateRef.current === null) {
+      stateRef.current = true;
+      getEstablishmentsInfo();
+      renderEventButton();
+    }
   }, []);
 
   const getEstablishmentsInfo = async () => {
@@ -81,9 +85,8 @@ const ProfileEstablishments = () => {
 
   return (
     <>
-      <h1>
-        {estableshimentData && <ThePageText text="Perfil do Estabelecimento" />}
-      </h1>
+      {estableshimentData && <ThePageText text="Perfil do Estabelecimento" />}
+
       <h2>{estableshimentData && estableshimentData.name}</h2>
       <h4>{estableshimentData && `Email:${estableshimentData.email}`}</h4>
       <h4>{estableshimentData && `WhatsApp:${estableshimentData.whatsApp}`}</h4>

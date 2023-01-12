@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./Profile.module.css";
 import verifyJwt from "../../utils/security/verifyJwt";
 import { useNavigate } from "react-router-dom";
@@ -39,8 +39,12 @@ const MyProfile = () => {
     }
   };
 
+  const stateRef = useRef(null);
   useEffect(() => {
-    ArtistProfile();
+    if (stateRef.current === null) {
+      stateRef.current = true;
+      ArtistProfile();
+    }
   }, []);
 
   if (userType == "Artist") {
