@@ -120,6 +120,7 @@ router.get("/getInfo", async (req, res) => {
           cidade: true,
           createdAt: true,
           pubId: true,
+          cnpj: true,
         },
       });
       if (data) {
@@ -206,6 +207,36 @@ router.post("/ArtistCreateEvent", async (req, res) => {
     res.sendStatus(400);
   }
 });
+
+router.patch("/ArtistUpdateAcc", async (req, res) => {
+  try {
+    const updateUser = await prisma.Artists.update({
+      where: {
+        id: req.body.id,
+      },
+      data: {
+        name: req.body.name,
+        nameArt: req.body.nameArt,
+        email: req.body.email,
+        whatsapp: req.body.whatsapp,
+      },
+    });
+    if (updateUser) {
+      res.json({
+        name: updateUser.name,
+        nameArt: updateUser.nameArt,
+        email: updateUser.email,
+        whatsApp: updateUser.whatsApp,
+        cpf: updateUser.cpf,
+        createdAt: updateUser.createdAt,
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+});
+
 /*END - Artists Configurations*/
 
 /*START - Security/Validations*/
@@ -413,6 +444,43 @@ router.post("/createAccEstableshiment", async (req, res) => {
         res.json(token);
       }
     });
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+});
+
+router.patch("/EstableshimentUpdateAcc", async (req, res) => {
+  try {
+    const updateUser = await prisma.Establishments.update({
+      where: {
+        id: req.body.id,
+      },
+      data: {
+        name: req.body.name,
+        cep: req.body.cep,
+        email: req.body.email,
+        whatsApp: req.body.whatsApp,
+        cidade: req.body.cidade,
+        logradouro: req.body.logradouro,
+        bairro: req.body.bairro,
+        numEnd: req.body.numEnd,
+      },
+    });
+    if (updateUser) {
+      console.log(updateUser);
+      res.json({
+        name: updateUser.name,
+        email: updateUser.email,
+        whatsApp: updateUser.whatsApp,
+        createdAt: updateUser.createdAt,
+        cep: updateUser.cep,
+        logradouro: updateUser.logradouro,
+        bairro: updateUser.bairro,
+        cidade: updateUser.cidade,
+        numEnd: updateUser.numEnd,
+      });
+    }
   } catch (err) {
     console.log(err);
     res.sendStatus(400);
