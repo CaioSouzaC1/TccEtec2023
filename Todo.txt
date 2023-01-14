@@ -1,6 +1,0 @@
---- Perfil do Artista achando perfil e dando erroFy de artista não encontrado
---- Corrigir OwlCarousel (UNSAFE Components)
---- Corrigir fontawesome
---- Bug Cpf artist step 2
---- Feed quebrou ao voltar do carrossel de estabs
---- Migrar pro Mongo Local

@@ -23,8 +23,9 @@ dist-ssr
 *.sln
 *.sw?
 
-prisma/migrations
-prisma/src
+Back-End/prisma/migrations/
+Back-end/prisma/src
 
-public/OpenPeeps
+Front-End/public/OpenPeeps
 Anotations.txt
+

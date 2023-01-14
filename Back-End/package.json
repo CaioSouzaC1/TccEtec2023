@@ -1,0 +1,14 @@
+{
+  "name": "tccetec2023",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "dependencies": {
+    "@prisma/client": "^4.7.1",
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^8.5.1",
+    "prisma": "^4.7.1"
+  }
+}
