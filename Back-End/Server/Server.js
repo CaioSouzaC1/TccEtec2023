@@ -4,6 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import SecretJwtGenerator from "./SecretJwtGenerator.js";
+import multer from "multer";
 
 /*START - Server Configurations*/
 const app = express();
@@ -26,8 +27,13 @@ app.use((req, res, next) => {
   );
 
   if (req.method === "OPTIONS") {
-    req.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+    //Antes era req.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
     return res.status(200).send({});
+  }
+
+  if (req.url.endsWith(".jpg")) {
+    res.set("Content-Type", "image/jpeg");
   }
 
   next();
@@ -40,6 +46,30 @@ const prisma = new PrismaClient({
 const secret = SecretJwtGenerator();
 const saltRounds = 10;
 /*END - Server Configurations*/
+
+/* */
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "Back-end/Assets/Artists");
+  },
+  filename: function (req, file, cb) {
+    cb(null, "ArtistProfileImage-" + file.originalname + ".jpg");
+  },
+});
+const upload = multer({ storage: storage });
+
+const storageEstablishments = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "Back-end/Assets/Establishments");
+  },
+  filename: function (req, file, cb) {
+    cb(null, "EstablishmentProfileImage-" + file.originalname + ".jpg");
+  },
+});
+const uploadEstablishments = multer({ storage: storageEstablishments });
+
+app.use(express.static("Back-end/Assets"));
+/* */
 
 /*START - Artists Configurations*/
 router.post("/createAcc", async (req, res) => {
@@ -234,6 +264,16 @@ router.patch("/ArtistUpdateAcc", async (req, res) => {
   } catch (err) {
     console.log(err);
     res.sendStatus(400);
+  }
+});
+
+router.post("/updateProfileImage", upload.single("file"), (req, res) => {
+  const file = req.file;
+  // const filePath = "Back-end/Assets/Artists/" + file.filename;
+  if (!file) {
+    res.sendStatus(400);
+  } else {
+    res.status(200).send("Imagem Cadastrada");
   }
 });
 
@@ -486,6 +526,20 @@ router.patch("/EstableshimentUpdateAcc", async (req, res) => {
     res.sendStatus(400);
   }
 });
+
+router.post(
+  "/updateProfileImageEstableshiment",
+  uploadEstablishments.single("file"),
+  (req, res) => {
+    const file = req.file;
+    // const filePath = "Back-end/Assets/Artists/" + file.filename;
+    if (!file) {
+      res.sendStatus(400);
+    } else {
+      res.status(200).send("Imagem Cadastrada");
+    }
+  }
+);
 /*END - Estableshiment Configurations*/
 
 /*START - Events Configurations*/

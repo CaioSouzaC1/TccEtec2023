@@ -13,6 +13,7 @@ import successFy from "../../Utils/Toastify/successFy";
 import { ToastContainer } from "react-toastify";
 import ButtonLogout from "../../Components/ButtonLogout";
 import stoningData from "../../Utils/MyFunctions/stoningData";
+import selectInput from "../../Utils/MyFunctions/selectInput";
 
 const MyProfile = () => {
   const [userDatas, setUserDatas] = useState(false);
@@ -135,6 +136,40 @@ const MyProfile = () => {
     }
   };
 
+  const setProfileImage = async (e) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", e.target.files[0], userDatas.pubId);
+      let updateImage = await fetch(
+        "http://localhost:3333/updateProfileImage",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      console.log(updateImage);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const setProfileImageEstablishments = async (e) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", e.target.files[0], userDatas.pubId);
+      let updateImage = await fetch(
+        "http://localhost:3333/updateProfileImageEstableshiment",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      console.log(updateImage);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <ThePageText
@@ -145,6 +180,18 @@ const MyProfile = () => {
 
       {userType === "Artist" && (
         <>
+          <img
+            className="w-48 h-48 rounded-full object-cover bg-cover"
+            src={`http://localhost:3333/Artists/ArtistProfileImage-${userDatas.pubId}.jpg`}
+            alt=""
+          />
+          <input
+            className="profileImage"
+            type="file"
+            accept="image/*"
+            onChange={setProfileImage}
+          />
+          <br />
           <h4>{userDatas.name}</h4>
           <h4>{userDatas.nameArt}</h4>
           <h4>{`Email:${userDatas.email}`}</h4>
@@ -202,6 +249,17 @@ const MyProfile = () => {
 
       {userType === "Establishment" && (
         <>
+          <img
+            className="w-48 h-48 rounded-full object-cover bg-cover"
+            src={`http://localhost:3333/Establishments/EstablishmentProfileImage-${userDatas.pubId}.jpg`}
+            alt=""
+          />
+          <input
+            className="profileImage"
+            type="file"
+            accept="image/*"
+            onChange={setProfileImageEstablishments}
+          />
           <h2>{userDatas.name}</h2>
           <h4>{`Email:${userDatas.email}`}</h4>
           <h4>{`WhatsApp:${userDatas.whatsApp}`}</h4>
