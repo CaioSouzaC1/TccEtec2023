@@ -7,6 +7,7 @@ import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import ThePageText from "../../Components/ThePageText";
 import ButtonLogout from "../../Components/ButtonLogout";
+import ProfileImage from "../../Components/ProfileImage";
 
 const Feed = () => {
   const [lastPlacesState, setLastPlacesState] = useState(false);
@@ -20,6 +21,7 @@ const Feed = () => {
       if (ultimos.status === 200) {
         ultimos = await ultimos.json();
         setLastPlacesState(ultimos);
+        console.log(lastPlacesState);
       }
     } catch (err) {
       console.log(err);
@@ -79,7 +81,13 @@ const Feed = () => {
         <OwlCarousel className="owl-theme" {...options}>
           {lastPlacesState.map((e) => {
             return (
-              <div key={e.pubId} className="item">
+              <div key={e.pubId} className="item text-center">
+                <ProfileImage
+                  size={3}
+                  name={e.name}
+                  pubId={e.pubId}
+                  type={"Establishment"}
+                />
                 <Link to={`/estabelecimento/${e.pubId}`}>
                   <h3>{e.name}</h3>
                   <h4>{e.logradouro}</h4>

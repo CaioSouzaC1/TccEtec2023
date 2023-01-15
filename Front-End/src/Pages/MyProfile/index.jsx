@@ -14,6 +14,7 @@ import { ToastContainer } from "react-toastify";
 import ButtonLogout from "../../Components/ButtonLogout";
 import stoningData from "../../Utils/MyFunctions/stoningData";
 import selectInput from "../../Utils/MyFunctions/selectInput";
+import ProfileImage from "../../Components/ProfileImage";
 
 const MyProfile = () => {
   const [userDatas, setUserDatas] = useState(false);
@@ -249,10 +250,15 @@ const MyProfile = () => {
 
       {userType === "Establishment" && (
         <>
-          <img
+          {/* <img
             className="w-48 h-48 rounded-full object-cover bg-cover"
             src={`http://localhost:3333/Establishments/EstablishmentProfileImage-${userDatas.pubId}.jpg`}
             alt=""
+          /> */}
+          <ProfileImage
+            name={userDatas.name}
+            pubId={userDatas.pubId}
+            type={"Establishment"}
           />
           <input
             className="profileImage"
@@ -260,6 +266,7 @@ const MyProfile = () => {
             accept="image/*"
             onChange={setProfileImageEstablishments}
           />
+
           <h2>{userDatas.name}</h2>
           <h4>{`Email:${userDatas.email}`}</h4>
           <h4>{`WhatsApp:${userDatas.whatsApp}`}</h4>
