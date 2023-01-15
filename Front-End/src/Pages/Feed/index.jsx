@@ -6,6 +6,7 @@ import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import ThePageText from "../../Components/ThePageText";
+import ButtonLogout from "../../Components/ButtonLogout";
 
 const Feed = () => {
   const [lastPlacesState, setLastPlacesState] = useState(false);
@@ -90,9 +91,12 @@ const Feed = () => {
         </OwlCarousel>
       )}
       <br />
+
       <Link to="/meus-eventos">
         <Button text="Meus Eventos"></Button>
       </Link>
+      <br />
+      <ButtonLogout />
     </>
   );
 };

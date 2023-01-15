@@ -4,6 +4,7 @@ import errorFy from "../../../Utils/Toastify/errorFy";
 import { ToastContainer } from "react-toastify";
 import ButtonBack from "../../../Components/ButtonBack";
 import ThePageText from "../../../Components/ThePageText";
+import stoningData from "../../../Utils/MyFunctions/stoningData";
 
 const ProfileArtists = () => {
   const [artInfo, setArtInfo] = useState(false);
@@ -32,14 +33,17 @@ const ProfileArtists = () => {
 
   return (
     <>
-      <>
-        <h1>{artInfo && <ThePageText text="Perfil do Artista" />}</h1>
-        <h2>{artInfo && artInfo.name}</h2>
-        <h4>{artInfo && `Email:${artInfo.email}`}</h4>
-        <h4>{artInfo && `WhatsApp:${artInfo.whatsApp}`}</h4>
-        <h6>{artInfo && `Conta Criada em:${artInfo.createdAt}`}</h6>
-        <h2>{artInfo == false && `Artista não encontrado`}</h2>
-      </>
+      {artInfo && (
+        <>
+          <ThePageText text="Perfil do Artista" />
+          <h2>{artInfo.name}</h2>
+          <h2>{artInfo.email}</h2>
+          <h2>{artInfo.whatsApp}</h2>
+          <h2>{stoningData(artInfo.createdAt, "Conta Criada em:")}</h2>
+        </>
+      )}
+      <h2>{artInfo == false && `Artista não encontrado`}</h2>
+
       <ToastContainer />
       <ButtonBack />
     </>

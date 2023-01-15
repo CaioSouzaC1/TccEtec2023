@@ -8,6 +8,8 @@ Plataforma de comunicação entre artistas e donos de estabelecimento, projeto f
 
 `Visual Studio Code` - IDE para desenvolvimento.
 
+`Insomnia` - Software para fazer requisições manuais.
+
 ## Comandos Principais:
 
 `git clone https://github.com/CaioSouzaC1/TccEtec2023.git` - Clona o repositório do projeto hospedado no github

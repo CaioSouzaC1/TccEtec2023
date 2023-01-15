@@ -8,6 +8,7 @@ import successFy from "../../../Utils/Toastify/successFy";
 import infoFy from "../../../Utils/Toastify/infoFy";
 import { ToastContainer } from "react-toastify";
 import ThePageText from "../../../Components/ThePageText";
+import stoningData from "../../../Utils/MyFunctions/stoningData";
 
 const ProfileEstablishments = () => {
   let { id } = useParams();
@@ -85,15 +86,19 @@ const ProfileEstablishments = () => {
 
   return (
     <>
-      {estableshimentData && <ThePageText text="Perfil do Estabelecimento" />}
+      {estableshimentData && (
+        <>
+          {" "}
+          <ThePageText text="Perfil do Estabelecimento" />
+          <h2>{estableshimentData.name}</h2>
+          <h2>{`Email:${estableshimentData.email}`}</h2>
+          <h2>{`WhatsApp:${estableshimentData.whatsApp}`}</h2>
+          <h2>
+            {stoningData(estableshimentData.createdAt, "Conta Criada em:")}
+          </h2>
+        </>
+      )}
 
-      <h2>{estableshimentData && estableshimentData.name}</h2>
-      <h4>{estableshimentData && `Email:${estableshimentData.email}`}</h4>
-      <h4>{estableshimentData && `WhatsApp:${estableshimentData.whatsApp}`}</h4>
-      <h6>
-        {estableshimentData &&
-          `Conta Criada em:${estableshimentData.createdAt}`}
-      </h6>
       <h2>{estableshimentData == false && `Estabelecimento não encontrado`}</h2>
 
       {eventButton && (

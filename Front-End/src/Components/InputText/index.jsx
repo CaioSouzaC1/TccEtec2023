@@ -11,7 +11,7 @@ const InputText = (props) => {
         className={props.class}
         type={type}
         placeholder={props.placeholder}
-        value={props.value}
+        defaultValue={props.value}
         minLength={min}
         maxLength={max}
       />
