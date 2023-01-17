@@ -27,7 +27,7 @@ Back-End/Database/db.sqlite
 Back-End/prisma/migrations/
 Back-end/prisma/src
 
-#Back-End/Assets
+Back-End/Assets
 
 Front-End/public/OpenPeeps
 Anotations.txt
