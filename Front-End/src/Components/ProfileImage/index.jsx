@@ -5,12 +5,12 @@ const ProfileImage = (props) => {
   const randomColor = Math.floor(Math.random() * BackgroundColors.length);
 
   const [image, setImage] = useState(false);
+
   const getImage = async () => {
     if (props.type == "Establishment") {
       try {
-        const img = await fetch(
-          `http://localhost:3333/Establishments/EstablishmentProfileImage-${props.pubId}.jpg`
-        );
+        const img = await fetch(`
+          http://localhost:3333/Establishments/EstablishmentProfileImage-${props.pubId}.jpg`);
 
         setImage(img);
       } catch (err) {
@@ -18,29 +18,37 @@ const ProfileImage = (props) => {
       }
     }
   };
+
   useEffect(() => {
+    setImage(false);
     getImage();
-  }, []);
+    console.log(image);
+  }, [props.state]);
 
   return (
     <>
-      {image.status == 200 && (
+      {image && image.status == 200 && (
         <img
-          className={`rounded-full object-cover bg-cover m-auto h-48 w-48 max-w-[12em]`}
+          className={
+            "rounded-full object-cover bg-cover m-auto h-48 w-48 max-w-[12em]"
+          }
           src={image.url}
           alt=""
         />
       )}
-      {image.status == 404 && (
-        <div className={`rounded-full object-cover bg-cover m-auto h-48 w-48`}>
+      {!image ||
+        (image.status == 404 && (
           <div
-            className={`${BackgroundColors[randomColor]} h-full rounded-full flex justify-center items-center text-4xl font-semibold`}
+            className={"rounded-full object-cover bg-cover m-auto h-48 w-48"}
           >
-            {" "}
-            {props.name[0]}
+            <div
+              className={`${BackgroundColors[randomColor]} h-full rounded-full flex justify-center items-center text-4xl font-semibold`}
+            >
+              {" "}
+              {props.name[0]}
+            </div>
           </div>
-        </div>
-      )}
+        ))}
     </>
   );
 };

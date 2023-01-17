@@ -21,6 +21,7 @@ const MyProfile = () => {
   const [userType, setUserType] = useState(false);
   const [cpfState, setCpfState] = useState(false);
   const [cnpjState, setCnpjState] = useState(false);
+  const [imageState, setImageState] = useState(true);
   const navigate = useNavigate();
 
   const getInfoData = async () => {
@@ -148,7 +149,6 @@ const MyProfile = () => {
           body: formData,
         }
       );
-      console.log(updateImage);
     } catch (err) {
       console.log(err);
     }
@@ -165,7 +165,8 @@ const MyProfile = () => {
           body: formData,
         }
       );
-      console.log(updateImage);
+      setImageState(!imageState);
+      console.log(imageState);
     } catch (err) {
       console.log(err);
     }
@@ -255,11 +256,14 @@ const MyProfile = () => {
             src={`http://localhost:3333/Establishments/EstablishmentProfileImage-${userDatas.pubId}.jpg`}
             alt=""
           /> */}
+
           <ProfileImage
+            state={!imageState}
             name={userDatas.name}
             pubId={userDatas.pubId}
             type={"Establishment"}
           />
+
           <input
             className="profileImage"
             type="file"
