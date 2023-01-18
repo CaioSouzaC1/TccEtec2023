@@ -36,6 +36,12 @@ const ProfileArtists = () => {
       {artInfo && (
         <>
           <ThePageText text="Perfil do Artista" />
+          <ProfileImage
+            size={3}
+            name={artInfo.name}
+            pubId={id}
+            type={"Artists"}
+          />
           <h2>{artInfo.name}</h2>
           <h2>{artInfo.email}</h2>
           <h2>{artInfo.whatsApp}</h2>

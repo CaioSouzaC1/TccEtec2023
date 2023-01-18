@@ -21,27 +21,27 @@ const Feed = () => {
       if (ultimos.status === 200) {
         ultimos = await ultimos.json();
         setLastPlacesState(ultimos);
-        console.log(lastPlacesState);
       }
     } catch (err) {
       console.log(err);
     }
   };
   const options = {
-    loop: true,
+    // loop: true,
     margin: 10,
     nav: true,
     dots: true,
+    autoplay: true,
     responsive: {
       0: {
         items: 1,
         dots: false,
       },
       536: {
-        items: 3,
+        items: 2,
       },
       1000: {
-        items: 5,
+        items: 3,
         nav: true,
         dots: true,
       },

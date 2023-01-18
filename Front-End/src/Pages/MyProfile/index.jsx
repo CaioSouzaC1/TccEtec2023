@@ -142,13 +142,13 @@ const MyProfile = () => {
     try {
       const formData = new FormData();
       formData.append("file", e.target.files[0], userDatas.pubId);
-      let updateImage = await fetch(
-        "http://localhost:3333/updateProfileImage",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      await fetch("http://localhost:3333/updateProfileImage", {
+        method: "POST",
+        body: formData,
+      });
+      setImageState(!imageState);
+      selectInput(".profileImage").value = "";
+      successFy("Imagem Atualizada", 1500);
     } catch (err) {
       console.log(err);
     }
@@ -158,15 +158,13 @@ const MyProfile = () => {
     try {
       const formData = new FormData();
       formData.append("file", e.target.files[0], userDatas.pubId);
-      let updateImage = await fetch(
-        "http://localhost:3333/updateProfileImageEstableshiment",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      await fetch("http://localhost:3333/updateProfileImageEstableshiment", {
+        method: "POST",
+        body: formData,
+      });
       setImageState(!imageState);
-      console.log(imageState);
+      selectInput(".profileImage").value = "";
+      successFy("Imagem Atualizada", 1500);
     } catch (err) {
       console.log(err);
     }
@@ -182,10 +180,11 @@ const MyProfile = () => {
 
       {userType === "Artist" && (
         <>
-          <img
-            className="w-48 h-48 rounded-full object-cover bg-cover"
-            src={`http://localhost:3333/Artists/ArtistProfileImage-${userDatas.pubId}.jpg`}
-            alt=""
+          <ProfileImage
+            state={imageState}
+            name={userDatas.name}
+            pubId={userDatas.pubId}
+            type={"Artists"}
           />
           <input
             className="profileImage"
@@ -251,14 +250,8 @@ const MyProfile = () => {
 
       {userType === "Establishment" && (
         <>
-          {/* <img
-            className="w-48 h-48 rounded-full object-cover bg-cover"
-            src={`http://localhost:3333/Establishments/EstablishmentProfileImage-${userDatas.pubId}.jpg`}
-            alt=""
-          /> */}
-
           <ProfileImage
-            state={!imageState}
+            state={imageState}
             name={userDatas.name}
             pubId={userDatas.pubId}
             type={"Establishment"}

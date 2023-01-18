@@ -3,5 +3,4 @@
 --- Corrigir fontawesome
 --- Bug Cpf artist step 2
 --- Feed quebrou ao voltar do carrossel de estabs
---- Adicionar component de profile image nos ArtistsMeta
---- Resolver bug da imagem no muProfile
+--- Começar chat

@@ -9,6 +9,7 @@ import infoFy from "../../../Utils/Toastify/infoFy";
 import { ToastContainer } from "react-toastify";
 import ThePageText from "../../../Components/ThePageText";
 import stoningData from "../../../Utils/MyFunctions/stoningData";
+import ProfileImage from "../../../Components/ProfileImage";
 
 const ProfileEstablishments = () => {
   let { id } = useParams();
@@ -90,6 +91,12 @@ const ProfileEstablishments = () => {
         <>
           {" "}
           <ThePageText text="Perfil do Estabelecimento" />
+          <ProfileImage
+            size={3}
+            name={estableshimentData.name}
+            pubId={id}
+            type={"Establishment"}
+          />
           <h2>{estableshimentData.name}</h2>
           <h2>{`Email:${estableshimentData.email}`}</h2>
           <h2>{`WhatsApp:${estableshimentData.whatsApp}`}</h2>

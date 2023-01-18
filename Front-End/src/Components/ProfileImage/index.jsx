@@ -17,12 +17,21 @@ const ProfileImage = (props) => {
         console.log(err);
       }
     }
+    if (props.type == "Artists") {
+      try {
+        const img = await fetch(`
+          http://localhost:3333/Artists/ArtistProfileImage-${props.pubId}.jpg`);
+
+        setImage(img);
+      } catch (err) {
+        console.log(err);
+      }
+    }
   };
 
   useEffect(() => {
     setImage(false);
     getImage();
-    console.log(image);
   }, [props.state]);
 
   return (
@@ -30,7 +39,7 @@ const ProfileImage = (props) => {
       {image && image.status == 200 && (
         <img
           className={
-            "rounded-full object-cover bg-cover m-auto h-48 w-48 max-w-[12em]"
+            "rounded-full object-cover bg-cover m-auto h-48 w-48 max-w-[12em] min-h-[12em]"
           }
           src={image.url}
           alt=""
@@ -39,7 +48,9 @@ const ProfileImage = (props) => {
       {!image ||
         (image.status == 404 && (
           <div
-            className={"rounded-full object-cover bg-cover m-auto h-48 w-48"}
+            className={
+              "rounded-full object-cover bg-cover m-auto h-48 w-48  max-w-[12em] min-h-[12em]"
+            }
           >
             <div
               className={`${BackgroundColors[randomColor]} h-full rounded-full flex justify-center items-center text-4xl font-semibold`}
