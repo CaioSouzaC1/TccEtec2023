@@ -14,14 +14,20 @@ Plataforma de comunicação entre artistas e donos de estabelecimento, projeto f
 
 `git clone https://github.com/CaioSouzaC1/TccEtec2023.git` - Clona o repositório do projeto hospedado no github
 
-`npm i` - Dentro da raiz de Front-End, npi para baixar as dependências node do projeto.
-
-`npm run dev` - Inicia o projeto React criado com vite
+`npm i` - Dentro de Front-End & Back-End, para baixar as dependências node do projeto.
 
 `npx prisma migrate dev` - Cria uma nova migrate ("Versão") da database
 
-`npx prisma studio` - Abre o dashboard do prisma para melhor vizualização das tabelas
+## Dentro da Raiz do Projeto:
 
 `node .\Back-End\Server\Server.js` - Inicia a Api para ter acesso aos endpoints do projeto
+
+## Dentro de Back-End:
+
+`npx prisma studio` - Abre o dashboard do prisma para melhor vizualização das tabelas
+
+## Dentro de Front-End:
+
+`npm run dev` - Inicia o projeto React criado com vite
 
 # By Caio César

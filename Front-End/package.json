@@ -11,9 +11,11 @@
   "dependencies": {
     "@prisma/client": "^4.7.1",
     "buffer": "^6.0.3",
+    "firebase": "^9.15.0",
     "imask": "^6.4.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-firebase-hooks": "^5.1.1",
     "react-owl-carousel": "^2.3.3",
     "react-router-dom": "^6.4.5",
     "react-toastify": "^9.1.1"

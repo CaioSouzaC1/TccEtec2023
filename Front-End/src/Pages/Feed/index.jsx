@@ -8,6 +8,7 @@ import "owl.carousel/dist/assets/owl.theme.default.css";
 import ThePageText from "../../Components/ThePageText";
 import ButtonLogout from "../../Components/ButtonLogout";
 import ProfileImage from "../../Components/ProfileImage";
+import Chat from "../../Components/Chat";
 
 const Feed = () => {
   const [lastPlacesState, setLastPlacesState] = useState(false);
@@ -105,6 +106,7 @@ const Feed = () => {
       </Link>
       <br />
       <ButtonLogout />
+      <Chat />
     </>
   );
 };

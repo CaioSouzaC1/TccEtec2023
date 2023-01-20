@@ -22,12 +22,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+*.s?
 
-Back-End/Database/db.sqlite
+Back-End/Assets
+Back-End/Database
 Back-End/prisma/migrations/
 Back-end/prisma/src
 
-Back-End/Assets
-
 Front-End/public/OpenPeeps
-Anotations.txt
+Back-End/Database/db.sqlite
