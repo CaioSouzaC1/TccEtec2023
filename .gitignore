@@ -25,9 +25,9 @@ dist-ssr
 *.s?
 
 Back-End/Assets
-Back-End/Database
+Back-End/Database/
+Back-End/Database/**
 Back-End/prisma/migrations/
 Back-end/prisma/src
 
 Front-End/public/OpenPeeps
-Back-End/Database/db.sqlite
