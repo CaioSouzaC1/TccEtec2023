@@ -1,11 +1,10 @@
-import { useEffect } from "react";
 import { initializeApp } from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
-import { getFirestore } from "firebase/firestore";
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { useIdToken } from "react-firebase-hooks/auth";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 
 const Chat = () => {
   const firebaseConfig = {
@@ -20,43 +19,66 @@ const Chat = () => {
   };
 
   // Initialize Firebase
-
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-  //   const auth = app.auth();
   const auth = getAuth(app);
 
-  const login = () => {
-    signInWithEmailAndPassword(auth, "test@test.com", "password");
-  };
+  const [signInWithEmailAndPassword, userSign, loadingSign, errorSign] =
+    useSignInWithEmailAndPassword(auth);
 
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
 
-  const handleLogin = async (event) => {
-    event.preventDefault();
+  const getDocsTensor = async () => {
     try {
-      await auth.signInWithEmailAndPassword(
+      const login = signInWithEmailAndPassword(
         "viniciusgay@gmail.com",
         "testPass"
       );
-    } catch (error) {
-      console.log(error.message);
+      console.log(login);
+    } catch (err) {
+      console.log(err);
     }
   };
 
-  return;
+  const criar = async (e, p) => {
+    try {
+      const cria = await createUserWithEmailAndPassword(e, p);
+      console.log(cria);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  // return (
-  //   <button
-  //     onClick={() =>
-  //       createUserWithEmailAndPassword("viniciusgayteste@gmail.com", "testPass")
-  //     }
-  //   >
-  //     {" "}
-  //     Register
-  //   </button>
-  // );
+  const logar = async (e, p) => {
+    try {
+      const logi = await signInWithEmailAndPassword(e, p);
+      console.log(logi);
+      const res = await getDoc(doc(db, "messages", "RuwwfunJDhCnr3VgRK6j"));
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // return;
+
+  return (
+    <>
+      <br />
+      <button onClick={() => criar("maisteste@gmail.com", "testPass")}>
+        {" "}
+        Register
+      </button>
+      <br />
+      <button onClick={() => logar("maisteste@gmail.com", "testPass")}>
+        {" "}
+        Login
+      </button>
+    </>
+  );
+
+  // return <button onClick={() => getDocsTensor()}> GetDocs</button>;
 };
 
 export default Chat;
