@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
 import verifyJwt from "../../Utils/Security/verifyJwt";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../Components/Button/Button";
@@ -9,6 +9,7 @@ import ThePageText from "../../Components/ThePageText";
 import ButtonLogout from "../../Components/ButtonLogout";
 import ProfileImage from "../../Components/ProfileImage";
 import Chat from "../../Components/Chat";
+import UserProvider from "../../Contexts/User";
 
 const Feed = () => {
   const [lastPlacesState, setLastPlacesState] = useState(false);
@@ -73,12 +74,13 @@ const Feed = () => {
 
   return (
     <>
-      <ThePageText text="Voice Feed" />
-      <Link to="/meu-perfil">
-        <Button text="Meu Perfil"></Button>
-      </Link>
-      <br />
-      {lastPlacesState && (
+      <UserProvider>
+        <ThePageText text="Voice Feed" />
+        <Link to="/meu-perfil">
+          <Button text="Meu Perfil"></Button>
+        </Link>
+        <br />
+        {/* {lastPlacesState && (
         <OwlCarousel className="owl-theme" {...options}>
           {lastPlacesState.map((e) => {
             return (
@@ -98,15 +100,16 @@ const Feed = () => {
             );
           })}
         </OwlCarousel>
-      )}
-      <br />
+      )} */}
+        <br />
 
-      <Link to="/meus-eventos">
-        <Button text="Meus Eventos"></Button>
-      </Link>
-      <br />
-      <ButtonLogout />
-      <Chat />
+        <Link to="/meus-eventos">
+          <Button text="Meus Eventos"></Button>
+        </Link>
+        <br />
+        <ButtonLogout />
+        <Chat />
+      </UserProvider>
     </>
   );
 };

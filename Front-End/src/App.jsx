@@ -19,6 +19,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home></Home>} />
+        <Route path="/login" element={<Login />} />
         <Route path="/cadastra" element={<Cadastra></Cadastra>} />
         <Route
           path="/cadastra/artista/etapa/1"
@@ -41,16 +42,15 @@ function App() {
           element={<CreateAccEstableshimentStepThree />}
         />
         <Route path="/artista/:id" element={<ProfileArtists />} />
-        <Route path="/meu-perfil" element={<MyProfile />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/feed" element={<Feed />} />
-        <Route path="/meus-eventos" element={<MyEvents></MyEvents>} />
-        <Route path="/estabelecimentos/ultimos" element={<Ultimos></Ultimos>} />
         <Route
           path="/estabelecimento/:id"
           element={<ProfileEstablishments />}
         />
+        <Route path="/estabelecimentos/ultimos" element={<Ultimos></Ultimos>} />
         <Route path="*" element={<div>pagina 404</div>} />`
+        <Route path="/meu-perfil" element={<MyProfile />} />
+        <Route path="/feed" element={<Feed />} />
+        <Route path="/meus-eventos" element={<MyEvents></MyEvents>} />
       </Routes>
     </BrowserRouter>
   );

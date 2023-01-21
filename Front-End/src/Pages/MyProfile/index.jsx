@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import styles from "./Profile.module.css";
 import verifyJwt from "../../Utils/Security/verifyJwt";
 import { useNavigate } from "react-router-dom";
 import ButtonBack from "../../Components/ButtonBack";
@@ -22,6 +21,7 @@ const MyProfile = () => {
   const [cpfState, setCpfState] = useState(false);
   const [cnpjState, setCnpjState] = useState(false);
   const [imageState, setImageState] = useState(true);
+
   const navigate = useNavigate();
 
   const getInfoData = async () => {

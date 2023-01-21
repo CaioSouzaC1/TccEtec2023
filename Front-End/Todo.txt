@@ -1,6 +1,7 @@
 --- Perfil do Artista achando perfil e dando erroFy de artista não encontrado
---- Corrigir OwlCarousel (UNSAFE Components)
+--- Corrigir OwlCarousel (UNSAFE Components) (Comentado)
 --- Corrigir fontawesome
 --- Bug Cpf artist step 2
 --- Feed quebrou ao voltar do carrossel de estabs
---- Começar chat
+--- Continuar chat
+--- Melhorar protected routes (com o context)
