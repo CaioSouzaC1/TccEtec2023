@@ -1,6 +1,6 @@
 import "firebase/auth";
 import "firebase/firestore";
-import { doc, getDoc, getFirestore } from "firebase/firestore";
+import { doc, getDoc, getDocs, getFirestore } from "firebase/firestore";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
@@ -22,11 +22,15 @@ const Chat = () => {
   const getDocsTensor = async () => {
     console.log(db);
     try {
-      const docRef = doc(db, "chats", "idTeste");
-      const docSnap = await getDoc(docRef);
-
-      console.log(docRef);
-      console.log(docSnap);
+      // const docRef = doc(db, "chats", "idTeste");
+      // const docSnap = await getDoc(docRef);
+      const colRef = collection(db, "chats");
+      const docsSnapTwo = await getDocs(colRef);
+      docsSnapTwo.forEach((doc) => {
+        console.log(doc.data());
+      });
+      // console.log(docRef);
+      // console.log(docSnap);
     } catch (err) {
       console.log(err);
     }
