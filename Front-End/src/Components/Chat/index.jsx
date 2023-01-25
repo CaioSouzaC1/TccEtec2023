@@ -2,17 +2,11 @@ import "firebase/auth";
 import "firebase/firestore";
 import { doc, getDocs, collection, setDoc, getDoc } from "firebase/firestore";
 import { app, auth, storage, db } from "../../Utils/Firebase/Firebase";
-import { useEffect } from "react";
-import verifyJwt from "../../Utils/Security/verifyJwt";
+import { useState } from "react";
 
-const Chat = () => {
-  useEffect(() => {
-    getDocsTensor();
-  });
-
+const Chat = (props) => {
+  const [chatText, setChatText] = useState("Iniciar Chat");
   const getDocsTensor = async () => {
-    const { status, auth, user, type } = await verifyJwt();
-
     // const colRef = collection(db, "chats");
     // try {
     //   const docsSnapTwo = await getDocs(colRef);
@@ -23,30 +17,38 @@ const Chat = () => {
     //   console.log(err);
     // }
 
-    const docRef = doc(db, "chats", `${type}:${user}`);
+    const docRef = doc(db, "usersChat", `${props.viewerType}:${props.viewer}`);
     try {
       const docSnap = await getDoc(docRef);
-      console.log(docSnap.data());
+      if (!docSnap.data()) {
+        await setDoc(docRef, {
+          id: props.viewer,
+          timestamp: Date.now(),
+          // TESTE: [
+          //   { data: "data", datadois: "dataDois" },
+          //   { data: "data", datatres: "datatres" },
+          // ],
+        });
+      }
     } catch (err) {
       console.log(err);
     }
 
-    try {
-      await setDoc(doc(db, "chats", `${type}:${user}`), {
-        nome: "NomeDoUsuário",
-        outra: "INFO",
-        timestamp: Date.now(),
-        TESTE: [
-          { data: "data", datadois: "dataDois" },
-          { data: "data", datatres: "datatres" },
-        ],
-      });
-    } catch (err) {
-      console.log(err);
-    }
+    // try {
+    //   await setDoc(doc(db, "users", `${type}:${user}`), {
+    //     id: user,
+    //     timestamp: Date.now(),
+    //     // TESTE: [
+    //     //   { data: "data", datadois: "dataDois" },
+    //     //   { data: "data", datatres: "datatres" },
+    //     // ],
+    //   });
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
 
-  return;
+  return <button onClick={getDocsTensor}>{chatText}</button>;
 };
 
 export default Chat;

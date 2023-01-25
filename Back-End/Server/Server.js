@@ -47,7 +47,7 @@ const secret = SecretJwtGenerator();
 const saltRounds = 10;
 /*END - Server Configurations*/
 
-/* */
+/*START - Image Upload Configurations */
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "Back-end/Assets/Artists");
@@ -69,7 +69,7 @@ const storageEstablishments = multer.diskStorage({
 const uploadEstablishments = multer({ storage: storageEstablishments });
 
 app.use(express.static("Back-end/Assets"));
-/* */
+/*END - Image Upload Configurations */
 
 /*START - Artists Configurations*/
 router.post("/createAcc", async (req, res) => {
@@ -276,7 +276,6 @@ router.post("/updateProfileImage", upload.single("file"), (req, res) => {
     res.status(200).send("Imagem Cadastrada");
   }
 });
-
 /*END - Artists Configurations*/
 
 /*START - Security/Validations*/
@@ -607,6 +606,40 @@ router.get("/meus-eventos", async (req, res) => {
   }
 });
 /*END - Events Configurations*/
+
+/*START - Util Endpoints*/
+router.get("/pubId-to-Id", async (req, res) => {
+  try {
+    const id = Buffer.from(req.headers.authorization, "base64").toString();
+
+    let login = await prisma.Artists.findFirst({
+      where: {
+        pubId: id,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    if (!login) {
+      login = await prisma.Establishments.findFirst({
+        where: {
+          pubId: id,
+        },
+        select: {
+          id: true,
+        },
+      });
+      if (!login) {
+        res.sendStatus(404);
+      }
+    }
+    res.json(login);
+  } catch (err) {
+    res.sendStatus(400);
+  }
+});
+/*END - Util Endpoints*/
 
 /*START - App Listen Configurations*/
 app.use("", router);

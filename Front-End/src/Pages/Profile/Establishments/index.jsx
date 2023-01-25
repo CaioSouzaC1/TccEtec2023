@@ -10,12 +10,17 @@ import { ToastContainer } from "react-toastify";
 import ThePageText from "../../../Components/ThePageText";
 import stoningData from "../../../Utils/MyFunctions/stoningData";
 import ProfileImage from "../../../Components/ProfileImage";
+import Chat from "../../../Components/Chat";
+import { Buffer } from "buffer";
 
 const ProfileEstablishments = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [estableshimentData, setEstableshimentData] = useState(false);
   const [eventButton, setEventButton] = useState(false);
+  const [viewer, setViewer] = useState(false);
+  const [viewerType, setViewerType] = useState(false);
+  const [visualized, setVisualized] = useState(false);
   const stateRef = useRef(null);
 
   useEffect(() => {
@@ -76,12 +81,23 @@ const ProfileEstablishments = () => {
       errorFy(err);
     }
   };
+
   const renderEventButton = async () => {
-    const objVerify = await verifyJwt();
-    if (objVerify.auth) {
-      if (objVerify.type == "artist") {
+    const { status, auth, user, type } = await verifyJwt();
+    if (auth) {
+      if (type == "artist") {
         setEventButton(true);
       }
+      const pubIdToId = await (
+        await fetch("http://127.0.0.1:3333/pubId-to-Id", {
+          headers: new Headers({
+            Authorization: `${Buffer.from(`${id}`).toString("base64")}`,
+          }),
+        })
+      ).json();
+      setVisualized(pubIdToId.id);
+      setViewer(user);
+      setViewerType(type);
     }
   };
 
@@ -110,6 +126,16 @@ const ProfileEstablishments = () => {
 
       {eventButton && (
         <button onClick={createEvent}>Quero me apresentar aqui</button>
+      )}
+
+      <br />
+      {viewer && viewerType && (
+        <Chat
+          viewer={viewer}
+          viewerType={viewerType}
+          visualized={visualized}
+          visualizedType="Establishment"
+        />
       )}
 
       <br />

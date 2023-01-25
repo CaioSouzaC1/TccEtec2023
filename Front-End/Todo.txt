@@ -3,5 +3,6 @@
 --- Corrigir fontawesome
 --- Bug Cpf artist step 2
 --- Feed quebrou ao voltar do carrossel de estabs
---- Continuar chat
---- Melhorar protected routes (com o context)
+--- Continuar chat (Comecei pelo perfil de estabelecimento)
+--- Melhorar protected routes (Talvez usar o Context)
+--- No load das infos dos Perfis, deixar un loader (Atual exibindo não encontrado) 
