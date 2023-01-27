@@ -62,14 +62,14 @@ const CreateAccArtistaStepOne = () => {
   return (
     <>
       <ThePageText text="Artista Etapa 1" />
-      <form className="Form" onSubmit={emailValidation}>
+      <form className="Form mt-10 flex flex-col gap-0 items-center" onSubmit={emailValidation}>
         <InputText
           type="email"
           class="Email"
           label="Email"
           placeholder="Seu Email"
         ></InputText>
-        <br />
+        
         <InputText
           type="password"
           class="Senha"
@@ -78,7 +78,7 @@ const CreateAccArtistaStepOne = () => {
           min="8"
           max="24"
         ></InputText>
-        <br />
+        
         <InputText
           type="password"
           class="ConfirmaSenha"
@@ -87,15 +87,16 @@ const CreateAccArtistaStepOne = () => {
           min="8"
           max="24"
         ></InputText>
-        <br />
+        
         <Button text="Avançar"></Button>
         <ToastContainer />
       </form>
+      <div className="flex justify-center">
       <Link to={"../login"}>
-        <Button text="Já Possuo conta"></Button>
+        <Button text="Já Possuo conta!"></Button>
       </Link>
-      <br />
       <ButtonBack />
+      </div>
     </>
   );
 };

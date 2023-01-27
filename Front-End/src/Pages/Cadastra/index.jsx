@@ -7,16 +7,22 @@ import ThePageText from "../../Components/ThePageText";
 const Cadastra = () => {
   return (
     <>
-      <ThePageText text="Opções de Cadastro" />
-      <Link to={"../cadastra/artista/etapa/1"}>
+    <div>
+      <ThePageText text="Desejo me cadastrar como:" />
+
+      <div className="mt-20 flex flex-col items-center gap-3 justify-center">
+        <Link to={"../cadastra/artista/etapa/1"}>
         <Button text="Artista"></Button>
-      </Link>
-      <br />
-      <Link to={"../cadastra/estabelecimento/etapa/1"}>
+        </Link>
+        
+        <Link to={"../cadastra/estabelecimento/etapa/1"}>
         <Button text="Estabelecimento"></Button>
-      </Link>
-      <br />
-      <ButtonBack />
+        </Link>
+        
+        <ButtonBack />
+      </div>
+      
+    </div>
     </>
   );
 };

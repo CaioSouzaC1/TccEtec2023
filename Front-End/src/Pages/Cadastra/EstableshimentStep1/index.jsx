@@ -69,14 +69,13 @@ const CreateAccEstableshimentStepOne = () => {
   return (
     <>
       <ThePageText text="Estabelecimento Etapa 1" />
-      <form className="Form" onSubmit={validateEmail}>
+      <form className="Form mt-10 flex flex-col gap-0 items-center" onSubmit={validateEmail}>
         <InputText
           type="email"
           class="Email"
           label="Email"
           placeholder="Seu Email"
-        ></InputText>
-        <br />
+        ></InputText>        
         <InputText
           type="password"
           class="Senha"
@@ -84,8 +83,7 @@ const CreateAccEstableshimentStepOne = () => {
           placeholder="Sua Senha"
           min="8"
           max="24"
-        ></InputText>
-        <br />
+        ></InputText>        
         <InputText
           type="password"
           class="ConfirmaSenha"
@@ -93,12 +91,13 @@ const CreateAccEstableshimentStepOne = () => {
           placeholder="Confirme sua senha"
           min="8"
           max="24"
-        ></InputText>
-        <br />
+        ></InputText>    
         <Button text="Avançar"></Button>
         <ToastContainer />
       </form>
+      <div className="flex justify-center">
       <ButtonBack />
+      </div>
     </>
   );
 };

@@ -15,13 +15,15 @@
   margin: 8px 0;
   transition: border-bottom, box-shadow 0.25s ease-in-out;
   cursor: pointer;
-}
+  background: #242424;
+ }
+ 
 .filds label {
   position: absolute;
   top: 0;
   left: 8px;
   cursor: text;
-  color: #9e9e9e;
+  color: white;
   transform: translateY(16px);
   transition: transform 0.25s ease-in-out;
   transform-origin: 0% 100%;

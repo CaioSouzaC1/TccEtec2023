@@ -13,10 +13,13 @@ import Feed from "./Pages/feed";
 import ProfileEstablishments from "./Pages/Profile/Establishments";
 import MyProfile from "./Pages/MyProfile";
 import MyEvents from "./Pages/MyEvents";
+import Header from "./Components/Header";
+import Footer from "./Components/Footer";
 
 function App() {
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
         <Route path="/" element={<Home></Home>} />
         <Route path="/login" element={<Login />} />
@@ -52,6 +55,7 @@ function App() {
         <Route path="/feed" element={<Feed />} />
         <Route path="/meus-eventos" element={<MyEvents></MyEvents>} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }
