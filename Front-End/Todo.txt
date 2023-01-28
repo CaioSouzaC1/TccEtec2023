@@ -1,8 +1,6 @@
 --- Perfil do Artista achando perfil e dando erroFy de artista não encontrado
 --- Corrigir OwlCarousel (UNSAFE Components) (Comentado)
---- Corrigir fontawesome
 --- Bug Cpf artist step 2
 --- Feed quebrou ao voltar do carrossel de estabs
 --- Continuar chat, criando UserChats automático caso n exista 
---- UserContext finalizado no feed, fazer no MyProfile & myEvents
 --- No load das infos dos Perfis, deixar un loader (Atual exibindo não encontrado) 

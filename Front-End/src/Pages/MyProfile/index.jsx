@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import verifyJwt from "../../Utils/Security/verifyJwt";
 import { useNavigate } from "react-router-dom";
 import ButtonBack from "../../Components/ButtonBack";
@@ -14,6 +14,7 @@ import ButtonLogout from "../../Components/ButtonLogout";
 import stoningData from "../../Utils/MyFunctions/stoningData";
 import selectInput from "../../Utils/MyFunctions/selectInput";
 import ProfileImage from "../../Components/ProfileImage";
+import { UserContext } from "../../Contexts/User";
 
 const MyProfile = () => {
   const [userDatas, setUserDatas] = useState(false);
@@ -24,10 +25,20 @@ const MyProfile = () => {
 
   const navigate = useNavigate();
 
+  const { auth, user, type } = useContext(UserContext);
+  if (auth === false) {
+    navigate("/login", {
+      state: {
+        isAuth: false,
+      },
+    });
+  }
+
   const getInfoData = async () => {
     try {
       if (await (await verifyJwt()).auth) {
         let user = await (await verifyJwt()).user;
+
         let userData = await (
           await fetch(`http://127.0.0.1:3333/getInfo`, {
             headers: new Headers({
@@ -44,12 +55,6 @@ const MyProfile = () => {
           setCpfState(userData.data.cpf);
           setUserType("Artist");
         }
-      } else {
-        navigate("/login", {
-          state: {
-            isAuth: false,
-          },
-        });
       }
     } catch (err) {
       console.log(err);
@@ -174,7 +179,11 @@ const MyProfile = () => {
     <>
       <ThePageText
         text={`Meu Perfil - ${
-          userType == "Artist" ? "Artista" : "Estabelecimento"
+          type === "artist"
+            ? "Artista"
+            : type === "establishments"
+            ? "Estabelecimento"
+            : "Carregando"
         }`}
       />
 

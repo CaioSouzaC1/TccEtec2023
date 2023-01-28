@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import verifyJwt from "../../Utils/Security/verifyJwt";
 import { Link, useNavigate } from "react-router-dom";
 import errorFy from "../../Utils/Toastify/errorFy";
@@ -10,10 +10,18 @@ import { Buffer } from "buffer";
 import warnFy from "../../Utils/Toastify/warnFy";
 import { ToastContainer } from "react-toastify";
 import successFy from "../../Utils/Toastify/successFy";
+import { UserContext } from "../../Contexts/User";
 
 const MyEvents = () => {
   const navigate = useNavigate();
-
+  const { auth, user, type } = useContext(UserContext);
+  if (auth === false) {
+    navigate("/login", {
+      state: {
+        isAuth: false,
+      },
+    });
+  }
   const [events, setEvents] = useState(false);
 
   const stateRef = useRef(null);
@@ -21,21 +29,9 @@ const MyEvents = () => {
   useEffect(() => {
     if (stateRef.current === null) {
       stateRef.current = true;
-      verifyAuth();
       getMyEvents();
     }
   }, []);
-
-  const verifyAuth = async () => {
-    let isAuth = await (await verifyJwt()).auth;
-    if (!isAuth) {
-      navigate("/login", {
-        state: {
-          isAuth: false,
-        },
-      });
-    }
-  };
 
   const getMyEvents = async () => {
     try {
