@@ -1,13 +1,14 @@
-import { createContext } from "react";
+import { createContext, useRef } from "react";
 import { useState, useEffect } from "react";
 import verifyJwt from "../Utils/Security/verifyJwt";
 
 export const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-  const [auth, setAuth] = useState(false);
+  const [auth, setAuth] = useState(undefined);
   const [user, setUser] = useState({});
   const [type, setType] = useState("");
+  const stateRef = useRef(null);
 
   useEffect(() => {
     const getAuth = async () => {
@@ -18,12 +19,14 @@ const UserProvider = ({ children }) => {
         setType(type);
       }
     };
-    getAuth();
+    if (stateRef.current === null) {
+      stateRef.current = true;
+      getAuth();
+    }
   }, []);
-
   return (
     <UserContext.Provider value={{ auth, user, type }}>
-      <>{children}</>
+      {children}
     </UserContext.Provider>
   );
 };

@@ -9,21 +9,22 @@ import ProfileArtists from "./Pages/profile/Artists";
 import CreateAccEstableshimentStepOne from "./Pages/Cadastra/EstableshimentStep1";
 import CreateAccEstableshimentStepTwo from "./Pages/Cadastra/EstableshimentStep2";
 import CreateAccEstableshimentStepThree from "./Pages/Cadastra/EstableshimentStep3";
-import Feed from "./Pages/feed";
+import Feed from "./Pages/Feed";
 import ProfileEstablishments from "./Pages/Profile/Establishments";
 import MyProfile from "./Pages/MyProfile";
 import MyEvents from "./Pages/MyEvents";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
+import UserProvider from "./Contexts/User";
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<Home></Home>} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/cadastra" element={<Cadastra></Cadastra>} />
+        <Route path="/cadastra" element={<Cadastra />} />
         <Route
           path="/cadastra/artista/etapa/1"
           element={<CreateAccArtistaStepOne />}
@@ -49,11 +50,32 @@ function App() {
           path="/estabelecimento/:id"
           element={<ProfileEstablishments />}
         />
-        <Route path="/estabelecimentos/ultimos" element={<Ultimos></Ultimos>} />
-        <Route path="*" element={<div>pagina 404</div>} />`
-        <Route path="/meu-perfil" element={<MyProfile />} />
-        <Route path="/feed" element={<Feed />} />
-        <Route path="/meus-eventos" element={<MyEvents></MyEvents>} />
+        <Route path="/estabelecimentos/ultimos" element={<Ultimos />} />
+        <Route
+          path="/meu-perfil"
+          element={
+            <UserProvider>
+              <MyProfile />
+            </UserProvider>
+          }
+        />
+        <Route
+          path="/feed"
+          element={
+            <UserProvider>
+              <Feed />
+            </UserProvider>
+          }
+        />
+        <Route
+          path="/meus-eventos"
+          element={
+            <UserProvider>
+              <MyEvents />
+            </UserProvider>
+          }
+        />
+        <Route path="*" element={<div>pagina 404</div>} />
       </Routes>
       <Footer />
     </BrowserRouter>

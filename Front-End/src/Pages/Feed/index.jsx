@@ -8,11 +8,21 @@ import "owl.carousel/dist/assets/owl.theme.default.css";
 import ThePageText from "../../Components/ThePageText";
 import ButtonLogout from "../../Components/ButtonLogout";
 import ProfileImage from "../../Components/ProfileImage";
-import UserProvider from "../../Contexts/User";
+import { UserContext } from "../../Contexts/User";
 
 const Feed = () => {
   const [lastPlacesState, setLastPlacesState] = useState(false);
   const stateRef = useRef(null);
+  const navigate = useNavigate();
+  const { auth, user, type } = useContext(UserContext);
+  if (auth === false) {
+    navigate("/login", {
+      state: {
+        isAuth: false,
+      },
+    });
+  }
+
   const lastPlaces = async () => {
     try {
       let ultimos = await fetch(
@@ -49,65 +59,56 @@ const Feed = () => {
     },
   };
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     if (stateRef.current === null) {
       stateRef.current = true;
-      verifyAuth();
+      // verifyAuth();
       lastPlaces();
     }
   }, []);
 
-  const verifyAuth = async () => {
-    let isAuth = await (await verifyJwt()).auth;
-    if (isAuth) {
-    } else {
-      navigate("/login", {
-        state: {
-          isAuth: false,
-        },
-      });
-    }
-  };
+  // const verifyAuth = async () => {
+  //   let isAuth = await (await verifyJwt()).auth;
+  //   if (!isAuth) {
+
+  //   }
+  // };
 
   return (
     <>
-      <UserProvider>
-        <ThePageText text="Voice Feed" />
-        <Link to="/meu-perfil">
-          <Button text="Meu Perfil"></Button>
-        </Link>
-        <br />
-        {lastPlacesState && (
-          <OwlCarousel className="owl-theme" {...options}>
-            {lastPlacesState.map((e) => {
-              return (
-                <div key={e.pubId} className="item text-center">
-                  <ProfileImage
-                    size={3}
-                    name={e.name}
-                    pubId={e.pubId}
-                    type={"Establishment"}
-                  />
-                  <Link to={`/estabelecimento/${e.pubId}`}>
-                    <h3>{e.name}</h3>
-                    <h4>{e.logradouro}</h4>
-                    <h5>{e.bairro}</h5>
-                  </Link>
-                </div>
-              );
-            })}
-          </OwlCarousel>
-        )}
-        <br />
+      <ThePageText text="Voice Feed" />
+      <Link to="/meu-perfil">
+        <Button text="Meu Perfil"></Button>
+      </Link>
+      <br />
+      {lastPlacesState && (
+        <OwlCarousel className="owl-theme" {...options}>
+          {lastPlacesState.map((e) => {
+            return (
+              <div key={e.pubId} className="item text-center">
+                <ProfileImage
+                  size={3}
+                  name={e.name}
+                  pubId={e.pubId}
+                  type={"Establishment"}
+                />
+                <Link to={`/estabelecimento/${e.pubId}`}>
+                  <h3>{e.name}</h3>
+                  <h4>{e.logradouro}</h4>
+                  <h5>{e.bairro}</h5>
+                </Link>
+              </div>
+            );
+          })}
+        </OwlCarousel>
+      )}
+      <br />
 
-        <Link to="/meus-eventos">
-          <Button text="Meus Eventos"></Button>
-        </Link>
-        <br />
-        <ButtonLogout />
-      </UserProvider>
+      <Link to="/meus-eventos">
+        <Button text="Meus Eventos"></Button>
+      </Link>
+      <br />
+      <ButtonLogout />
     </>
   );
 };

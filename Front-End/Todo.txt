@@ -3,6 +3,6 @@
 --- Corrigir fontawesome
 --- Bug Cpf artist step 2
 --- Feed quebrou ao voltar do carrossel de estabs
---- Continuar chat (Comecei pelo perfil de estabelecimento)
---- Melhorar protected routes (Talvez usar o Context)
+--- Continuar chat, criando UserChats automático caso n exista 
+--- UserContext finalizado no feed, fazer no MyProfile & myEvents
 --- No load das infos dos Perfis, deixar un loader (Atual exibindo não encontrado) 
