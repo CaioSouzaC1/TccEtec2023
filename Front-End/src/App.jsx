@@ -1,4 +1,5 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import Cadastra from "./Pages/Cadastra";
 import CreateAccArtistaStepOne from "./Pages/Cadastra/ArtistaStep1";
 import CreateAccArtistaStepTwo from "./Pages/Cadastra/ArtistaStep2";
@@ -16,10 +17,27 @@ import MyEvents from "./Pages/MyEvents";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import UserProvider from "./Contexts/User";
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
 
 function App() {
+  const location = useLocation();
+
+  useEffect(() => {
+    NProgress.start();
+    NProgress.configure({ easing: "ease", speed: 400 });
+    NProgress.configure({ showSpinner: true });
+    NProgress.configure({ trickleRate: 0.02, trickleSpeed: 800 });
+  }, [location]);
+
+  useEffect(() => {
+    // this functionss runs 2 times at inicial load and in all route change
+    // console.log("Route Change");
+    NProgress.done();
+  }, [location]);
+
   return (
-    <BrowserRouter>
+    <>
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -78,7 +96,7 @@ function App() {
         <Route path="*" element={<div>pagina 404</div>} />
       </Routes>
       <Footer />
-    </BrowserRouter>
+    </>
   );
 }
 

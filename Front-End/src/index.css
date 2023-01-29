@@ -28,3 +28,20 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+
+#nprogress .bar {
+  background: #da0037 !important;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #da0037, 0 0 5px #da0037;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: #da0037;
+  border-left-color: #da0037;
+}
+
+#nprogress .spinner {
+  top: 8px;
+}
