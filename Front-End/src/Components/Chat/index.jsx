@@ -3,9 +3,33 @@ import "firebase/firestore";
 import { doc, getDocs, collection, setDoc, getDoc } from "firebase/firestore";
 import { app, auth, storage, db } from "../../Utils/Firebase/Firebase";
 import { useState } from "react";
+import generateDocId from "../../Utils/MyFunctions/generateDocId";
+import { useEffect } from "react";
 
 const Chat = (props) => {
-  const [chatText, setChatText] = useState("Iniciar Chat");
+  const [chatText, setChatText] = useState("Carregando Status");
+  const [chatRoomStatus, setChatRoomStatus] = useState(false);
+
+  const docUserChatRef = doc(
+    db,
+    "usersChat",
+    `${props.viewerType}:${props.viewer}`
+  );
+  const docChatRoomRef = doc(
+    db,
+    "chats",
+    generateDocId(props.viewer, props.visualized)
+  );
+
+  const verifyChatRoomStatus = async () => {
+    const docSnap = await getDoc(docChatRoomRef);
+    if (docSnap.data()) {
+      setChatText("Abrir Chat");
+    } else {
+      setChatText("Iniciar Chat");
+    }
+  };
+
   const getDocsTensor = async () => {
     // const colRef = collection(db, "chats");
     // try {
@@ -17,11 +41,10 @@ const Chat = (props) => {
     //   console.log(err);
     // }
 
-    const docRef = doc(db, "usersChat", `${props.viewerType}:${props.viewer}`);
     try {
-      const docSnap = await getDoc(docRef);
+      const docSnap = await getDoc(docUserChatRef);
       if (!docSnap.data()) {
-        await setDoc(docRef, {
+        await setDoc(docUserChatRef, {
           id: props.viewer,
           timestamp: Date.now(),
           // TESTE: [
@@ -30,23 +53,25 @@ const Chat = (props) => {
           // ],
         });
       }
+
+      const docChatRoom = await getDoc(docChatRoomRef);
+      if (!docChatRoom.data()) {
+        await setDoc(docChatRoomRef, {
+          User1: `${props.viewerType}:${props.viewer}`,
+          User2: `${props.visualizedType}:${props.visualized}`,
+          timestamp: Date.now(),
+          messages: [],
+        });
+      }
+      setChatText("Abrir Chat");
     } catch (err) {
       console.log(err);
     }
-
-    // try {
-    //   await setDoc(doc(db, "users", `${type}:${user}`), {
-    //     id: user,
-    //     timestamp: Date.now(),
-    //     // TESTE: [
-    //     //   { data: "data", datadois: "dataDois" },
-    //     //   { data: "data", datatres: "datatres" },
-    //     // ],
-    //   });
-    // } catch (err) {
-    //   console.log(err);
-    // }
   };
+
+  useEffect(() => {
+    verifyChatRoomStatus();
+  });
 
   return <button onClick={getDocsTensor}>{chatText}</button>;
 };

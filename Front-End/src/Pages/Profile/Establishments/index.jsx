@@ -134,7 +134,7 @@ const ProfileEstablishments = () => {
           viewer={viewer}
           viewerType={viewerType}
           visualized={visualized}
-          visualizedType="Establishment"
+          visualizedType="establishments"
         />
       )}
 
