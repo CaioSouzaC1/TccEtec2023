@@ -6,7 +6,9 @@ module.exports = {
       colors: {
         "f-red": "#da0037",
         "s-red": "#b0002c",
-        "f-black": "#242424",
+        "f-black": "#171717",
+        "s-black": "#242424",
+        "f-gray": "#444444",
       },
     },
   },

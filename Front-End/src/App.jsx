@@ -37,7 +37,7 @@ function App() {
   }, [location]);
 
   return (
-    <>
+    <main className="container mx-auto">
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -96,7 +96,7 @@ function App() {
         <Route path="*" element={<div>pagina 404</div>} />
       </Routes>
       <Footer />
-    </>
+    </main>
   );
 }
 

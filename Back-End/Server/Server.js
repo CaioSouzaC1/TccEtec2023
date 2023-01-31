@@ -639,6 +639,22 @@ router.get("/pubId-to-Id", async (req, res) => {
     res.sendStatus(400);
   }
 });
+
+router.post("/sub-newsletter", async (req, res) => {
+  try {
+    const userToNewsletter = await prisma.Newsletter.create({
+      data: {
+        email: req.body.email,
+      },
+    });
+    if (userToNewsletter) {
+      res.sendStatus(200);
+    }
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+});
 /*END - Util Endpoints*/
 
 /*START - App Listen Configurations*/

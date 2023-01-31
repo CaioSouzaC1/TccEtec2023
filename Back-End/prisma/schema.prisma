@@ -70,3 +70,6 @@ model EstablishmentsMeta {
   profileViews Int @default(0)
   updatedAt DateTime @default(now())
 }
+model Newsletter {
+  email String @unique
+}
