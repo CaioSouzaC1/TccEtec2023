@@ -9,6 +9,7 @@ import ThePageText from "../../Components/ThePageText";
 import ButtonLogout from "../../Components/ButtonLogout";
 import ProfileImage from "../../Components/ProfileImage";
 import { UserContext } from "../../Contexts/User";
+import ChatRoom from "../../Components/ChatRoom";
 
 const Feed = () => {
   const [lastPlacesState, setLastPlacesState] = useState(false);
@@ -107,6 +108,8 @@ const Feed = () => {
       <Link to="/meus-eventos">
         <Button text="Meus Eventos"></Button>
       </Link>
+      <br />
+      {/* <ChatRoom /> */}
       <br />
       <ButtonLogout />
     </>

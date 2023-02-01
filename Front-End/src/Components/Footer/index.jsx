@@ -12,37 +12,13 @@ import Button from "../Button/Button";
 import selectValue from "../../Utils/MyFunctions/selectValue";
 import setValueNull from "../../Utils/MyFunctions/setValueNull";
 import { ToastContainer } from "react-toastify";
-import successFy from "../../Utils/Toastify/successFy";
-import errorFy from "../../Utils/Toastify/errorFy";
 
 const Footer = () => {
-  const subNewsletter = async (e) => {
+  const subNewsletter = (e) => {
     e.preventDefault();
-    try {
-      const emailNewsletter = selectValue(".textNewsletter");
-      let createSubNewsletter = await fetch(
-        "http://127.0.0.1:3333/sub-newsletter",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: emailNewsletter,
-          }),
-        }
-      );
-      if (createSubNewsletter.status === 200) {
-        successFy("Você receberá nossas atualizações :)");
-      } else if (createSubNewsletter.status === 400) {
-        errorFy("Email já cadastrado");
-      }
-      setValueNull(".textNewsletter");
-    } catch (err) {
-      console.log(err);
-      errorFy(err.message);
-    }
+    const emailNewsletter = selectValue(".textNewsletter");
+    console.log(emailNewsletter);
+    setValueNull(".textNewsletter");
   };
 
   return (
