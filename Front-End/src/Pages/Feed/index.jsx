@@ -13,6 +13,7 @@ import ChatRoom from "../../Components/ChatRoom";
 
 const Feed = () => {
   const [lastPlacesState, setLastPlacesState] = useState(false);
+  const [showChatRoom, setShowChatRoom] = useState(false);
   const stateRef = useRef(null);
   const navigate = useNavigate();
   const { auth, user, type } = useContext(UserContext);
@@ -109,7 +110,12 @@ const Feed = () => {
         <Button text="Meus Eventos"></Button>
       </Link>
       <br />
-      {/* <ChatRoom /> */}
+      {/* <button onClick={() => setShowChatRoom(!showChatRoom)}>
+        {showChatRoom ? "Fechar chat Room" : "Abrir Chat Room"}
+      </button>
+      <br />
+      {showChatRoom && <ChatRoom user={user} type={type} />} */}
+
       <br />
       <ButtonLogout />
     </>

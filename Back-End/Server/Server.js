@@ -640,6 +640,38 @@ router.get("/pubId-to-Id", async (req, res) => {
   }
 });
 
+router.get("/Id-to-pubId", async (req, res) => {
+  try {
+    const id = Buffer.from(req.headers.authorization, "base64").toString();
+
+    let login = await prisma.Artists.findFirst({
+      where: {
+        id: id,
+      },
+      select: {
+        pubId: true,
+      },
+    });
+
+    if (!login) {
+      login = await prisma.Establishments.findFirst({
+        where: {
+          id: id,
+        },
+        select: {
+          pubId: true,
+        },
+      });
+      if (!login) {
+        res.sendStatus(404);
+      }
+    }
+    res.json(login);
+  } catch (err) {
+    res.sendStatus(400);
+  }
+});
+
 router.post("/sub-newsletter", async (req, res) => {
   try {
     const userToNewsletter = await prisma.Newsletter.create({

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import OtherUserMessage from "./OtherUserMessage";
 import MyMessage from "./MyMessage";
 
-const ChatRoom = () => {
+const ChatRoom = (props) => {
   const [message, setMessage] = useState("");
 
   const handleSubmit = (event) => {
@@ -11,24 +11,48 @@ const ChatRoom = () => {
   };
 
   return (
-    <div className="max-w-sm mx-auto">
+    <div className="md:max-w-sm mx-auto w-full h-screen flex flex-col justify-center">
       <div className="text-center p-4 bg-s-black text-f-red ">
         <h1 className="text-2xl font-bold">Chat Room</h1>
       </div>
 
-      <main className="p-4 overflow-y-scroll h-64">
+      <main className="p-4 overflow-y-scroll h-3/4">
         <OtherUserMessage></OtherUserMessage>
         <OtherUserMessage></OtherUserMessage>
-        <MyMessage></MyMessage>
-        <MyMessage></MyMessage>
+        <MyMessage
+          text={"Messagge Content"}
+          type={props.type}
+          user={props.user}
+        />
+        <MyMessage
+          text={"Messagge Content"}
+          type={props.type}
+          user={props.user}
+        />
         <OtherUserMessage></OtherUserMessage>
-        <MyMessage></MyMessage>
+        <MyMessage
+          text={"Messagge Content"}
+          type={props.type}
+          user={props.user}
+        />
         <OtherUserMessage></OtherUserMessage>
-        <MyMessage></MyMessage>
+        <MyMessage
+          text={"Messagge Content"}
+          type={props.type}
+          user={props.user}
+        />
         <OtherUserMessage></OtherUserMessage>
         <OtherUserMessage></OtherUserMessage>
-        <MyMessage></MyMessage>
-        <MyMessage></MyMessage>
+        <MyMessage
+          text={"Messagge Content"}
+          type={props.type}
+          user={props.user}
+        />
+        <MyMessage
+          text={"Messagge Content"}
+          type={props.type}
+          user={props.user}
+        />
         <OtherUserMessage></OtherUserMessage>
         <OtherUserMessage></OtherUserMessage>
       </main>
