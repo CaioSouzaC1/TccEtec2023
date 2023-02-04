@@ -5,10 +5,12 @@ import { app, auth, storage, db } from "../../Utils/Firebase/Firebase";
 import { useState } from "react";
 import generateDocId from "../../Utils/MyFunctions/generateDocId";
 import { useEffect } from "react";
+import ChatRoom from "../ChatRoom";
 
 const Chat = (props) => {
   const [chatText, setChatText] = useState("Carregando Status");
   const [chatRoomStatus, setChatRoomStatus] = useState(false);
+  const [showChatRoom, setShowChatRoom] = useState(false);
 
   const docUserChatRef = doc(
     db,
@@ -31,16 +33,6 @@ const Chat = (props) => {
   };
 
   const getDocsTensor = async () => {
-    // const colRef = collection(db, "chats");
-    // try {
-    //   const docsSnapTwo = await getDocs(colRef);
-    //   docsSnapTwo.forEach((doc) => {
-    //     console.log(doc.data());
-    //   });
-    // } catch (err) {
-    //   console.log(err);
-    // }
-
     try {
       const docSnap = await getDoc(docUserChatRef);
       if (!docSnap.data()) {
@@ -64,6 +56,7 @@ const Chat = (props) => {
         });
       }
       setChatText("Abrir Chat");
+      setShowChatRoom(true);
     } catch (err) {
       console.log(err);
     }
@@ -73,7 +66,20 @@ const Chat = (props) => {
     verifyChatRoomStatus();
   });
 
-  return <button onClick={getDocsTensor}>{chatText}</button>;
+  return (
+    <>
+      {" "}
+      <button onClick={getDocsTensor}>{chatText}</button>
+      {showChatRoom && (
+        <ChatRoom
+          user={props.viewer}
+          type={props.viewerType}
+          visualized={props.visualized}
+          visualizedType={props.visualizedType}
+        />
+      )}
+    </>
+  );
 };
 
 export default Chat;

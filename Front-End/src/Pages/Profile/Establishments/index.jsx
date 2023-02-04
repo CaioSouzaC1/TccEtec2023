@@ -12,7 +12,6 @@ import stoningData from "../../../Utils/MyFunctions/stoningData";
 import ProfileImage from "../../../Components/ProfileImage";
 import Chat from "../../../Components/Chat";
 import { Buffer } from "buffer";
-import ChatRoom from "../../../Components/ChatRoom";
 
 const ProfileEstablishments = () => {
   let { id } = useParams();
@@ -22,7 +21,6 @@ const ProfileEstablishments = () => {
   const [viewer, setViewer] = useState(false);
   const [viewerType, setViewerType] = useState(false);
   const [visualized, setVisualized] = useState(false);
-  const [showChatRoom, setShowChatRoom] = useState(false);
   const stateRef = useRef(null);
 
   useEffect(() => {
@@ -123,9 +121,7 @@ const ProfileEstablishments = () => {
           </h2>
         </>
       )}
-
       <h2>{estableshimentData == false && `Estabelecimento não encontrado`}</h2>
-
       {eventButton && (
         <button onClick={createEvent}>Quero me apresentar aqui</button>
       )}
@@ -141,13 +137,6 @@ const ProfileEstablishments = () => {
             visualizedType="establishments"
           />
           <br />
-
-          <br />
-          <button onClick={() => setShowChatRoom(!showChatRoom)}>
-            {showChatRoom ? "Fechar chat Room" : "Abrir Chat Room"}
-          </button>
-          <br />
-          {showChatRoom && <ChatRoom user={user} type={type} />}
         </>
       )}
 
