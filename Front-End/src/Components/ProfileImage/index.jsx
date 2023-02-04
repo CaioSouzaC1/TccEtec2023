@@ -5,8 +5,7 @@ const ProfileImage = (props) => {
   const randomColor = Math.floor(Math.random() * BackgroundColors.length);
 
   const [image, setImage] = useState(false);
-  const widthAndHeight = props.wah ? props.wah : 48;
-  const widthAndHeightMax = props.wahm ? props.wahm : 12;
+
   const getImage = async () => {
     if (props.type == "Establishment") {
       try {
@@ -39,7 +38,13 @@ const ProfileImage = (props) => {
     <>
       {image && image.status == 200 && (
         <img
-          className={`rounded-full object-cover bg-cover m-auto h-${widthAndHeight} w-${widthAndHeight} max-w-[${widthAndHeightMax}em] min-h-[${widthAndHeightMax}em]`}
+          className={`
+          rounded-full object-cover bg-cover m-auto
+          h-${props.wah ? props.wah : "48"}
+          w-${props.wah ? props.wah : "48"}
+          max-w-${props.wahm ? props.wahm : "192"}
+          min-h-${props.wahm ? props.wahm : "192"}
+          `}
           src={image.url}
           alt=""
         />
@@ -47,7 +52,13 @@ const ProfileImage = (props) => {
       {!image ||
         (image.status == 404 && (
           <div
-            className={`rounded-full object-cover bg-cover m-auto h-${widthAndHeight} w-${widthAndHeight} max-w-[${widthAndHeightMax}em] min-h-[${widthAndHeightMax}em]`}
+            className={`
+            rounded-full object-cover bg-cover m-auto
+            h-${props.wah ? props.wah : "48"}
+            w-${props.wah ? props.wah : "48"}
+            max-w-${props.wahm ? props.wahm : "192"}
+            min-h-${props.wahm ? props.wahm : "192"}
+            `}
           >
             <div
               className={`${BackgroundColors[randomColor]} h-full rounded-full flex justify-center items-center text-4xl font-semibold`}

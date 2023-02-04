@@ -9,11 +9,10 @@ import ThePageText from "../../Components/ThePageText";
 import ButtonLogout from "../../Components/ButtonLogout";
 import ProfileImage from "../../Components/ProfileImage";
 import { UserContext } from "../../Contexts/User";
-import ChatRoom from "../../Components/ChatRoom";
 
 const Feed = () => {
   const [lastPlacesState, setLastPlacesState] = useState(false);
-  const [showChatRoom, setShowChatRoom] = useState(false);
+
   const stateRef = useRef(null);
   const navigate = useNavigate();
   const { auth, user, type } = useContext(UserContext);
@@ -89,7 +88,6 @@ const Feed = () => {
             return (
               <div key={e.pubId} className="item text-center">
                 <ProfileImage
-                  size={3}
                   name={e.name}
                   pubId={e.pubId}
                   type={"Establishment"}
@@ -109,13 +107,6 @@ const Feed = () => {
       <Link to="/meus-eventos">
         <Button text="Meus Eventos"></Button>
       </Link>
-      <br />
-      {/* <button onClick={() => setShowChatRoom(!showChatRoom)}>
-        {showChatRoom ? "Fechar chat Room" : "Abrir Chat Room"}
-      </button>
-      <br />
-      {showChatRoom && <ChatRoom user={user} type={type} />} */}
-
       <br />
       <ButtonLogout />
     </>

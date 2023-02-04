@@ -12,6 +12,7 @@ import stoningData from "../../../Utils/MyFunctions/stoningData";
 import ProfileImage from "../../../Components/ProfileImage";
 import Chat from "../../../Components/Chat";
 import { Buffer } from "buffer";
+import ChatRoom from "../../../Components/ChatRoom";
 
 const ProfileEstablishments = () => {
   let { id } = useParams();
@@ -21,6 +22,7 @@ const ProfileEstablishments = () => {
   const [viewer, setViewer] = useState(false);
   const [viewerType, setViewerType] = useState(false);
   const [visualized, setVisualized] = useState(false);
+  const [showChatRoom, setShowChatRoom] = useState(false);
   const stateRef = useRef(null);
 
   useEffect(() => {
@@ -129,13 +131,24 @@ const ProfileEstablishments = () => {
       )}
 
       <br />
+      <br />
       {viewer && viewerType && (
-        <Chat
-          viewer={viewer}
-          viewerType={viewerType}
-          visualized={visualized}
-          visualizedType="establishments"
-        />
+        <>
+          <Chat
+            viewer={viewer}
+            viewerType={viewerType}
+            visualized={visualized}
+            visualizedType="establishments"
+          />
+          <br />
+
+          <br />
+          <button onClick={() => setShowChatRoom(!showChatRoom)}>
+            {showChatRoom ? "Fechar chat Room" : "Abrir Chat Room"}
+          </button>
+          <br />
+          {showChatRoom && <ChatRoom user={user} type={type} />}
+        </>
       )}
 
       <br />
