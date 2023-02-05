@@ -1,19 +1,39 @@
 import React, { useEffect, useState } from "react";
 import OtherUserMessage from "./OtherUserMessage";
 import MyMessage from "./MyMessage";
-import { collection, getDocs, getDoc, where, query } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  where,
+  query,
+  updateDoc,
+  arrayUnion,
+  doc,
+} from "firebase/firestore";
 import { app, auth, storage, db } from "../../Utils/Firebase/Firebase";
+import selectValue from "../../Utils/MyFunctions/selectValue";
+import setValueNull from "../../Utils/MyFunctions/setValueNull";
 
 const ChatRoom = (props) => {
-  const [message, setMessage] = useState("");
+  const [chatDocId, setChatDocId] = useState(false);
+  const [chatData, setChatData] = useState(false);
+  const colRef = collection(db, "chats");
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(message);
+  const handleSubmit = async (event) => {
+    try {
+      event.preventDefault();
+      const userChatRet = doc(colRef, chatDocId);
+      const message = selectValue("#chatInput");
+      await updateDoc(userChatRet, {
+        messages: arrayUnion(`${props.type}:${props.user}:#:${message}`),
+      });
+      setValueNull("#chatInput");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const getMessages = async () => {
-    const colRef = collection(db, "chats");
     try {
       const docsSnapTwo = query(
         colRef,
@@ -23,14 +43,31 @@ const ChatRoom = (props) => {
 
       const querySnapshot = await getDocs(docsSnapTwo);
       querySnapshot.forEach((doc) => {
-        console.log(doc.id, " => ", doc.data());
+        setChatDocId(doc.id);
+        setChatData(doc.data());
       });
-      // docsSnapTwo.forEach((doc) => {
-      //   console.log(doc.data());
-      // });
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const testeFunc = () => {
+    if (!chatData) {
+      return;
+    }
+    return chatData.messages.map((e) => {
+      const splitData = e.split(":#:");
+
+      if (splitData[0] == `${props.type}:${props.user}`) {
+        return (
+          <MyMessage
+            text={`${splitData[1]}`}
+            type={props.type}
+            user={props.user}
+          />
+        );
+      }
+    });
   };
 
   useEffect(() => {
@@ -44,6 +81,7 @@ const ChatRoom = (props) => {
       </div>
 
       <main className="p-4 overflow-y-scroll h-3/4">
+        {testeFunc()}
         {/* <MyMessage
           text={"Messagge Content"}
           type={props.type}
@@ -55,11 +93,10 @@ const ChatRoom = (props) => {
       <div className="p-4 bg-s-black">
         <form onSubmit={handleSubmit} className="rounded-xl overflow-hidden">
           <input
+            id="chatInput"
             className="w-4/5 p-2 border border-f-black"
             type="text"
             placeholder="Digite uma mensagem"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
           />
           <button className="w-1/5 p-2 bg-f-black text-white">Send</button>
         </form>

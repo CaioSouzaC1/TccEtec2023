@@ -27,7 +27,7 @@ const MyMessage = (props) => {
   return (
     <div className="flex items-center mb-6 mt-6 text-right ">
       <div className="flex-1 rounded-lg">
-        <p className="text-sm text-f-gray mr-4">Message content</p>
+        <p className="text-sm text-f-gray mr-4">{props.text}</p>
       </div>
       {pubIdToImage ? (
         <ProfileImage

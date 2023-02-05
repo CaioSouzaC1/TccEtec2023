@@ -4,3 +4,6 @@
 --- Feed quebrou ao voltar do carrossel de estabs
 --- Continuar chat, criando UserChats automático caso n exista 
 --- No load das infos dos Perfis, deixar un loader (Atual exibindo não encontrado) 
+--- Verificar a mensagem antes de salvar (Retirar o split caso exista na string)
+--- Colocar a feature de chat no perfil de artista
+--- Fazer a validação no componente de chat (where user1 or user2 is equals my type and id)
