@@ -7,7 +7,7 @@ const OtherUserMessage = (props) => {
         alt="Avatar"
       />
       <div className="flex-1">
-        <p className="text-sm text-f-gray">Message content</p>
+        <p className="text-sm text-f-gray">{props.text}</p>
       </div>
     </div>
   );

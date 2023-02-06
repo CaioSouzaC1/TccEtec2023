@@ -35,17 +35,34 @@ const ChatRoom = (props) => {
 
   const getMessages = async () => {
     try {
-      const docsSnapTwo = query(
+      const queryChat01 = query(
         colRef,
         where("User1", "==", `${props.type}:${props.user}`),
         where("User2", "==", `${props.visualizedType}:${props.visualized}`)
       );
 
-      const querySnapshot = await getDocs(docsSnapTwo);
-      querySnapshot.forEach((doc) => {
+      const queryChat02 = query(
+        colRef,
+        where("User2", "==", `${props.type}:${props.user}`),
+        where("User1", "==", `${props.visualizedType}:${props.visualized}`)
+      );
+
+     const resultQuery01 = await getDocs(queryChat01);
+     const resultQuery02 = await getDocs(queryChat02);
+     if (resultQuery01.docs.length > 0 ) {
+      resultQuery01.forEach((doc) => {
         setChatDocId(doc.id);
         setChatData(doc.data());
       });
+     }
+
+     if (resultQuery02.docs.length > 0 ) {
+      resultQuery02.forEach((doc) => {
+        setChatDocId(doc.id);
+        setChatData(doc.data());
+      });
+     }
+     
     } catch (err) {
       console.log(err);
     }
@@ -64,6 +81,15 @@ const ChatRoom = (props) => {
             text={`${splitData[1]}`}
             type={props.type}
             user={props.user}
+          />
+        );
+      }
+      if (splitData[0] == `${props.visualizedType}:${props.visualized}`) {
+        return (
+          <OtherUserMessage 
+          text={`${splitData[1]}`}
+          type={props.visualizedType}
+          user={props.visualized}
           />
         );
       }
