@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import OtherUserMessage from "./OtherUserMessage";
 import MyMessage from "./MyMessage";
 import {
@@ -9,15 +9,25 @@ import {
   updateDoc,
   arrayUnion,
   doc,
+  onSnapshot,
 } from "firebase/firestore";
-import { app, auth, storage, db } from "../../Utils/Firebase/Firebase";
+import { db } from "../../Utils/Firebase/Firebase";
 import selectValue from "../../Utils/MyFunctions/selectValue";
 import setValueNull from "../../Utils/MyFunctions/setValueNull";
 
 const ChatRoom = (props) => {
-  const [chatDocId, setChatDocId] = useState(false);
-  const [chatData, setChatData] = useState(false);
+  const chatDocId = props.chatId;
+  const [data, setData] = useState(doc(db, "chats", chatDocId));
+  const stateRef = useRef(null);
   const colRef = collection(db, "chats");
+
+  useEffect(
+    () =>
+      onSnapshot(doc(db, "chats", chatDocId), (snapshot) =>
+        setData(snapshot.data())
+      ),
+    []
+  );
 
   const handleSubmit = async (event) => {
     try {
@@ -33,72 +43,39 @@ const ChatRoom = (props) => {
     }
   };
 
-  const getMessages = async () => {
+  const renderMessages = () => {
+    if (!data) {
+      return <p>Carregando</p>;
+    }
     try {
-      const queryChat01 = query(
-        colRef,
-        where("User1", "==", `${props.type}:${props.user}`),
-        where("User2", "==", `${props.visualizedType}:${props.visualized}`)
-      );
+      return data.messages.map((e, i) => {
+        const splitData = e.split(":#:");
 
-      const queryChat02 = query(
-        colRef,
-        where("User2", "==", `${props.type}:${props.user}`),
-        where("User1", "==", `${props.visualizedType}:${props.visualized}`)
-      );
-
-     const resultQuery01 = await getDocs(queryChat01);
-     const resultQuery02 = await getDocs(queryChat02);
-     if (resultQuery01.docs.length > 0 ) {
-      resultQuery01.forEach((doc) => {
-        setChatDocId(doc.id);
-        setChatData(doc.data());
+        if (splitData[0] == `${props.type}:${props.user}`) {
+          return (
+            <MyMessage
+              key={`Key${i}`}
+              text={`${splitData[1]}`}
+              type={props.type}
+              user={props.user}
+            />
+          );
+        }
+        if (splitData[0] == `${props.visualizedType}:${props.visualized}`) {
+          return (
+            <OtherUserMessage
+              key={`Key${i}`}
+              text={`${splitData[1]}`}
+              type={props.visualizedType}
+              user={props.visualized}
+            />
+          );
+        }
       });
-     }
-
-     if (resultQuery02.docs.length > 0 ) {
-      resultQuery02.forEach((doc) => {
-        setChatDocId(doc.id);
-        setChatData(doc.data());
-      });
-     }
-     
     } catch (err) {
       console.log(err);
     }
   };
-
-  const testeFunc = () => {
-    if (!chatData) {
-      return;
-    }
-    return chatData.messages.map((e) => {
-      const splitData = e.split(":#:");
-
-      if (splitData[0] == `${props.type}:${props.user}`) {
-        return (
-          <MyMessage
-            text={`${splitData[1]}`}
-            type={props.type}
-            user={props.user}
-          />
-        );
-      }
-      if (splitData[0] == `${props.visualizedType}:${props.visualized}`) {
-        return (
-          <OtherUserMessage 
-          text={`${splitData[1]}`}
-          type={props.visualizedType}
-          user={props.visualized}
-          />
-        );
-      }
-    });
-  };
-
-  useEffect(() => {
-    getMessages();
-  });
 
   return (
     <div className="md:max-w-sm mx-auto w-full h-screen flex flex-col justify-center">
@@ -106,15 +83,7 @@ const ChatRoom = (props) => {
         <h1 className="text-2xl font-bold">Chat Room</h1>
       </div>
 
-      <main className="p-4 overflow-y-scroll h-3/4">
-        {testeFunc()}
-        {/* <MyMessage
-          text={"Messagge Content"}
-          type={props.type}
-          user={props.user}
-        />
-        <OtherUserMessage></OtherUserMessage> */}
-      </main>
+      <main className="p-4 overflow-y-scroll h-3/4">{renderMessages()}</main>
 
       <div className="p-4 bg-s-black">
         <form onSubmit={handleSubmit} className="rounded-xl overflow-hidden">

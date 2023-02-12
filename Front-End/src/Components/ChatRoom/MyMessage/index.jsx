@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { Buffer } from "buffer";
 import ProfileImage from "../../ProfileImage";
 import { useState } from "react";
+import ChatImage from "../../ChatImage";
 
 const MyMessage = (props) => {
   const [pubIdToImage, setPubIdToImage] = useState(false);
@@ -30,9 +31,9 @@ const MyMessage = (props) => {
         <p className="text-sm text-f-gray mr-4">{props.text}</p>
       </div>
       {pubIdToImage ? (
-        <ProfileImage
+        <ChatImage
           pubId={pubIdToImage}
-          type={"Artists"}
+          type={props.type}
           name="!"
           wah={"8"}
           wahm={"0"}

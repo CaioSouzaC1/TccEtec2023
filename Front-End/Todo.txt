@@ -7,3 +7,4 @@
 --- Verificar a mensagem antes de salvar (Retirar o split caso exista na string)
 --- Colocar a feature de chat no perfil de artista
 --- Fazer a validação no componente de chat (where user1 or user2 is equals my type and id)
+--- Padronizar retornos (EX: Establishment/establishments)

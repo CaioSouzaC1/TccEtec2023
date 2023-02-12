@@ -1,6 +1,14 @@
 import "firebase/auth";
 import "firebase/firestore";
-import { doc, getDocs, collection, setDoc, getDoc, query, where} from "firebase/firestore";
+import {
+  doc,
+  getDocs,
+  collection,
+  setDoc,
+  getDoc,
+  query,
+  where,
+} from "firebase/firestore";
 import { app, auth, storage, db } from "../../Utils/Firebase/Firebase";
 import { useState } from "react";
 import generateDocId from "../../Utils/MyFunctions/generateDocId";
@@ -11,6 +19,9 @@ const Chat = (props) => {
   const [chatText, setChatText] = useState("Carregando Status");
   const [chatRoomStatus, setChatRoomStatus] = useState(false);
   const [showChatRoom, setShowChatRoom] = useState(false);
+  const [chatId, setChatId] = useState(
+    generateDocId(props.viewer, props.visualized)
+  );
   const colRef = collection(db, "chats");
   const docUserChatRef = doc(
     db,
@@ -51,24 +62,26 @@ const Chat = (props) => {
         where("User1", "==", `${props.viewerType}:${props.viewer}`),
         where("User2", "==", `${props.visualizedType}:${props.visualized}`)
       );
- 
+
       const queryChat02 = query(
         colRef,
         where("User1", "==", `${props.visualizedType}:${props.visualized}`),
         where("User2", "==", `${props.viewerType}:${props.viewer}`)
       );
 
-     const resultQuery01 = await getDocs(queryChat01);
-     const resultQuery02 = await getDocs(queryChat02);
+      const resultQuery01 = await getDocs(queryChat01);
+      const resultQuery02 = await getDocs(queryChat02);
 
-      console.log(resultQuery01);
-      console.log(resultQuery02);
-     
-      console.log(resultQuery01.docs.length)
-      console.log(resultQuery02.docs.length)
+      if (resultQuery01.docs.length != 0) {
+        setChatId(resultQuery01.docs[0].id);
+      }
 
-     if (resultQuery01.docs.length == 0 && resultQuery02.docs.length == 0 ) {
-      await setDoc(docChatRoomRef, {
+      if (resultQuery02.docs.length != 0) {
+        setChatId(resultQuery02.docs[0].id);
+      }
+
+      if (resultQuery01.docs.length == 0 && resultQuery02.docs.length == 0) {
+        await setDoc(docChatRoomRef, {
           User1: `${props.viewerType}:${props.viewer}`,
           User2: `${props.visualizedType}:${props.visualized}`,
           timestamp: Date.now(),
@@ -92,6 +105,7 @@ const Chat = (props) => {
       <button onClick={getDocsTensor}>{chatText}</button>
       {showChatRoom && (
         <ChatRoom
+          chatId={chatId}
           user={props.viewer}
           type={props.viewerType}
           visualized={props.visualized}
