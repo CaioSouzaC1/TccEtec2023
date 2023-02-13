@@ -17,7 +17,7 @@ const ChatImage = (props) => {
         console.log(err);
       }
     }
-    if (props.type == "artists") {
+    if (props.type == "artist") {
       try {
         const img = await fetch(`
             http://localhost:3333/Artists/ArtistProfileImage-${props.pubId}.jpg`);
