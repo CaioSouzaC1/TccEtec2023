@@ -14,6 +14,7 @@ import {
 import { db } from "../../Utils/Firebase/Firebase";
 import selectValue from "../../Utils/MyFunctions/selectValue";
 import setValueNull from "../../Utils/MyFunctions/setValueNull";
+import { CalendarPlus, PaperPlaneRight } from "phosphor-react";
 
 const ChatRoom = (props) => {
   const chatDocId = props.chatId;
@@ -86,14 +87,23 @@ const ChatRoom = (props) => {
       <main className="p-4 overflow-y-scroll h-3/4">{renderMessages()}</main>
 
       <div className="p-4 bg-s-black">
-        <form onSubmit={handleSubmit} className="rounded-xl overflow-hidden">
+        <form
+          onSubmit={handleSubmit}
+          className="rounded-xl overflow-hidden flex flex-wrap justify-between"
+        >
+          <div className="p-2 border border-f-red hover:bg-s-red rounded-full text-white bg-s-gray transition-all cursor-pointer">
+            <CalendarPlus size={24} />
+          </div>
           <input
             id="chatInput"
-            className="w-4/5 p-2 border border-f-black"
+            required
+            className="w-4/6 sm:w-5/6 md:w-4/6 p-2 border placeholder:text-white focus:placeholder:text-f-red bg-s-black border-white focus:border-s-red focus:outline-none focus:shadow-outline rounded-md"
             type="text"
             placeholder="Digite uma mensagem"
           />
-          <button className="w-1/5 p-2 bg-f-black text-white">Send</button>
+          <button className="p-2 border border-f-red hover:bg-s-red rounded-full text-white bg-s-gray transition-all cursor-pointer">
+            <PaperPlaneRight size={24} />
+          </button>
         </form>
       </div>
     </div>
