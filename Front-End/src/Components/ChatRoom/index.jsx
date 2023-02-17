@@ -21,6 +21,7 @@ const ChatRoom = (props) => {
   const [data, setData] = useState(doc(db, "chats", chatDocId));
   const stateRef = useRef(null);
   const colRef = collection(db, "chats");
+  const chatContainerRef = useRef(null);
 
   useEffect(
     () =>
@@ -30,13 +31,20 @@ const ChatRoom = (props) => {
     []
   );
 
+  useEffect(() => {
+    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+  }, [data]);
+
   const handleSubmit = async (event) => {
     try {
       event.preventDefault();
       const userChatRet = doc(colRef, chatDocId);
       const message = selectValue("#chatInput");
+      const timestamp = new Date().getTime();
       await updateDoc(userChatRet, {
-        messages: arrayUnion(`${props.type}:${props.user}:#:${message}`),
+        messages: arrayUnion(
+          `${props.type}:${props.user}:#:${message}:#:${timestamp}`
+        ),
       });
       setValueNull("#chatInput");
     } catch (err) {
@@ -84,7 +92,9 @@ const ChatRoom = (props) => {
         <h1 className="text-2xl font-bold">Chat Room</h1>
       </div>
 
-      <main className="p-4 overflow-y-scroll h-3/4">{renderMessages()}</main>
+      <main ref={chatContainerRef} className="p-4 overflow-y-scroll h-3/4 ">
+        {renderMessages()}
+      </main>
 
       <div className="p-4 bg-s-black">
         <form
