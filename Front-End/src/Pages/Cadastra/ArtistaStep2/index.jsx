@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { useEffect } from "react";
 
@@ -14,6 +14,8 @@ import setValueNull from "../../../Utils/MyFunctions/setValueNull";
 import ButtonBack from "../../../Components/ButtonBack";
 import arrayReplace from "../../../Utils/MyFunctions/arrayReplace";
 import ThePageText from "../../../Components/ThePageText";
+import ButtonAdvance from "../../../Components/ButtonAdvance";
+import { Note, User, UserFocus, WhatsappLogo } from "phosphor-react";
 
 const CreateAccArtistaStepTwo = () => {
   //To Do: Não deixar o form enviável após o envio
@@ -87,33 +89,58 @@ const CreateAccArtistaStepTwo = () => {
   return (
     <>
       <ThePageText text="Artista Etapa 2" />
-      <form className="Form" onSubmit={sendForm}>
-        <InputText class="Nome" label="Nome" placeholder="Seu nome"></InputText>
-        <br />
+
+      <div className="flex justify-center gap-3">
+        <div className="w-24 h-1 bg-[#ededed] rounded-lg"></div>
+        <div className="w-24 h-1 bg-red-600  rounded-lg"></div>
+      </div>
+
+      <form className="Form mt-10 items-center" onSubmit={sendForm}>
+        <div className="flex justify-center items-center">
+        <User size={30} className="mb-4 text-red-600" />
+        <InputText 
+        class="Nome" 
+        label="Nome" 
+        placeholder="Seu nome"
+        ></InputText>
+        </div>
+        <div className="flex justify-center items-center">
+        <UserFocus size={30} className="mb-4 text-red-600" />  
         <InputText
           class="NomeArtistico"
           label="Nome Artistico"
           placeholder="Seu Nome Artistico"
         ></InputText>
-        <br />
+        </div>
+        <div className="flex justify-center items-center">
+        <WhatsappLogo size={30} className="mb-4 text-red-600" />  
         <InputText
           class="cpf"
           label="CPF"
           placeholder="Seu CPF"
           min="11"
         ></InputText>
-        <br />
+        </div>
+        <div className="flex justify-center items-center">
+        <Note size={30} className="mb-4 text-red-600"/>  
         <InputText
           class="whatsApp"
           label="WhatsApp"
           placeholder="Seu whatsApp"
           min="10"
         ></InputText>
-        <br />
-        <Button text="Enviar"></Button>
+        </div>
+        <div className="flex flex-col items-center">
+        <ButtonAdvance text="Enviar"></ButtonAdvance>
+        </div>
         <ToastContainer />
       </form>
+      <div className="flex justify-center gap-2">
+        <Link to={"../login"}>
+          <Button text="Já possuo conta!"></Button>
+        </Link>
       <ButtonBack />
+      </div>
     </>
   );
 };

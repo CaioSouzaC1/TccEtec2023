@@ -9,6 +9,9 @@ import errorFy from "../../../Utils/Toastify/errorFy";
 import warnFy from "../../../Utils/Toastify/warnFy";
 import ButtonBack from "../../../Components/ButtonBack";
 import ThePageText from "../../../Components/ThePageText";
+import ButtonAdvance from "../../../Components/ButtonAdvance";
+
+import { Envelope, Key } from 'phosphor-react'
 
 const CreateAccArtistaStepOne = () => {
   const [emailsRows, setEmailsRows] = useState(false);
@@ -62,14 +65,22 @@ const CreateAccArtistaStepOne = () => {
   return (
     <>
       <ThePageText text="Artista Etapa 1" />
-      <form className="Form mt-10 flex flex-col gap-0 items-center" onSubmit={emailValidation}>
+      <div className="flex justify-center gap-3">
+        <div className="w-24 h-1 bg-red-600 rounded-lg"></div>
+        <div className="w-24 h-1 bg-[#ededed] rounded-lg"></div>
+      </div>
+      <form className="Form mt-10 items-center" onSubmit={emailValidation}>        
+        <div className="flex justify-center items-center">
+        <Envelope size={30} className="mb-4 text-red-600" />
         <InputText
           type="email"
           class="Email"
           label="Email"
           placeholder="Seu Email"
         ></InputText>
-        
+        </div>
+        <div className="flex justify-center items-center">        
+        <Key size={30} className="mb-4 text-red-600" />
         <InputText
           type="password"
           class="Senha"
@@ -78,7 +89,9 @@ const CreateAccArtistaStepOne = () => {
           min="8"
           max="24"
         ></InputText>
-        
+        </div>
+        <div className="flex justify-center items-center">        
+        <Key size={30} className="mb-4 text-red-600" />
         <InputText
           type="password"
           class="ConfirmaSenha"
@@ -86,14 +99,16 @@ const CreateAccArtistaStepOne = () => {
           placeholder="Confirme sua senha"
           min="8"
           max="24"
-        ></InputText>
-        
-        <Button text="Avançar"></Button>
+        ></InputText>        
+        </div>
+        <div className="flex flex-col items-center">
+        <ButtonAdvance text="Avançar"></ButtonAdvance>
+        </div>
         <ToastContainer />
       </form>
-      <div className="flex justify-center">
+      <div className="flex justify-center gap-2">
       <Link to={"../login"}>
-        <Button text="Já Possuo conta!"></Button>
+        <Button text="Já possuo conta!"></Button>
       </Link>
       <ButtonBack />
       </div>

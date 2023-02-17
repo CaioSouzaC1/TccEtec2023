@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import InputText from "../../../Components/InputText";
 import { ToastContainer } from "react-toastify";
 import Button from "../../../Components/Button/Button";
@@ -10,6 +10,8 @@ import errorFy from "../../../Utils/Toastify/errorFy";
 import ButtonBack from "../../../Components/ButtonBack";
 import successFy from "../../../Utils/Toastify/successFy";
 import ThePageText from "../../../Components/ThePageText";
+import { MapPin, MapPinLine, MapTrifold, Signpost, TagChevron } from "phosphor-react";
+import ButtonAdvance from "../../../Components/ButtonAdvance";
 
 const CreateAccEstableshimentStepThree = () => {
   const { state } = useLocation();
@@ -79,38 +81,67 @@ const CreateAccEstableshimentStepThree = () => {
   return (
     <>
       <ThePageText text="Estabelecimento Etapa 3" />
-      <form className="Form" onSubmit={sendForm}>
+      <div className="flex justify-center gap-3">
+        <div className="w-24 h-1 bg-[#ededed] rounded-lg"></div>
+        <div className="w-24 h-1 bg-[#ededed] rounded-lg"></div>
+        <div className="w-24 h-1 bg-red-600 rounded-lg"></div>
+      </div>
+
+      <form className="Form mt-10 items-center" onSubmit={sendForm}>
+        <div className="flex gap-3">
+        <div className="w-60 flex justify-center items-center">
+        <MapPin size={30} className="mb-4 text-red-600" />  
         <InputText
           class="Cep"
           label="CEP"
           min="8"
           placeholder="00000-000"
         ></InputText>
-        <br />
-        <InputText class="numero" label="Número" placeholder="178"></InputText>
-        <br />
+        </div>
+        <div className="w-32 flex justify-center items-center">
+        <TagChevron size={30} className="mb-4 text-red-600" />  
+        <InputText 
+        class="numero" 
+        label="Número" 
+        placeholder="178"
+        ></InputText>
+        </div>
+        </div>
+        <div className="flex justify-center items-center">
+        <Signpost size={30} className="mb-4 text-red-600" />  
         <InputText
           class="rua"
           label="Logradouro"
           placeholder="Rua Getúlio Vargas"
         ></InputText>
-        <br />
+        </div>
+        <div className="flex justify-center items-center">
+        <MapPinLine size={30} className="mb-4 text-red-600" />  
         <InputText
           class="bairro"
           label="Bairro"
           placeholder="Jardim Paraiso"
         ></InputText>
-        <br />
+        </div>
+        <div className="flex justify-center items-center">
+        <MapTrifold size={30} className="mb-4 text-red-600" />
         <InputText
           class="cidade"
           label="Cidade"
           placeholder="São Paulo"
         ></InputText>
-        <br />
-        <Button text="Enviar"></Button>
+        </div>
+        <div className="flex flex-col items-center">
+        <ButtonAdvance text="Enviar"></ButtonAdvance>
+        </div>
+        <ToastContainer />
       </form>
-      <ToastContainer />
+      <div className="flex justify-center gap-2">
+        <Link to={"../login"}>
+          <Button text="Já tenho conta!"></Button>
+        </Link>
       <ButtonBack />
+      </div>
     </>
   );
 };
