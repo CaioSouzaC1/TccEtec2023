@@ -15,6 +15,7 @@ import { db } from "../../Utils/Firebase/Firebase";
 import selectValue from "../../Utils/MyFunctions/selectValue";
 import setValueNull from "../../Utils/MyFunctions/setValueNull";
 import { CalendarPlus, PaperPlaneRight } from "phosphor-react";
+import NewModal from "../NewModal";
 
 const ChatRoom = (props) => {
   const chatDocId = props.chatId;
@@ -22,6 +23,7 @@ const ChatRoom = (props) => {
   const stateRef = useRef(null);
   const colRef = collection(db, "chats");
   const chatContainerRef = useRef(null);
+  const [modalEvent, setModalEvent] = useState(false);
 
   useEffect(
     () =>
@@ -101,7 +103,10 @@ const ChatRoom = (props) => {
           onSubmit={handleSubmit}
           className="rounded-xl overflow-hidden flex flex-wrap justify-between"
         >
-          <div className="p-2 border border-f-red hover:bg-s-red rounded-full text-white bg-s-gray transition-all cursor-pointer">
+          <div
+            onClick={() => setModalEvent(true)}
+            className="p-2 border border-f-red hover:bg-s-red rounded-full text-white bg-s-gray transition-all cursor-pointer"
+          >
             <CalendarPlus size={24} />
           </div>
           <input
@@ -115,6 +120,12 @@ const ChatRoom = (props) => {
             <PaperPlaneRight size={24} />
           </button>
         </form>
+
+        <NewModal show={modalEvent} callback={setModalEvent}>
+          <form>
+            <h3 className="text-xl font-semibold">Propor um evento?</h3>
+          </form>
+        </NewModal>
       </div>
     </div>
   );
