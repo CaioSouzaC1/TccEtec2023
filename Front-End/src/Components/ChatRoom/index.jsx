@@ -16,6 +16,7 @@ import selectValue from "../../Utils/MyFunctions/selectValue";
 import setValueNull from "../../Utils/MyFunctions/setValueNull";
 import { CalendarPlus, PaperPlaneRight } from "phosphor-react";
 import NewModal from "../NewModal";
+import EventLogic from "./EventLogic";
 
 const ChatRoom = (props) => {
   const chatDocId = props.chatId;
@@ -122,9 +123,7 @@ const ChatRoom = (props) => {
         </form>
 
         <NewModal show={modalEvent} callback={setModalEvent}>
-          <form>
-            <h3 className="text-xl font-semibold">Propor um evento?</h3>
-          </form>
+          <EventLogic chatId={chatDocId}></EventLogic>
         </NewModal>
       </div>
     </div>

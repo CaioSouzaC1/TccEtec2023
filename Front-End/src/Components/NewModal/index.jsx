@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 const NewModal = (props) => {
   return (
     <>
@@ -16,7 +14,7 @@ const NewModal = (props) => {
                     x
                   </span>
                 </button>
-                <div className="p-4 flex-auto">{props.children}</div>
+                <div className="pb-4 px-4 flex-auto">{props.children}</div>
               </div>
             </div>
           </div>
