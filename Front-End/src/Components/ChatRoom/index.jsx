@@ -3,9 +3,6 @@ import OtherUserMessage from "./OtherUserMessage";
 import MyMessage from "./MyMessage";
 import {
   collection,
-  getDocs,
-  where,
-  query,
   updateDoc,
   arrayUnion,
   doc,
@@ -123,7 +120,7 @@ const ChatRoom = (props) => {
         </form>
 
         <NewModal show={modalEvent} callback={setModalEvent}>
-          <EventLogic chatId={chatDocId}></EventLogic>
+          <EventLogic callback={setModalEvent} chatId={chatDocId}></EventLogic>
         </NewModal>
       </div>
     </div>
