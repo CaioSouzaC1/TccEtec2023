@@ -23,6 +23,9 @@ const ChatRoom = (props) => {
   const chatContainerRef = useRef(null);
   const [modalEvent, setModalEvent] = useState(false);
 
+  const userTI = `${props.type}:${props.user}`;
+  const otherTI = `${props.visualizedType}:${props.visualized}`;
+
   useEffect(
     () =>
       onSnapshot(doc(db, "chats", chatDocId), (snapshot) =>
@@ -82,7 +85,7 @@ const ChatRoom = (props) => {
         }
       });
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 
@@ -120,7 +123,12 @@ const ChatRoom = (props) => {
         </form>
 
         <NewModal show={modalEvent} callback={setModalEvent}>
-          <EventLogic callback={setModalEvent} chatId={chatDocId}></EventLogic>
+          <EventLogic
+            userTI={userTI}
+            otherTI={otherTI}
+            callback={setModalEvent}
+            chatId={chatDocId}
+          ></EventLogic>
         </NewModal>
       </div>
     </div>

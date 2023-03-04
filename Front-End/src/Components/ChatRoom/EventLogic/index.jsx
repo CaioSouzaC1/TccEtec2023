@@ -1,18 +1,29 @@
-import { doc, getDoc, getDocs, onSnapshot, setDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
 import { eventTypes } from "../../../Utils/Admin";
 import { db } from "../../../Utils/Firebase/Firebase";
 import selectValue from "../../../Utils/MyFunctions/selectValue";
 import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import successFy from "../../../Utils/Toastify/successFy";
+import verifyJwt from "../../../Utils/Security/verifyJwt";
 const EventLogic = (props) => {
   const today = new Date().toISOString().slice(0, 10);
   const maxDate = new Date();
   maxDate.setDate(maxDate.getDate() + 60);
+  const [userDataByJwt, setUserDataByJwt] = useState(false);
+
+  useEffect(() => {
+    verifyJwt().then((res) => {
+      setUserDataByJwt(res);
+    });
+  }, []);
+
+  console.log(userDataByJwt);
 
   const eventDocRef = doc(db, "events", props.chatId);
 
   const [eventState, setEventState] = useState(false);
+  // const userTIData = `${type}:${user}`;
 
   const verifyEventData = async () => {
     const docSnap = await getDoc(eventDocRef);
@@ -43,6 +54,9 @@ const EventLogic = (props) => {
         init_hour: selectValue("#eventHour"),
         event_type: selectValue("#eventType"),
         event_name: selectValue("#eventTitle"),
+        proposer: props.userTI,
+        accecpter: props.otherTI,
+        status: false,
       });
     }
     successFy("Evento Proposto, agora é esperar a outra parte aceitar!");
@@ -51,7 +65,20 @@ const EventLogic = (props) => {
 
   const editEvent = () => {};
 
-  if (!eventState)
+  const deleteEvent = () => {};
+
+  const acceptEvent = () => {};
+
+  const denyEvent = () => {};
+
+  if (eventState === false)
+    return (
+      <>
+        <h4>Carregando...</h4>
+      </>
+    );
+
+  if (eventState === undefined)
     return (
       <>
         <form onSubmit={logic}>
@@ -123,32 +150,106 @@ const EventLogic = (props) => {
       </>
     );
 
-  if (eventState) {
+  if (
+    eventState &&
+    eventState.proposer === `${userDataByJwt.type}:${userDataByJwt.user}`
+  ) {
     return (
       <>
-        <form onSubmit={editEvent}>
+        <form>
           <h3 className="text-xl font-semibold m-0">
             Dados do evento proposto:
           </h3>
-
           <label className="block py-2 mt-2 cursor-pointer" htmlFor="eventDate">
             Data:
           </label>
           <input
-            disabled
             id="eventDate"
             className="w-full bg-f-black py-2 mb-2 focus:outline-none active:outline-none focus:shadow-outline border border-s-red rounded-md hover:border-f-red transition-all"
             type="date"
+            defaultValue={eventState.event_data}
+          />
+          <label className="block py-2 mt-2 cursor-pointer" htmlFor="eventHour">
+            Horário de inicio:
+          </label>
+          <input
+            id="eventHour"
+            className="w-full bg-f-black py-2 mb-2 focus:outline-none active:outline-none focus:shadow-outline border border-s-red rounded-md hover:border-f-red transition-all"
+            type="time"
+            defaultValue={eventState.init_hour}
+          />
+          <label className="block py-2 mt-2 cursor-pointer" htmlFor="eventType">
+            Tipo:
+          </label>
+          <input
+            type="text"
+            className="w-full bg-f-black py-2 mb-2 rounded-md cursor-pointer focus:outline-none border border-s-red hover:border-f-red"
+            id="eventType"
+            defaultValue={eventState.event_type}
+          />
+
+          <label
+            className="block py-2 mt-2 cursor-pointer"
+            htmlFor="eventTitle"
+          >
+            Nome:
+          </label>
+          <input
+            id="eventTitle"
+            type="text"
+            placeholder="Título"
+            defaultValue={eventState.event_name}
+            className="w-full bg-f-black py-2 mb-2 rounded-md cursor-pointer focus:outline-none border border-s-red hover:border-f-red"
+          />
+          <div className="flex">
+            <button
+              className="bg-yellow-400 text-f-gray mr-2 hover:bg-yellow-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none w-1/2 mt-4 ease-linear transition-all duration-150"
+              type="button"
+              onClick={editEvent}
+            >
+              Editar
+            </button>
+            <button
+              className="bg-red-600 text-white ml-2 hover:bg-red-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none w-1/2 mt-4 ease-linear transition-all duration-150"
+              type="button"
+              onClick={deleteEvent}
+            >
+              Deletar
+            </button>
+          </div>
+        </form>
+      </>
+    );
+  }
+
+  if (
+    eventState &&
+    eventState.accecpter === `${userDataByJwt.type}:${userDataByJwt.user}`
+  ) {
+    return (
+      <>
+        <form>
+          <h3 className="text-xl font-semibold m-0">
+            Propuseram o seguinte evento:
+          </h3>
+          <label className="block py-2 mt-2 cursor-pointer" htmlFor="eventDate">
+            Data:
+          </label>
+          <input
+            id="eventDate"
+            className="w-full bg-f-black py-2 mb-2 focus:outline-none active:outline-none focus:shadow-outline border border-s-red rounded-md hover:border-f-red transition-all"
+            type="date"
+            disabled
             value={eventState.event_data}
           />
           <label className="block py-2 mt-2 cursor-pointer" htmlFor="eventHour">
             Horário de inicio:
           </label>
           <input
-            disabled
             id="eventHour"
             className="w-full bg-f-black py-2 mb-2 focus:outline-none active:outline-none focus:shadow-outline border border-s-red rounded-md hover:border-f-red transition-all"
             type="time"
+            disabled
             value={eventState.init_hour}
           />
           <label className="block py-2 mt-2 cursor-pointer" htmlFor="eventType">
@@ -156,9 +257,9 @@ const EventLogic = (props) => {
           </label>
           <input
             type="text"
-            disabled
             className="w-full bg-f-black py-2 mb-2 rounded-md cursor-pointer focus:outline-none border border-s-red hover:border-f-red"
             id="eventType"
+            disabled
             value={eventState.event_type}
           />
 
@@ -171,17 +272,27 @@ const EventLogic = (props) => {
           <input
             id="eventTitle"
             type="text"
-            disabled
             placeholder="Título"
+            disabled
             value={eventState.event_name}
             className="w-full bg-f-black py-2 mb-2 rounded-md cursor-pointer focus:outline-none border border-s-red hover:border-f-red"
           />
-          {/* <button
-            className="bg-emerald-500 text-white hover:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none w-full mt-4 ease-linear transition-all duration-150"
-            type="submit"
-          >
-            Enviar
-          </button> */}
+          <div className="flex">
+            <button
+              className="bg-emerald-500 text-white hover:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none w-1/2 mt-4 ease-linear transition-all duration-150"
+              type="button"
+              onClick={acceptEvent}
+            >
+              Aceitar
+            </button>
+            <button
+              className="bg-red-600 text-white ml-2 hover:bg-red-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none w-1/2 mt-4 ease-linear transition-all duration-150"
+              type="button"
+              onClick={denyEvent}
+            >
+              Recusar
+            </button>
+          </div>
         </form>
       </>
     );
