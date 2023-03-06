@@ -1,4 +1,11 @@
-import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
+import {
+  deleteDoc,
+  doc,
+  getDoc,
+  onSnapshot,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { eventTypes } from "../../../Utils/Admin";
 import { db } from "../../../Utils/Firebase/Firebase";
 import selectValue from "../../../Utils/MyFunctions/selectValue";
@@ -6,6 +13,8 @@ import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import successFy from "../../../Utils/Toastify/successFy";
 import verifyJwt from "../../../Utils/Security/verifyJwt";
+import errorFy from "../../../Utils/Toastify/errorFy";
+import infoFy from "../../../Utils/Toastify/infoFy";
 const EventLogic = (props) => {
   const today = new Date().toISOString().slice(0, 10);
   const maxDate = new Date();
@@ -17,8 +26,6 @@ const EventLogic = (props) => {
       setUserDataByJwt(res);
     });
   }, []);
-
-  console.log(userDataByJwt);
 
   const eventDocRef = doc(db, "events", props.chatId);
 
@@ -39,9 +46,9 @@ const EventLogic = (props) => {
     []
   );
 
-  useEffect(() => {
-    console.log(eventState);
-  }, [eventState]);
+  // useEffect(() => {
+  //   console.log(eventState);
+  // }, [eventState]);
 
   const logic = async (e) => {
     e.preventDefault();
@@ -56,20 +63,65 @@ const EventLogic = (props) => {
         event_name: selectValue("#eventTitle"),
         proposer: props.userTI,
         accecpter: props.otherTI,
-        status: false,
+        status: 0,
       });
     }
-    successFy("Evento Proposto, agora é esperar a outra parte aceitar!");
     props.callback(false);
+    successFy("Evento Proposto, agora é esperar a outra parte aceitar!");
   };
 
-  const editEvent = () => {};
+  const editEvent = async () => {
+    try {
+      await updateDoc(eventDocRef, {
+        event_data: selectValue("#eventDate"),
+        init_hour: selectValue("#eventHour"),
+        event_type: selectValue("#eventType"),
+        event_name: selectValue("#eventTitle"),
+      });
+    } catch (err) {
+      errorFy(err.message);
+      return;
+    }
+    props.callback(false);
+    successFy("Evento Editado!");
+  };
 
-  const deleteEvent = () => {};
+  const deleteEvent = async () => {
+    try {
+      await deleteDoc(eventDocRef);
+    } catch (err) {
+      errorFy(err.message);
+      return;
+    }
+    props.callback(false);
+    infoFy("Evento Deletado. Fique a vontade para propor outro!");
+  };
 
-  const acceptEvent = () => {};
+  const acceptEvent = async () => {
+    try {
+      await updateDoc(eventDocRef, {
+        status: 201,
+      });
+    } catch (err) {
+      errorFy(err.message);
+      return;
+    }
+    props.callback(false);
+    successFy("Evento aceito!");
+  };
 
-  const denyEvent = () => {};
+  const denyEvent = async () => {
+    try {
+      await updateDoc(eventDocRef, {
+        status: 401,
+      });
+    } catch (err) {
+      errorFy(err.message);
+      return;
+    }
+    props.callback(false);
+    infoFy("Evento Recusado!");
+  };
 
   if (eventState === false)
     return (
@@ -152,6 +204,7 @@ const EventLogic = (props) => {
 
   if (
     eventState &&
+    eventState.status != 401 &&
     eventState.proposer === `${userDataByJwt.type}:${userDataByJwt.user}`
   ) {
     return (
@@ -224,6 +277,7 @@ const EventLogic = (props) => {
 
   if (
     eventState &&
+    eventState.status != 401 &&
     eventState.accecpter === `${userDataByJwt.type}:${userDataByJwt.user}`
   ) {
     return (
@@ -291,6 +345,32 @@ const EventLogic = (props) => {
               onClick={denyEvent}
             >
               Recusar
+            </button>
+          </div>
+        </form>
+      </>
+    );
+  }
+
+  if (eventState && eventState.status === 401) {
+    return (
+      <>
+        <form>
+          <h3 className="text-xl font-semibold m-0">
+            O Evento anterior foi recusado!
+          </h3>
+          <br />
+          <h4 className="text-md font-semibold m-0">
+            Delete este evento para propor outro.{" "}
+          </h4>
+
+          <div className="flex">
+            <button
+              className="bg-red-600 text-white ml-2 hover:bg-red-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none w-full mt-4 ease-linear transition-all duration-150"
+              type="button"
+              onClick={deleteEvent}
+            >
+              Deletar
             </button>
           </div>
         </form>
