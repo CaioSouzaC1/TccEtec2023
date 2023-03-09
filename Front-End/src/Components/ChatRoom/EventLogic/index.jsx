@@ -15,6 +15,7 @@ import successFy from "../../../Utils/Toastify/successFy";
 import verifyJwt from "../../../Utils/Security/verifyJwt";
 import errorFy from "../../../Utils/Toastify/errorFy";
 import infoFy from "../../../Utils/Toastify/infoFy";
+import { Confetti, MaskSad } from "phosphor-react";
 const EventLogic = (props) => {
   const today = new Date().toISOString().slice(0, 10);
   const maxDate = new Date();
@@ -86,14 +87,14 @@ const EventLogic = (props) => {
     successFy("Evento Editado!");
   };
 
-  const deleteEvent = async () => {
+  const deleteEvent = async (close) => {
     try {
       await deleteDoc(eventDocRef);
     } catch (err) {
       errorFy(err.message);
       return;
     }
-    props.callback(false);
+    props.callback(close);
     infoFy("Evento Deletado. Fique a vontade para propor outro!");
   };
 
@@ -121,6 +122,19 @@ const EventLogic = (props) => {
     }
     props.callback(false);
     infoFy("Evento Recusado!");
+  };
+
+  const cancelEvent = async () => {
+    try {
+      await updateDoc(eventDocRef, {
+        status: 402,
+      });
+    } catch (err) {
+      errorFy(err.message);
+      return;
+    }
+    props.callback(false);
+    infoFy("Evento Cancelado!");
   };
 
   if (eventState === false)
@@ -205,6 +219,8 @@ const EventLogic = (props) => {
   if (
     eventState &&
     eventState.status != 401 &&
+    eventState.status != 402 &&
+    eventState.status != 201 &&
     eventState.proposer === `${userDataByJwt.type}:${userDataByJwt.user}`
   ) {
     return (
@@ -265,7 +281,7 @@ const EventLogic = (props) => {
             <button
               className="bg-red-600 text-white ml-2 hover:bg-red-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none w-1/2 mt-4 ease-linear transition-all duration-150"
               type="button"
-              onClick={deleteEvent}
+              onClick={() => deleteEvent(false)}
             >
               Deletar
             </button>
@@ -278,6 +294,8 @@ const EventLogic = (props) => {
   if (
     eventState &&
     eventState.status != 401 &&
+    eventState.status != 402 &&
+    eventState.status != 201 &&
     eventState.accecpter === `${userDataByJwt.type}:${userDataByJwt.user}`
   ) {
     return (
@@ -368,11 +386,90 @@ const EventLogic = (props) => {
             <button
               className="bg-red-600 text-white ml-2 hover:bg-red-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none w-full mt-4 ease-linear transition-all duration-150"
               type="button"
-              onClick={deleteEvent}
+              onClick={() => deleteEvent(false)}
             >
               Deletar
             </button>
           </div>
+        </form>
+      </>
+    );
+  }
+
+  if (eventState && eventState.status === 201) {
+    return (
+      <>
+        <form className="text-center">
+          <h3 className="text-xl font-semibold m-0">
+            O Evento foi aceito, tudo certo!
+          </h3>
+          <div className="flex w-full items-center justify-center mt-2 mb-2">
+            <h4 className="text-md font-semibold mt-2 mb-2">
+              A divulgação é por nossa conta!{" "}
+            </h4>
+            <Confetti size={22} />
+          </div>
+          <h5 className="text-sm mt-8 font-normal">
+            Algum emprevisto? Cancele o evento.
+          </h5>
+          <div className="flex">
+            <button
+              className="bg-red-600 text-white ml-2 hover:bg-red-700 uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none w-full mt-4 ease-linear transition-all duration-150 font-normal"
+              type="button"
+              onClick={cancelEvent}
+            >
+              Cancelar Evento
+            </button>
+          </div>
+        </form>
+      </>
+    );
+  }
+
+  if (
+    eventState &&
+    eventState.status === 402 &&
+    eventState.proposer === `${userDataByJwt.type}:${userDataByJwt.user}`
+  ) {
+    return (
+      <>
+        <form className="text-center">
+          <h3 className="text-xl font-semibold m-0">
+            O Evento infelizmente foi cancelado.
+          </h3>
+
+          <h5 className="text-sm mt-8 font-normal">
+            Por gentileza, delete o evento para propror outro.
+          </h5>
+          <div className="flex">
+            <button
+              className="bg-red-600 text-white ml-2 hover:bg-red-700 uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none w-full mt-4 ease-linear transition-all duration-150 font-normal"
+              type="button"
+              onClick={() => deleteEvent(true)}
+            >
+              Deletar
+            </button>
+          </div>
+        </form>
+      </>
+    );
+  }
+
+  if (
+    eventState &&
+    eventState.status === 402 &&
+    eventState.accecpter === `${userDataByJwt.type}:${userDataByJwt.user}`
+  ) {
+    return (
+      <>
+        <form className="text-center">
+          <h3 className="text-xl font-semibold m-0">
+            Você teve de cancelar o evento.
+          </h3>
+          <MaskSad size={22} />
+          <h5 className="text-sm mt-8 font-normal">
+            Por conta disso, solicitamos a outra parte que deletasse o mesmo.
+          </h5>
         </form>
       </>
     );
