@@ -4,9 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  padding: 0 1rem;
-}
 body,
 html {
   box-sizing: border-box;
@@ -44,4 +41,18 @@ html {
 
 #nprogress .spinner {
   top: 8px;
+}
+
+.main_footer {
+  background-image: url("/public/waves.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 160px;
+}
+
+@media (max-width: 768px) {
+  .main_footer {
+    min-height: 200px;
+  }
 }

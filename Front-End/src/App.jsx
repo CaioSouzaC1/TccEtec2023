@@ -37,66 +37,68 @@ function App() {
   }, [location]);
 
   return (
-    <main className="container mx-auto">
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/cadastra" element={<Cadastra />} />
-        <Route
-          path="/cadastra/artista/etapa/1"
-          element={<CreateAccArtistaStepOne />}
-        />
-        <Route
-          path="/cadastra/artista/etapa/2"
-          element={<CreateAccArtistaStepTwo />}
-        />
-        <Route
-          path="/cadastra/estabelecimento/etapa/1"
-          element={<CreateAccEstableshimentStepOne />}
-        />
-        <Route
-          path="/cadastra/estabelecimento/etapa/2"
-          element={<CreateAccEstableshimentStepTwo />}
-        />
-        <Route
-          path="/cadastra/estabelecimento/etapa/3"
-          element={<CreateAccEstableshimentStepThree />}
-        />
-        <Route path="/artista/:id" element={<ProfileArtists />} />
-        <Route
-          path="/estabelecimento/:id"
-          element={<ProfileEstablishments />}
-        />
-        <Route path="/estabelecimentos/ultimos" element={<Ultimos />} />
-        <Route
-          path="/meu-perfil"
-          element={
-            <UserProvider>
-              <MyProfile />
-            </UserProvider>
-          }
-        />
-        <Route
-          path="/feed"
-          element={
-            <UserProvider>
-              <Feed />
-            </UserProvider>
-          }
-        />
-        <Route
-          path="/meus-eventos"
-          element={
-            <UserProvider>
-              <MyEvents />
-            </UserProvider>
-          }
-        />
-        <Route path="*" element={<div>pagina 404</div>} />
-      </Routes>
+    <>
+      <main className="container mx-auto">
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/cadastra" element={<Cadastra />} />
+          <Route
+            path="/cadastra/artista/etapa/1"
+            element={<CreateAccArtistaStepOne />}
+          />
+          <Route
+            path="/cadastra/artista/etapa/2"
+            element={<CreateAccArtistaStepTwo />}
+          />
+          <Route
+            path="/cadastra/estabelecimento/etapa/1"
+            element={<CreateAccEstableshimentStepOne />}
+          />
+          <Route
+            path="/cadastra/estabelecimento/etapa/2"
+            element={<CreateAccEstableshimentStepTwo />}
+          />
+          <Route
+            path="/cadastra/estabelecimento/etapa/3"
+            element={<CreateAccEstableshimentStepThree />}
+          />
+          <Route path="/artista/:id" element={<ProfileArtists />} />
+          <Route
+            path="/estabelecimento/:id"
+            element={<ProfileEstablishments />}
+          />
+          <Route path="/estabelecimentos/ultimos" element={<Ultimos />} />
+          <Route
+            path="/meu-perfil"
+            element={
+              <UserProvider>
+                <MyProfile />
+              </UserProvider>
+            }
+          />
+          <Route
+            path="/feed"
+            element={
+              <UserProvider>
+                <Feed />
+              </UserProvider>
+            }
+          />
+          <Route
+            path="/meus-eventos"
+            element={
+              <UserProvider>
+                <MyEvents />
+              </UserProvider>
+            }
+          />
+          <Route path="*" element={<div>pagina 404</div>} />
+        </Routes>
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }
 

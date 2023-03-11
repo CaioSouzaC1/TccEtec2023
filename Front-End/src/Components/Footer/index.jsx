@@ -22,87 +22,55 @@ const Footer = () => {
   };
 
   return (
-    <footer>
-      <div className="flex flex-row flex-wrap">
-        <div className="w-full md:w-1/2 lg:w-1/4 my-6 text-center">
-          <p className="text-2xl font-bold">Voice</p>{" "}
-          <p className="w-4/5 mx-auto my-4">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-            magna nunc, sodales a vestibulum a, interdum ac nibh.
-          </p>
-        </div>
-        <div className="w-full md:w-1/2 lg:w-1/4 my-6 text-center">
-          <p className="text-xl font-bold mb-3">Links Rápidos</p>
-          <Link
-            to={"/"}
-            className="flex items-center justify-center w-3/4 mx-auto"
-          >
-            <HouseLine size={22} className="mx-2" />
-            <p className="my-2">Home</p>
-          </Link>
-          <Link
-            to={"/"}
-            className="flex items-center justify-center w-3/4 mx-auto"
-          >
-            <HouseLine size={22} className="mx-2" />
-            <p className="my-2">Home</p>
-          </Link>
-          <Link
-            to={"/"}
-            className="flex items-center justify-center w-3/4 mx-auto"
-          >
-            <HouseLine size={22} className="mx-2" />
-            <p className="my-2">Home</p>
-          </Link>
-          <Link
-            to={"/"}
-            className="flex items-center justify-center w-3/4 mx-auto"
-          >
-            <HouseLine size={22} className="mx-2" />
-            <p className="my-2">Home</p>
-          </Link>
-        </div>
-        <div className="w-full md:w-1/2 lg:w-1/4 my-6 text-center">
-          <p className="text-xl font-bold mb-3">Meios de contato</p>
-          <p className="my-2">Etec Cruzeiro - SP</p>
-          <Link
-            to={"/"}
-            className="flex items-center justify-center w-3/4 mx-auto"
-          >
-            <WhatsappLogo size={22} className="mx-2" />
-            <p className="my-2">(12) 99887-6655 </p>
-          </Link>
-          <p className="my-2">contato@voice.com.br</p>
-        </div>
-        <div className="w-full md:w-1/2 lg:w-1/4 my-6 text-center">
-          <p className="text-xl font-bold mb-3">Newsletter</p>
-          <form id="newsletter" onSubmit={subNewsletter}>
-            <p className="w-4/5 mx-auto my-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-            <InputText
-              type={"email"}
-              class="textNewsletter"
-              label="Email"
-              placeholder="Email"
-            />
-            <Button text="Cadastrar"></Button>
-          </form>
+    <footer className="main_footer flex m-0 items-end py-2 md:py-4">
+      <div className="container mx-auto">
+        <div className="w-full flex flex-wrap flex-row items-center">
+          <div className="flex w-full md:w-4/5 mx-4 md:mx-0 justify-center md:justify-start">
+            <div className="flex flex-row flex-wrap text-center md:text-left items-center justify-center md:justify-start">
+              <img
+                src="../../../public/Logo/logodm.png"
+                className="max-h-14"
+                alt="Voice Logo"
+              />
+              <h1 className="text-white font-bold">Voice</h1>
+              <span className="mx-4">Todos os direitos reservados!</span>
+            </div>
+          </div>
+          <div className="w-full md:w-1/5 flex flex-row my-2">
+            <a
+              className="w-1/3 text-center hover:text-gray-500"
+              href="http://"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="bg-f-black max-w-[38px] rounded-full w-3/4 mx-auto">
+                <FacebookLogo className="mx-auto py-2" size={38} />
+              </div>
+            </a>
+
+            <a
+              className="w-1/3 text-center hover:text-gray-500"
+              href="http://"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="bg-f-black max-w-[38px] rounded-full w-3/4 mx-auto">
+                <TwitterLogo className="mx-auto py-2" size={38} />
+              </div>
+            </a>
+            <a
+              className="w-1/3 text-center hover:text-gray-500"
+              href="http://"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="bg-f-black max-w-[38px] rounded-full w-3/4 mx-auto">
+                <InstagramLogo className="mx-auto py-2" size={38} />
+              </div>
+            </a>
+          </div>
         </div>
       </div>
-      <div className="h-0.5 w-full bg-f-gray my-2"></div>
-      <div className="w-full flex flex-wrap flex-row">
-        <div className="w-full md:w-3/5 py-2 px-1 text-center md:text-left">
-          Voice copyright &copy;2023. Todos os direitos reservados!
-        </div>
-        <div className="w-full md:w-2/5 flex flex-row py-2 mb-4">
-          <FacebookLogo size={24} className="w-1/4" />
-          <TwitterLogo size={24} className="w-1/4" />
-          <InstagramLogo size={24} className="w-1/4" />
-          <LinkedinLogo size={24} className="w-1/4" />
-        </div>
-      </div>
-      <ToastContainer />
     </footer>
   );
 };
