@@ -56,3 +56,16 @@ html {
     min-height: 200px;
   }
 }
+
+@media (max-width: 375px) {
+  .main_footer {
+    min-height: 260px;
+  }
+}
+
+@media (max-width: 640px) {
+  .manual_container {
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+}
