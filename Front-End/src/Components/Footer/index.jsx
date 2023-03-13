@@ -18,7 +18,7 @@ const Footer = () => {
           </div>
           <div className="w-full md:w-1/5 flex flex-row my-2">
             <a
-              className="w-1/3 text-center hover:text-gray-500"
+              className="w-1/3 text-center hover:brightness-150"
               href="http://"
               target="_blank"
               rel="noopener noreferrer"
@@ -29,7 +29,7 @@ const Footer = () => {
             </a>
 
             <a
-              className="w-1/3 text-center hover:text-gray-500"
+              className="w-1/3 text-center hover:brightness-150"
               href="http://"
               target="_blank"
               rel="noopener noreferrer"
@@ -39,7 +39,7 @@ const Footer = () => {
               </div>
             </a>
             <a
-              className="w-1/3 text-center hover:text-gray-500"
+              className="w-1/3 text-center hover:brightness-150"
               href="http://"
               target="_blank"
               rel="noopener noreferrer"

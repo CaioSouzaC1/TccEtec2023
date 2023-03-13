@@ -69,3 +69,8 @@ html {
     padding-right: 1em;
   }
 }
+
+.homeSwiper .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+  background-color: #da0037;
+  border-radius: 8px;
+}

@@ -19,6 +19,8 @@ import Footer from "./Components/Footer";
 import UserProvider from "./Contexts/User";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
+import About from "./Pages/About";
+import Objective from "./Pages/Objective";
 
 function App() {
   const location = useLocation();
@@ -44,6 +46,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/cadastra" element={<Cadastra />} />
+          <Route path="/sobre-nos" element={<About />} />
+          <Route path="/objetivo" element={<Objective />} />
           <Route
             path="/cadastra/artista/etapa/1"
             element={<CreateAccArtistaStepOne />}

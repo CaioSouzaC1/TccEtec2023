@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
-import selectInput from "../../Utils/MyFunctions/selectInput";
 import { useState } from "react";
 
 const Header = () => {
@@ -9,11 +8,13 @@ const Header = () => {
   return (
     <header className="pb-4 pt-5 flex justify-between items-center">
       <div className="flex items-center">
-        <img
-          src="/Logo/voice_white.svg"
-          className="max-h-14"
-          alt="Voice Logo"
-        />
+        <Link to={"/"}>
+          <img
+            src="/Logo/voice_white.svg"
+            className="max-h-14 hover:brightness-200"
+            alt="Voice Logo"
+          />
+        </Link>
       </div>
       <div
         className={`${styles.list_header}  ${menuOpen ? styles.oppened : ""}`}
