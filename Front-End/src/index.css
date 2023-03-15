@@ -74,3 +74,9 @@ html {
   background-color: #da0037;
   border-radius: 8px;
 }
+
+.person {
+  -webkit-filter: drop-shadow(2px 2px 0 #da0037)
+    drop-shadow(-2px -2px 0 #da0037);
+  filter: drop-shadow(2px 2px 0 #da0037) drop-shadow(-2px -2px 0 #da0037);
+}

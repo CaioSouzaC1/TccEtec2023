@@ -4,14 +4,13 @@ import { getStorage } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAEfbTWapNGUN-yuAVLLvwMKOwGRc8lYZk",
-  authDomain: "tcc2023cruzeiro.firebaseapp.com",
-  databaseURL: "https://tcc2023cruzeiro-default-rtdb.firebaseio.com",
-  projectId: "tcc2023cruzeiro",
-  storageBucket: "tcc2023cruzeiro.appspot.com",
-  messagingSenderId: "705280448175",
-  appId: "1:705280448175:web:989f81673c86875a12665a",
-  measurementId: "G-34V4Y62504",
+  apiKey: "AIzaSyBXeQruMdNAocLrCHQV0kiOxNyB_Vqs6e4",
+  authDomain: "tccetec2023-6b3a9.firebaseapp.com",
+  projectId: "tccetec2023-6b3a9",
+  storageBucket: "tccetec2023-6b3a9.appspot.com",
+  messagingSenderId: "323450035153",
+  appId: "1:323450035153:web:822d5c43ba63dce680def0",
+  measurementId: "G-96B343PYQ8",
 };
 
 // Initialize Firebase
