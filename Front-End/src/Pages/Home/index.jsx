@@ -18,13 +18,13 @@ const Home = () => {
           navigation={true}
           autoHeight={true}
           modules={[Autoplay, Pagination]}
-          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          autoplay={{ delay: 30000, disableOnInteraction: false }}
           loop={true}
           className="homeSwiper"
         >
           <SwiperSlide>
             <div className="flex flex-row flex-wrap bg-s-black rounded-lg p-4 mt-4 justify-center items-center md:flex-row-reverse">
-              <div className="w-1/1 md:w-3/4">
+              <div className="w-full md:w-3/4">
                 <h2 className="my-4 font-bold text-3xl text-center md:text-left pr-0 md:pr-2">
                   Conecte-se com artistas e donos de estabelecimentos de
                   entretenimento em todo o país.
@@ -33,7 +33,7 @@ const Home = () => {
                   Encontre novas oportunidades de shows e eventos.
                 </h2>
               </div>
-              <div className="w-1/1 md:w-1/4">
+              <div className="w-full md:w-1/4">
                 <img
                   src="/Peeps/pedro_perfil.svg"
                   className="person mx-auto"
@@ -44,7 +44,7 @@ const Home = () => {
           </SwiperSlide>
           <SwiperSlide>
             <div className="flex flex-row flex-wrap bg-s-black rounded-lg p-4 mt-4 justify-center items-center">
-              <div className="w-1/1 md:w-3/4">
+              <div className="w-full md:w-3/4">
                 <h2 className="my-4 font-bold text-3xl text-center md:text-left pr-0 md:pl-2">
                   Uma plataforma segura e eficiente para artistas e donos de
                   estabelecimentos de entretenimento.
@@ -53,7 +53,7 @@ const Home = () => {
                   Crie um perfil para mostrar seu trabalho e suas habilidades.
                 </h2>
               </div>
-              <div className="w-1/1 md:w-1/4">
+              <div className="w-full md:w-1/4">
                 <img
                   src="/Peeps/vinicius_perfil.svg"
                   className="person mx-auto"
@@ -63,15 +63,15 @@ const Home = () => {
             </div>
           </SwiperSlide>
           <SwiperSlide>
-            <div className="flex flex-row flex-wrap bg-s-black rounded-lg p-4 mt-4 justify-center items-center">
-              <div className="w-1/1 md:w-1/4 hidden md:block">
+            <div className="flex flex-col-reverse md:flex-row flex-wrap bg-s-black rounded-lg p-4 mt-4 justify-center items-center">
+              <div className="w-full md:w-1/4 block">
                 <img
                   src="/Peeps/bia_perfil.svg"
                   className="person mx-auto"
                   alt="Usuário da plataforma Voice."
                 />
               </div>
-              <div className="w-1/1 md:w-3/4">
+              <div className="w-full md:w-3/4">
                 <h2 className="my-4 font-bold text-3xl text-center md:text-left pr-0 md:pl-2 md:pr-2">
                   Descubra novos talentos e oportunidades de negócios.
                 </h2>
@@ -83,14 +83,14 @@ const Home = () => {
           </SwiperSlide>
           <SwiperSlide>
             <div className="flex flex-row flex-wrap bg-s-black rounded-lg p-4 mt-4 justify-center items-center">
-              <div className="w-1/1 md:w-1/4 hidden md:block">
+              <div className="w-full md:w-1/4 hidden md:block">
                 <img
                   src="/Peeps/pedro_perfil.svg"
                   className="person mx-auto"
                   alt="Usuário da plataforma Voice."
                 />
               </div>
-              <div className="w-1/1 md:w-2/4">
+              <div className="w-full md:w-2/4">
                 <h2 className="my-4 font-bold text-3xl text-center pr-0 md:pl-2 md:pr-2">
                   Interaja com outros usuários no chat.
                 </h2>
@@ -98,7 +98,7 @@ const Home = () => {
                   Marque, agende e cancele eventos de forma simples e rápida.
                 </h2>
               </div>
-              <div className="w-1/1 md:w-1/4">
+              <div className="w-full md:w-1/4">
                 <img
                   src="/Peeps/vinicius_perfil.svg"
                   className="person mx-auto"
@@ -109,13 +109,47 @@ const Home = () => {
           </SwiperSlide>
         </Swiper>
       </div>
-      <Link to={"cadastra"}>
-        <Button text="Criar conta"></Button>
-      </Link>
-      <br />
-      <Link to={"/login"}>
-        <Button text="Login"></Button>
-      </Link>
+      <section className="my-4">
+        <div className="flex flex-wrap justify-center">
+          <h2 className="font-bold w-full mt-4 mb-6 text-2xl text-center">
+            Como acesso a plataforma?
+          </h2>
+          <Link className="w-full md:w-1/2 mx-auto" to={"/login"}>
+            <div
+              className={`p-4 my-4 mx-auto ${styles.card} bg-s-black hover:brightness-125 rounded-3xl`}
+            >
+              <h3 className="font-light text-xl text-center mb-4">
+                Já tenho uma conta!
+              </h3>
+              <img
+                className="mx-auto person"
+                src="/Peeps/amanda_perfil.svg"
+                alt="Usuário plataforma Voice, com conta."
+              />
+              <h4 className="font-light text-md py-4 text-center uppercase">
+                Fazer login
+              </h4>
+            </div>
+          </Link>
+          <Link className="w-full md:w-1/2 mx-auto" to={"/cadastra"}>
+            <div
+              className={`p-4 my-4 mx-auto ${styles.card} bg-s-black hover:brightness-125 rounded-3xl`}
+            >
+              <h3 className="font-light text-xl text-center mb-4">
+                Sou novo{"(a),"} não tenho conta.
+              </h3>
+              <img
+                className="mx-auto person"
+                src="/Peeps/leticia_perfil.svg"
+                alt="Usuário plataforma Voice, com conta."
+              />
+              <h4 className="font-light text-md py-4 text-center uppercase">
+                Criar acesso
+              </h4>
+            </div>
+          </Link>
+        </div>
+      </section>
     </section>
   );
 };

@@ -1,0 +1,16 @@
+.card img {
+  max-height: 120px;
+  height: 120px;
+  min-width: 90px;
+  max-width: 90px;
+  object-fit: cover;
+  border: 1px solid #00000000;
+  border-radius: 4px;
+}
+.card:hover img {
+  border-color: #0c4a88;
+  border-radius: 4px 4px 8px 8px;
+}
+.card:hover span {
+  background-color: #0c4a88;
+}
