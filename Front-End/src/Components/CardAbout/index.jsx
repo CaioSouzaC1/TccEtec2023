@@ -8,7 +8,7 @@ const CardAbout = (props) => {
         >
           <div className={`flex flex-wrap justify-center transition-all p-4`}>
             <img
-              className="bg-f-black border transition-all"
+              className="md:bg-f-black border transition-all"
               src={props.img}
               alt={props.name}
             />

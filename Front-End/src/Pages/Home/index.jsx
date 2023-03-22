@@ -18,7 +18,7 @@ const Home = () => {
           navigation={true}
           autoHeight={true}
           modules={[Autoplay, Pagination]}
-          autoplay={{ delay: 30000, disableOnInteraction: false }}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
           loop={true}
           className="homeSwiper"
         >
@@ -114,40 +114,59 @@ const Home = () => {
           <h2 className="font-bold w-full mt-4 mb-6 text-2xl text-center">
             Como acesso a plataforma?
           </h2>
-          <Link className="w-full md:w-1/2 mx-auto" to={"/login"}>
-            <div
-              className={`p-4 my-4 mx-auto ${styles.card} bg-s-black hover:brightness-125 rounded-3xl`}
-            >
-              <h3 className="font-light text-xl text-center mb-4">
-                Já tenho uma conta!
-              </h3>
-              <img
-                className="mx-auto person"
-                src="/Peeps/amanda_perfil.svg"
-                alt="Usuário plataforma Voice, com conta."
-              />
-              <h4 className="font-light text-md py-4 text-center uppercase">
-                Fazer login
-              </h4>
-            </div>
-          </Link>
-          <Link className="w-full md:w-1/2 mx-auto" to={"/cadastra"}>
-            <div
-              className={`p-4 my-4 mx-auto ${styles.card} bg-s-black hover:brightness-125 rounded-3xl`}
-            >
-              <h3 className="font-light text-xl text-center mb-4">
-                Sou novo{"(a),"} não tenho conta.
-              </h3>
-              <img
-                className="mx-auto person"
-                src="/Peeps/leticia_perfil.svg"
-                alt="Usuário plataforma Voice, com conta."
-              />
-              <h4 className="font-light text-md py-4 text-center uppercase">
-                Criar acesso
-              </h4>
-            </div>
-          </Link>
+
+          <div className="w-full md:w-2/3 mx-auto flex flex-wrap">
+            <Link className="w-full md:w-1/2" to={"/login"}>
+              <div
+                className={`p-4 my-4 mx-auto ${styles.card} bg-s-black hover:brightness-125 rounded-3xl`}
+              >
+                <h3 className="font-light text-xl text-center mb-4">
+                  Já tenho uma conta!
+                </h3>
+                <img
+                  className="mx-auto person"
+                  src="/Peeps/amanda_perfil.svg"
+                  alt="Usuário plataforma Voice, com conta."
+                />
+                <h4 className="font-light text-md py-4 text-center uppercase">
+                  Fazer login
+                </h4>
+              </div>
+            </Link>
+            <Link className="w-full md:w-1/2" to={"/cadastra"}>
+              <div
+                className={`p-4 my-4 mx-auto ${styles.card} bg-s-black hover:brightness-125 rounded-3xl`}
+              >
+                <h3 className="font-light text-xl text-center mb-4">
+                  Ainda não tenho conta.
+                </h3>
+                <img
+                  className="mx-auto person"
+                  src="/Peeps/leticia_perfil.svg"
+                  alt="Usuário plataforma Voice, com conta."
+                />
+                <h4 className="font-light text-md py-4 text-center uppercase">
+                  Criar acesso
+                </h4>
+              </div>
+            </Link>
+          </div>
+          <div className="w-full md:w-1/3 mx-auto py-4 text-center">
+            <h4 className="font-bold text-lg">Texto de Apoio</h4>
+            <p className="font-light text-sm mt-4 px-4">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
+              bibendum tincidunt convallis. Mauris consequat, lacus ac posuere
+              hendrerit, quam orci hendrerit dolor, a gravida risus sapien vel
+              massa. Integer mollis, lacus vitae dignissim ullamcorper, sapien
+              mauris auctor quam, sed consectetur nunc justo in nisi.
+            </p>
+            <p className="font-light text-sm mt-4 px-4">
+              lacus ac posuere hendrerit, quam orci hendrerit dolor, a gravida
+              risus sapien vel massa. Integer mollis, lacus vitae dignissim
+              ullamcorper, sapien mauris auctor quam, sed consectetur nunc justo
+              in nisi.
+            </p>
+          </div>
         </div>
       </section>
     </section>

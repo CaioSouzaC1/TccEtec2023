@@ -48,13 +48,7 @@ html {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  min-height: 160px;
-}
-
-@media (max-width: 768px) {
-  .main_footer {
-    min-height: 200px;
-  }
+  min-height: 200px;
 }
 
 @media (max-width: 375px) {
@@ -79,4 +73,7 @@ html {
   -webkit-filter: drop-shadow(2px 2px 0 #da0037)
     drop-shadow(-2px -2px 0 #da0037);
   filter: drop-shadow(2px 2px 0 #da0037) drop-shadow(-2px -2px 0 #da0037);
+}
+.min-h-70-screen {
+  min-height: 70vh;
 }
