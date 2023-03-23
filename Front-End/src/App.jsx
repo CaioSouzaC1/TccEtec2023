@@ -21,6 +21,7 @@ import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import About from "./Pages/About";
 import Objective from "./Pages/Objective";
+import NotFound from "./Pages/NotFound";
 
 function App() {
   const location = useLocation();
@@ -98,7 +99,7 @@ function App() {
               </UserProvider>
             }
           />
-          <Route path="*" element={<div>pagina 404</div>} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       <Footer />

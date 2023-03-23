@@ -13,7 +13,9 @@ const Footer = () => {
                 alt="Voice Logo"
               />
 
-              <span className="mx-4 mt-4">Todos os direitos reservados!</span>
+              <span className="mx-4 mt-8 text-xs font-black">
+                Todos os direitos reservados!
+              </span>
             </div>
           </div>
           <div className="w-full md:w-1/5 flex flex-row my-2">
