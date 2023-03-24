@@ -1,9 +1,17 @@
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import verifyJwt from "../../Utils/Security/verifyJwt";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [logged, setLogged] = useState(undefined);
+
+  useEffect(() => {
+    verifyJwt().then((res) => {
+      setLogged(res);
+    });
+  });
 
   return (
     <header className="pb-4 pt-5 flex justify-between items-center">
@@ -20,6 +28,34 @@ const Header = () => {
         className={`${styles.list_header}  ${menuOpen ? styles.oppened : ""}`}
       >
         <ul className="flex flex-row">
+          {logged && logged.auth && (
+            <>
+              <li className="mx-3 uppercase font-bold text-white">
+                <Link className="relative pb-1" to={"/meu-perfil"}>
+                  Meu Perfil
+                </Link>{" "}
+              </li>
+              <li className="mx-3 uppercase font-bold text-white">
+                <Link className="relative pb-1" to={"/meus-eventos"}>
+                  Eventos
+                </Link>{" "}
+              </li>
+            </>
+          )}
+          {logged && logged.auth === false && (
+            <>
+              <li className="mx-3 uppercase font-bold text-white">
+                <Link className="relative pb-1" to={"/login"}>
+                  Login
+                </Link>{" "}
+              </li>
+              <li className="mx-3 uppercase font-bold text-white">
+                <Link className="relative pb-1" to={"/cadastra"}>
+                  Criar conta
+                </Link>{" "}
+              </li>
+            </>
+          )}
           <li className="mx-3 uppercase font-bold text-white">
             <Link className="relative pb-1" to={"/sobre-nos"}>
               Sobre nós
