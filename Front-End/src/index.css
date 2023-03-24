@@ -77,3 +77,14 @@ html {
 .min-h-70-screen {
   min-height: 70vh;
 }
+
+@media (max-width: 480px) {
+  .Toastify__toast {
+    top: 1em;
+    left: 1em;
+    border-radius: 0;
+    width: 90vw;
+    border-radius: 8px;
+    /* transform: translateX(10%); */
+  }
+}
