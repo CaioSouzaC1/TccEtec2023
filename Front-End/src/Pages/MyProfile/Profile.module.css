@@ -1,0 +1,11 @@
+.pencil {
+  position: absolute;
+  left: calc(50% + 68px);
+  top: 2em;
+}
+
+@media (min-width: 768px) {
+  .pencil {
+    left: calc(23%);
+  }
+}

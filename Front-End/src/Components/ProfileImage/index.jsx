@@ -38,9 +38,9 @@ const ProfileImage = (props) => {
     <>
       {image && image.status == 200 && (
         <img
-          className={
-            "rounded-full object-cover bg-cover m-auto h-48 w-48 max-w-[12em] min-h-[12em] "
-          }
+          className={`rounded-full object-cover bg-cover ${
+            props.mxauto === false ? "" : "m-auto"
+          } h-48 w-48 max-w-[12em] min-h-[12em]`}
           src={image.url}
           alt=""
         />
@@ -48,9 +48,9 @@ const ProfileImage = (props) => {
       {!image ||
         (image.status == 404 && (
           <div
-            className={
-              "rounded-full object-cover bg-cover m-auto h-48 w-48 max-w-[12em] min-h-[12em]"
-            }
+            className={`rounded-full object-cover bg-cover ${
+              props.mxauto === false ? "" : "m-auto"
+            } h-48 w-48 max-w-[12em] min-h-[12em]`}
           >
             <div
               className={`${BackgroundColors[randomColor]} h-full rounded-full flex justify-center items-center text-4xl font-semibold`}

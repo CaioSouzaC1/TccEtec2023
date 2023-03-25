@@ -15,13 +15,17 @@ import stoningData from "../../Utils/MyFunctions/stoningData";
 import selectInput from "../../Utils/MyFunctions/selectInput";
 import ProfileImage from "../../Components/ProfileImage";
 import { UserContext } from "../../Contexts/User";
-
+import BackgroundColors from "../../Utils/Arrays/BackgroundColors";
+import { Pencil } from "phosphor-react";
+import styles from "./Profile.module.css";
 const MyProfile = () => {
   const [userDatas, setUserDatas] = useState(false);
   const [userType, setUserType] = useState(false);
   const [cpfState, setCpfState] = useState(false);
   const [cnpjState, setCnpjState] = useState(false);
   const [imageState, setImageState] = useState(true);
+
+  const randomColor = Math.floor(Math.random() * BackgroundColors.length);
 
   const navigate = useNavigate();
 
@@ -177,15 +181,9 @@ const MyProfile = () => {
 
   return (
     <>
-      <ThePageText
-        text={`Meu Perfil - ${
-          type === "artist"
-            ? "Artista"
-            : type === "establishments"
-            ? "Estabelecimento"
-            : "Carregando"
-        }`}
-      />
+      <div
+        className={`${BackgroundColors[randomColor]} w-full h-40 rounded-t-lg flex mt-4`}
+      ></div>
 
       {userType === "Artist" && (
         <>
@@ -259,21 +257,36 @@ const MyProfile = () => {
 
       {userType === "Establishment" && (
         <>
-          <ProfileImage
-            state={imageState}
-            name={userDatas.name}
-            pubId={userDatas.pubId}
-            type={"Establishment"}
-          />
+          <div className="flex flex-wrap bg-s-black relative rounded-b-lg mb-8">
+            <div className="mt-[-96px] text-left w-full md:w-2/6">
+              <ProfileImage
+                state={imageState}
+                name={userDatas.name}
+                pubId={userDatas.pubId}
+                type={"Establishment"}
+              />
+              <label className="cursor-pointer" htmlFor="profileImageInput">
+                <Pencil
+                  className={`rounded-full p-2 bg-f-black hover:bg-s-gray ${styles.pencil} transition-all`}
+                  size={40}
+                  weight="bold"
+                />
+              </label>
+              <input
+                id="profileImageInput"
+                className="profileImage hidden"
+                type="file"
+                accept="image/*"
+                onChange={setProfileImageEstablishments}
+              />
+            </div>
+            <div className="text-center md:text-left w-full md:w-4/6 flex items-center">
+              <h2 className="font-bold mx-2 md:mx-0 my-4 md:my-0 text-3xl clamp-2">
+                {userDatas.name}
+              </h2>
+            </div>
+          </div>
 
-          <input
-            className="profileImage"
-            type="file"
-            accept="image/*"
-            onChange={setProfileImageEstablishments}
-          />
-
-          <h2>{userDatas.name}</h2>
           <h4>{`Email:${userDatas.email}`}</h4>
           <h4>{`WhatsApp:${userDatas.whatsApp}`}</h4>
           <h4>{`Cep:${userDatas.cep}`}</h4>
