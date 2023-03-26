@@ -16,7 +16,16 @@ import selectInput from "../../Utils/MyFunctions/selectInput";
 import ProfileImage from "../../Components/ProfileImage";
 import { UserContext } from "../../Contexts/User";
 import BackgroundColors from "../../Utils/Arrays/BackgroundColors";
-import { Pencil } from "phosphor-react";
+import {
+  Compass,
+  Envelope,
+  Info,
+  MapPin,
+  MapPinLine,
+  MapTrifold,
+  Pencil,
+  WhatsappLogo,
+} from "phosphor-react";
 import styles from "./Profile.module.css";
 const MyProfile = () => {
   const [userDatas, setUserDatas] = useState(false);
@@ -24,6 +33,15 @@ const MyProfile = () => {
   const [cpfState, setCpfState] = useState(false);
   const [cnpjState, setCnpjState] = useState(false);
   const [imageState, setImageState] = useState(true);
+
+  /*
+  
+const dateString = '2023-02-06T23:22:21.384Z';
+const date = new Date(dateString);
+const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+const formattedDate = date.toLocaleDateString('pt-BR', options);
+  
+  */
 
   const randomColor = Math.floor(Math.random() * BackgroundColors.length);
 
@@ -287,12 +305,68 @@ const MyProfile = () => {
             </div>
           </div>
 
-          <h4>{`Email:${userDatas.email}`}</h4>
-          <h4>{`WhatsApp:${userDatas.whatsApp}`}</h4>
-          <h4>{`Cep:${userDatas.cep}`}</h4>
-          <h4>{`Logradouro:${userDatas.logradouro}`}</h4>
-          <h4>{`Bairro:${userDatas.bairro}`}</h4>
-          <h4>{`Cidade:${userDatas.cidade}`}</h4>
+          <div className="flex flex-wrap">
+            <div className="w-full md:w-1/2">
+              <h2 className="font-bold text-2xl">
+                Minhas informações{" "}
+                <Info className="inline" weight="bold" size={22} />{" "}
+              </h2>
+              <ul>
+                <li className="text-xl">
+                  <Envelope
+                    className="inline pr-2 mr-2 border-r-2 border-s-red"
+                    weight="bold"
+                    size={28}
+                  />
+                  {userDatas.email}
+                </li>
+                <li className="text-xl">
+                  <WhatsappLogo
+                    className="inline pr-2 mr-2
+                    border-r-2
+                    border-s-red"
+                    weight="bold"
+                    size={28}
+                  />
+                  {userDatas.whatsApp}
+                </li>
+                <li className="text-xl">
+                  <Compass
+                    className="inline pr-2 mr-2 border-r-2 border-s-red"
+                    weight="bold"
+                    size={28}
+                  />
+                  {userDatas.cep}
+                </li>
+                <li className="text-xl">
+                  <MapPinLine
+                    className="inline pr-2 mr-2 border-r-2 border-s-red"
+                    weight="bold"
+                    size={28}
+                  />
+                  {userDatas.cidade}
+                </li>
+                <li className="text-xl">
+                  <MapTrifold
+                    className="inline pr-2 mr-2 border-r-2 border-s-red"
+                    weight="bold"
+                    size={28}
+                  />
+                  {userDatas.bairro}
+                </li>
+                <li className="text-xl">
+                  <MapPin
+                    className="inline pr-2 mr-2 border-r-2 border-s-red"
+                    weight="bold"
+                    size={28}
+                  />
+                  {userDatas.logradouro}, {userDatas.numEnd}
+                </li>
+              </ul>
+            </div>
+            <div className="w-full md:w-1/2"></div>
+          </div>
+
           <a
             href={`http://127.0.0.1:5173/estabelecimento/${userDatas.pubId}`}
             target="_blank"
