@@ -20,6 +20,7 @@ import {
   Compass,
   Envelope,
   Info,
+  Link,
   MapPin,
   MapPinLine,
   MapTrifold,
@@ -34,18 +35,28 @@ const MyProfile = () => {
   const [cnpjState, setCnpjState] = useState(false);
   const [imageState, setImageState] = useState(true);
 
-  /*
-  
-const dateString = '2023-02-06T23:22:21.384Z';
-const date = new Date(dateString);
-const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-const formattedDate = date.toLocaleDateString('pt-BR', options);
-  
-  */
-
   const randomColor = Math.floor(Math.random() * BackgroundColors.length);
 
   const navigate = useNavigate();
+
+  const format = (stringDate) => {
+    const date = new Date(stringDate);
+    const options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    const formattedDate = date.toLocaleDateString("pt-BR", options);
+    return formattedDate;
+  };
+
+  const copyProfileLink = (link) => {
+    navigator.clipboard.writeText(link);
+    if (navigator.clipboard.writeText(link)) {
+      successFy("Link Copiado!", 1000);
+    }
+  };
 
   const { auth, user, type } = useContext(UserContext);
   if (auth === false) {
@@ -276,7 +287,7 @@ const formattedDate = date.toLocaleDateString('pt-BR', options);
       {userType === "Establishment" && (
         <>
           <div className="flex flex-wrap bg-s-black relative rounded-b-lg mb-8">
-            <div className="mt-[-96px] text-left w-full md:w-2/6">
+            <div className="mt-[-96px] pb-2 text-left w-full md:w-2/6">
               <ProfileImage
                 state={imageState}
                 name={userDatas.name}
@@ -298,7 +309,7 @@ const formattedDate = date.toLocaleDateString('pt-BR', options);
                 onChange={setProfileImageEstablishments}
               />
             </div>
-            <div className="text-center md:text-left w-full md:w-4/6 flex items-center">
+            <div className="text-center pb-2 md:text-left w-full md:w-4/6 flex items-center">
               <h2 className="font-bold mx-2 md:mx-0 my-4 md:my-0 text-3xl clamp-2">
                 {userDatas.name}
               </h2>
@@ -367,14 +378,20 @@ const formattedDate = date.toLocaleDateString('pt-BR', options);
             <div className="w-full md:w-1/2"></div>
           </div>
 
-          <a
-            href={`http://127.0.0.1:5173/estabelecimento/${userDatas.pubId}`}
-            target="_blank"
-            rel="noopener noreferrer"
+          <p
+            className="cursor-pointer font-light my-4 py-4 px-2 rounded-lg hover:bg-f-gray active:bg-f-gray bg-s-black inline-block"
+            onClick={() =>
+              copyProfileLink(
+                `http://127.0.0.1:5173/estabelecimento/${userDatas.pubId}`
+              )
+            }
           >
-            Compartilhar perfil
-          </a>
-          <h6>{userDatas && `Conta Criada em:${userDatas.createdAt}`}</h6>
+            Compartilhar Perfil{" "}
+            <Link className="inline" weight="light" size={18} />
+          </p>
+          <p className="text-sm">
+            {userDatas && `Conta Criada em ${format(userDatas.createdAt)}`}
+          </p>
           <br />
           <Modal title="Atualizar Perfil" callback={AttProfileEstablishment}>
             {userDatas && (

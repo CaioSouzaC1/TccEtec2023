@@ -1,17 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styles from "./styles.module.css";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import verifyJwt from "../../Utils/Security/verifyJwt";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [logged, setLogged] = useState(undefined);
+  const location = useLocation();
 
   useEffect(() => {
     verifyJwt().then((res) => {
       setLogged(res);
     });
-  });
+  }, [location]);
 
   return (
     <header className="pb-4 pt-5 flex justify-between items-center">
