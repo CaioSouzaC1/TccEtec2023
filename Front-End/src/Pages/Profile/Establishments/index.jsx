@@ -12,6 +12,8 @@ import stoningData from "../../../Utils/MyFunctions/stoningData";
 import ProfileImage from "../../../Components/ProfileImage";
 import Chat from "../../../Components/Chat";
 import { Buffer } from "buffer";
+import BackgroundColors from "../../../Utils/Arrays/BackgroundColors";
+import { Clock, Envelope, Info, WhatsappLogo } from "phosphor-react";
 
 const ProfileEstablishments = () => {
   let { id } = useParams();
@@ -22,6 +24,20 @@ const ProfileEstablishments = () => {
   const [viewerType, setViewerType] = useState(false);
   const [visualized, setVisualized] = useState(false);
   const stateRef = useRef(null);
+
+  const randomColor = Math.floor(Math.random() * BackgroundColors.length);
+
+  const format = (stringDate) => {
+    const date = new Date(stringDate);
+    const options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    const formattedDate = date.toLocaleDateString("pt-BR", options);
+    return formattedDate;
+  };
 
   useEffect(() => {
     if (stateRef.current === null) {
@@ -105,20 +121,63 @@ const ProfileEstablishments = () => {
     <>
       {estableshimentData && (
         <>
-          {" "}
-          <ThePageText text="Perfil do Estabelecimento" />
-          <ProfileImage
-            size={3}
-            name={estableshimentData.name}
-            pubId={id}
-            type={"Establishment"}
-          />
-          <h2>{estableshimentData.name}</h2>
-          <h2>{`Email:${estableshimentData.email}`}</h2>
-          <h2>{`WhatsApp:${estableshimentData.whatsApp}`}</h2>
-          <h2>
-            {stoningData(estableshimentData.createdAt, "Conta Criada em:")}
-          </h2>
+          <>
+            <div
+              className={`${BackgroundColors[randomColor]} w-full h-40 rounded-t-lg flex mt-4`}
+            ></div>
+
+            <div className="flex flex-wrap bg-s-black relative rounded-b-lg mb-8">
+              <div className="mt-[-96px] pb-2 text-left w-full md:w-2/6">
+                <ProfileImage
+                  size={3}
+                  name={estableshimentData.name}
+                  pubId={id}
+                  type={"Artists"}
+                />
+              </div>
+              <div className="text-center pb-2 md:text-left w-full md:w-4/6 flex items-center justify-center md:justify-start">
+                <h2 className="font-bold mx-2 md:mx-0 my-4 md:my-0 text-3xl clamp-2">
+                  {estableshimentData.name}
+                </h2>
+              </div>
+            </div>
+            <div className="flex flex-wrap">
+              <div className="w-full md:w-1/2">
+                <h2 className="font-bold text-2xl">
+                  Informações de contato{" "}
+                  <Info className="inline" weight="bold" size={22} />{" "}
+                </h2>
+                <ul>
+                  <li className="text-xl">
+                    <Envelope
+                      className="inline pr-2 mr-2 border-r-2 border-s-red"
+                      size={28}
+                    />
+                    {estableshimentData.name}
+                  </li>
+                  <li className="text-xl">
+                    <WhatsappLogo
+                      className="inline pr-2 mr-2
+                    border-r-2
+                    border-s-red"
+                      size={28}
+                    />
+                    {estableshimentData.whatsApp}
+                  </li>
+                  <li className="text-xl">
+                    <Clock
+                      className="inline pr-2 mr-2
+                    border-r-2
+                    border-s-red"
+                      size={28}
+                    />
+                    Conta criada em {format(estableshimentData.createdAt)}
+                  </li>
+                </ul>
+              </div>
+              <div className="w-full md:w-1/2"></div>
+            </div>
+          </>
         </>
       )}
       <h2>{estableshimentData == false && `Estabelecimento não encontrado`}</h2>
