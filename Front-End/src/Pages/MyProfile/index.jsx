@@ -17,8 +17,10 @@ import ProfileImage from "../../Components/ProfileImage";
 import { UserContext } from "../../Contexts/User";
 import BackgroundColors from "../../Utils/Arrays/BackgroundColors";
 import {
+  AddressBook,
   Compass,
   Envelope,
+  IdentificationBadge,
   Info,
   Link,
   MapPin,
@@ -216,34 +218,101 @@ const MyProfile = () => {
 
       {userType === "Artist" && (
         <>
-          <ProfileImage
-            state={imageState}
-            name={userDatas.name}
-            pubId={userDatas.pubId}
-            type={"Artists"}
-          />
-          <input
-            className="profileImage"
-            type="file"
-            accept="image/*"
-            onChange={setProfileImage}
-          />
+          <div className="flex flex-wrap bg-s-black relative rounded-b-lg mb-8">
+            <div className="mt-[-96px] pb-2 text-left w-full md:w-2/6">
+              <ProfileImage
+                state={imageState}
+                name={userDatas.name}
+                pubId={userDatas.pubId}
+                type={"Artists"}
+              />
+              <label className="cursor-pointer" htmlFor="profileImageInput">
+                <Pencil
+                  className={`rounded-full p-2 bg-f-black hover:bg-s-gray ${styles.pencil} transition-all`}
+                  size={40}
+                  weight="bold"
+                />
+              </label>
+              <input
+                id="profileImageInput"
+                className="profileImage hidden"
+                type="file"
+                accept="image/*"
+                onChange={setProfileImageEstablishments}
+              />
+            </div>
+            <div className="text-center pb-2 md:text-left w-full md:w-4/6 flex items-center">
+              <h2 className="font-bold mx-2 md:mx-0 my-4 md:my-0 text-3xl clamp-2">
+                {userDatas.nameArt},{" "}
+                <span className="text-2xl font-normal">{userDatas.name}.</span>
+              </h2>
+            </div>
+          </div>
+
           <br />
-          <h4>{userDatas.name}</h4>
-          <h4>{userDatas.nameArt}</h4>
-          <h4>{`Email:${userDatas.email}`}</h4>
-          <h4>{`WhatsApp:${userDatas.whatsApp}`}</h4>
-          <h4>{`Cpf:${userDatas.cpf}`}</h4>
-          <h4>{`${stoningData(userDatas.createdAt, "Conta Criada em:")}`}</h4>
-          <br />
-          <a
-            href={`http://127.0.0.1:5173/artista/${userDatas.pubId}`}
-            target="_blank"
-            rel="noopener noreferrer"
+
+          <div className="flex flex-wrap">
+            <div className="w-full md:w-1/2">
+              <h2 className="font-bold text-2xl">
+                Minhas informações{" "}
+                <Info className="inline" weight="bold" size={22} />{" "}
+              </h2>
+              <ul>
+                <li className="text-xl">
+                  <Envelope
+                    className="inline pr-2 mr-2 border-r-2 border-s-red"
+                    weight="bold"
+                    size={28}
+                  />
+                  {userDatas.email}
+                </li>
+                <li className="text-xl">
+                  <WhatsappLogo
+                    className="inline pr-2 mr-2
+                    border-r-2
+                    border-s-red"
+                    weight="bold"
+                    size={28}
+                  />
+                  {userDatas.whatsApp}
+                </li>
+                <li className="text-xl">
+                  <IdentificationBadge
+                    className="inline pr-2 mr-2 border-r-2 border-s-red"
+                    weight="bold"
+                    size={28}
+                  />
+                  {userDatas.nameArt}
+                </li>
+                <li className="text-xl">
+                  <AddressBook
+                    className="inline pr-2 mr-2 border-r-2 border-s-red"
+                    weight="bold"
+                    size={28}
+                  />
+                  {userDatas.name}
+                </li>
+              </ul>
+            </div>
+            <div className="w-full md:w-1/2"></div>
+          </div>
+
+          <p
+            className="cursor-pointer font-light my-4 py-4 px-2 rounded-lg hover:bg-f-gray active:bg-f-gray bg-s-black inline-block"
+            onClick={() =>
+              copyProfileLink(
+                `http://127.0.0.1:5173/artista/${userDatas.pubId}`
+              )
+            }
           >
-            Compartilhar perfil
-          </a>
-          <br />
+            Compartilhar Perfil{" "}
+            <Link className="inline" weight="light" size={18} />
+          </p>
+
+          <p className="text-sm">
+            {userDatas && `Conta Criada em ${format(userDatas.createdAt)}`}
+          </p>
+
           <Modal title="Atualizar Perfil" callback={AttProfileArtist}>
             {userDatas && (
               <>
