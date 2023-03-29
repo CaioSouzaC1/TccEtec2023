@@ -10,8 +10,9 @@ import warnFy from "../../../Utils/Toastify/warnFy";
 import ButtonBack from "../../../Components/ButtonBack";
 import ThePageText from "../../../Components/ThePageText";
 import ButtonAdvance from "../../../Components/ButtonAdvance";
+import { API_URL } from "../../../Utils/Admin";
 
-import { Envelope, Key } from 'phosphor-react'
+import { Envelope, Key } from "phosphor-react";
 
 const CreateAccArtistaStepOne = () => {
   const [emailsRows, setEmailsRows] = useState(false);
@@ -21,7 +22,7 @@ const CreateAccArtistaStepOne = () => {
     const email = selectValue(".Email");
     try {
       const emailRows = await (
-        await fetch("http://127.0.0.1:3333/validateEmail", {
+        await fetch(`${API_URL}/validateEmail`, {
           method: "POST",
           headers: {
             Accept: "application/json",
@@ -69,48 +70,48 @@ const CreateAccArtistaStepOne = () => {
         <div className="w-24 h-1 bg-red-600 rounded-lg"></div>
         <div className="w-24 h-1 bg-[#ededed] rounded-lg"></div>
       </div>
-      <form className="Form mt-10 items-center" onSubmit={emailValidation}>        
+      <form className="Form mt-10 items-center" onSubmit={emailValidation}>
         <div className="flex justify-center items-center">
-        <Envelope size={30} className="mb-4 text-red-600" />
-        <InputText
-          type="email"
-          class="Email"
-          label="Email"
-          placeholder="Seu Email"
-        ></InputText>
+          <Envelope size={30} className="mb-4 text-red-600" />
+          <InputText
+            type="email"
+            class="Email"
+            label="Email"
+            placeholder="Seu Email"
+          ></InputText>
         </div>
-        <div className="flex justify-center items-center">        
-        <Key size={30} className="mb-4 text-red-600" />
-        <InputText
-          type="password"
-          class="Senha"
-          label="Senha"
-          placeholder="Sua Senha"
-          min="8"
-          max="24"
-        ></InputText>
+        <div className="flex justify-center items-center">
+          <Key size={30} className="mb-4 text-red-600" />
+          <InputText
+            type="password"
+            class="Senha"
+            label="Senha"
+            placeholder="Sua Senha"
+            min="8"
+            max="24"
+          ></InputText>
         </div>
-        <div className="flex justify-center items-center">        
-        <Key size={30} className="mb-4 text-red-600" />
-        <InputText
-          type="password"
-          class="ConfirmaSenha"
-          label="Confirma Senha"
-          placeholder="Confirme sua senha"
-          min="8"
-          max="24"
-        ></InputText>        
+        <div className="flex justify-center items-center">
+          <Key size={30} className="mb-4 text-red-600" />
+          <InputText
+            type="password"
+            class="ConfirmaSenha"
+            label="Confirma Senha"
+            placeholder="Confirme sua senha"
+            min="8"
+            max="24"
+          ></InputText>
         </div>
         <div className="flex flex-col items-center">
-        <ButtonAdvance text="Avançar"></ButtonAdvance>
+          <ButtonAdvance text="Avançar"></ButtonAdvance>
         </div>
         <ToastContainer />
       </form>
       <div className="flex justify-center gap-2">
-      <Link to={"../login"}>
-        <Button text="Já possuo conta!"></Button>
-      </Link>
-      <ButtonBack />
+        <Link to={"../login"}>
+          <Button text="Já possuo conta!"></Button>
+        </Link>
+        <ButtonBack />
       </div>
     </>
   );

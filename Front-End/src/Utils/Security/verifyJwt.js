@@ -1,5 +1,7 @@
+import { API_URL } from "../Admin";
+
 const verifyJwt = async () => {
-  const req = await fetch("http://127.0.0.1:3333/autenticado", {
+  const req = await fetch(`${API_URL}/autenticado`, {
     headers: new Headers({
       jwtAuthorization: `${`${sessionStorage.getItem("VoiceJwt")}`}`,
     }),

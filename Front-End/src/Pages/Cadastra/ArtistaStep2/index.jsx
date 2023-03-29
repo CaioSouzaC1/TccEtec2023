@@ -16,6 +16,7 @@ import arrayReplace from "../../../Utils/MyFunctions/arrayReplace";
 import ThePageText from "../../../Components/ThePageText";
 import ButtonAdvance from "../../../Components/ButtonAdvance";
 import { Note, User, UserFocus, WhatsappLogo } from "phosphor-react";
+import { API_URL } from "../../../Utils/Admin";
 
 const CreateAccArtistaStepTwo = () => {
   //To Do: Não deixar o form enviável após o envio
@@ -46,7 +47,7 @@ const CreateAccArtistaStepTwo = () => {
       setValueNull(".cpf");
     } else if (state != null) {
       try {
-        let createArt = await fetch("http://127.0.0.1:3333/createAcc", {
+        let createArt = await fetch(`${API_URL}/createAcc`, {
           method: "POST",
           headers: {
             Accept: "application/json",
@@ -97,41 +98,41 @@ const CreateAccArtistaStepTwo = () => {
 
       <form className="Form mt-10 items-center" onSubmit={sendForm}>
         <div className="flex justify-center items-center">
-        <User size={30} className="mb-4 text-red-600" />
-        <InputText 
-        class="Nome" 
-        label="Nome" 
-        placeholder="Seu nome"
-        ></InputText>
+          <User size={30} className="mb-4 text-red-600" />
+          <InputText
+            class="Nome"
+            label="Nome"
+            placeholder="Seu nome"
+          ></InputText>
         </div>
         <div className="flex justify-center items-center">
-        <UserFocus size={30} className="mb-4 text-red-600" />  
-        <InputText
-          class="NomeArtistico"
-          label="Nome Artistico"
-          placeholder="Seu Nome Artistico"
-        ></InputText>
+          <UserFocus size={30} className="mb-4 text-red-600" />
+          <InputText
+            class="NomeArtistico"
+            label="Nome Artistico"
+            placeholder="Seu Nome Artistico"
+          ></InputText>
         </div>
         <div className="flex justify-center items-center">
-        <WhatsappLogo size={30} className="mb-4 text-red-600" />  
-        <InputText
-          class="cpf"
-          label="CPF"
-          placeholder="Seu CPF"
-          min="11"
-        ></InputText>
+          <WhatsappLogo size={30} className="mb-4 text-red-600" />
+          <InputText
+            class="cpf"
+            label="CPF"
+            placeholder="Seu CPF"
+            min="11"
+          ></InputText>
         </div>
         <div className="flex justify-center items-center">
-        <Note size={30} className="mb-4 text-red-600"/>  
-        <InputText
-          class="whatsApp"
-          label="WhatsApp"
-          placeholder="Seu whatsApp"
-          min="10"
-        ></InputText>
+          <Note size={30} className="mb-4 text-red-600" />
+          <InputText
+            class="whatsApp"
+            label="WhatsApp"
+            placeholder="Seu whatsApp"
+            min="10"
+          ></InputText>
         </div>
         <div className="flex flex-col items-center">
-        <ButtonAdvance text="Enviar"></ButtonAdvance>
+          <ButtonAdvance text="Enviar"></ButtonAdvance>
         </div>
         <ToastContainer />
       </form>
@@ -139,7 +140,7 @@ const CreateAccArtistaStepTwo = () => {
         <Link to={"../login"}>
           <Button text="Já possuo conta!"></Button>
         </Link>
-      <ButtonBack />
+        <ButtonBack />
       </div>
     </>
   );

@@ -3,7 +3,6 @@ import verifyJwt from "../../Utils/Security/verifyJwt";
 import { useNavigate } from "react-router-dom";
 import ButtonBack from "../../Components/ButtonBack";
 import errorFy from "../../Utils/Toastify/errorFy";
-import ThePageText from "../../Components/ThePageText";
 import { Buffer } from "buffer";
 import Modal from "../../Components/Modal";
 import InputText from "../../Components/InputText";
@@ -11,7 +10,6 @@ import selectValue from "../../Utils/MyFunctions/selectValue";
 import successFy from "../../Utils/Toastify/successFy";
 import { ToastContainer } from "react-toastify";
 import ButtonLogout from "../../Components/ButtonLogout";
-import stoningData from "../../Utils/MyFunctions/stoningData";
 import selectInput from "../../Utils/MyFunctions/selectInput";
 import ProfileImage from "../../Components/ProfileImage";
 import { UserContext } from "../../Contexts/User";
@@ -30,6 +28,7 @@ import {
   WhatsappLogo,
 } from "phosphor-react";
 import styles from "./Profile.module.css";
+import { API_URL } from "../../Utils/Admin";
 const MyProfile = () => {
   const [userDatas, setUserDatas] = useState(false);
   const [userType, setUserType] = useState(false);
@@ -75,7 +74,7 @@ const MyProfile = () => {
         let user = await (await verifyJwt()).user;
 
         let userData = await (
-          await fetch(`http://127.0.0.1:3333/getInfo`, {
+          await fetch(`${API_URL}/getInfo`, {
             headers: new Headers({
               Authorization: `${Buffer.from(`${user}`).toString("base64")}`,
             }),
@@ -111,7 +110,7 @@ const MyProfile = () => {
       user = await (await verifyJwt()).user;
     }
     try {
-      let ArtistAttAcc = await fetch("http://127.0.0.1:3333/ArtistUpdateAcc", {
+      let ArtistAttAcc = await fetch(`${API_URL}/ArtistUpdateAcc`, {
         method: "PATCH",
         headers: {
           Accept: "application/json",
@@ -144,28 +143,25 @@ const MyProfile = () => {
       user = await (await verifyJwt()).user;
     }
     try {
-      let ArtistAttAcc = await fetch(
-        "http://127.0.0.1:3333/EstableshimentUpdateAcc",
-        {
-          method: "PATCH",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id: user,
-            name: selectValue(".nameModal"),
-            cep: selectValue(".cepModal"),
-            email: selectValue(".emailModal"),
-            whatsApp: selectValue(".whatsAppModal"),
-            cidade: selectValue(".cidadeModal"),
-            logradouro: selectValue(".logradouroModal"),
-            bairro: selectValue(".bairroModal"),
-            numEnd: selectValue(".numEndModal"),
-            cnpj: cnpjState,
-          }),
-        }
-      );
+      let ArtistAttAcc = await fetch(`${API_URL}/EstableshimentUpdateAcc`, {
+        method: "PATCH",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: user,
+          name: selectValue(".nameModal"),
+          cep: selectValue(".cepModal"),
+          email: selectValue(".emailModal"),
+          whatsApp: selectValue(".whatsAppModal"),
+          cidade: selectValue(".cidadeModal"),
+          logradouro: selectValue(".logradouroModal"),
+          bairro: selectValue(".bairroModal"),
+          numEnd: selectValue(".numEndModal"),
+          cnpj: cnpjState,
+        }),
+      });
       if (ArtistAttAcc.status === 200) {
         successFy("Perfil Atualizado");
         ArtistAttAcc = await ArtistAttAcc.json();
@@ -182,7 +178,7 @@ const MyProfile = () => {
     try {
       const formData = new FormData();
       formData.append("file", e.target.files[0], userDatas.pubId);
-      await fetch("http://localhost:3333/updateProfileImage", {
+      await fetch(`${API_URL}/updateProfileImage`, {
         method: "POST",
         body: formData,
       });
@@ -198,7 +194,7 @@ const MyProfile = () => {
     try {
       const formData = new FormData();
       formData.append("file", e.target.files[0], userDatas.pubId);
-      await fetch("http://localhost:3333/updateProfileImageEstableshiment", {
+      await fetch(`${API_URL}/updateProfileImageEstableshiment`, {
         method: "POST",
         body: formData,
       });
@@ -300,9 +296,7 @@ const MyProfile = () => {
           <p
             className="cursor-pointer font-light my-4 py-4 px-2 rounded-lg hover:bg-f-gray active:bg-f-gray bg-s-black inline-block"
             onClick={() =>
-              copyProfileLink(
-                `http://127.0.0.1:5173/artista/${userDatas.pubId}`
-              )
+              copyProfileLink(`${API_URL}/artista/${userDatas.pubId}`)
             }
           >
             Compartilhar Perfil{" "}
@@ -450,9 +444,7 @@ const MyProfile = () => {
           <p
             className="cursor-pointer font-light my-4 py-4 px-2 rounded-lg hover:bg-f-gray active:bg-f-gray bg-s-black inline-block"
             onClick={() =>
-              copyProfileLink(
-                `http://127.0.0.1:5173/estabelecimento/${userDatas.pubId}`
-              )
+              copyProfileLink(`${API_URL}/estabelecimento/${userDatas.pubId}`)
             }
           >
             Compartilhar Perfil{" "}

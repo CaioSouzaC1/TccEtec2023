@@ -10,6 +10,7 @@ import infoFy from "../../Utils/Toastify/infoFy";
 import { useEffect, useRef } from "react";
 import ButtonBack from "../../Components/ButtonBack";
 import { Buffer } from "buffer";
+import { API_URL } from "../../Utils/Admin";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      let login = await fetch("http://127.0.0.1:3333/login", {
+      let login = await fetch(`${API_URL}/login`, {
         headers: new Headers({
           Authorization: `Basic ${Buffer.from(
             `${selectValue(".keyLogin")}:${selectValue(".passLogin")}`

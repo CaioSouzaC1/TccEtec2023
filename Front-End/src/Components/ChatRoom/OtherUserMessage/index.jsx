@@ -3,6 +3,7 @@ import { Buffer } from "buffer";
 import ProfileImage from "../../ProfileImage";
 import { useState } from "react";
 import ChatImage from "../../ChatImage";
+import { API_URL } from "../../../Utils/Admin";
 
 const OtherUserMessage = (props) => {
   const [pubIdToImage, setPubIdToImage] = useState(false);
@@ -17,7 +18,7 @@ const OtherUserMessage = (props) => {
 
   const getUserImage = async () => {
     const IdToPubId = await (
-      await fetch("http://127.0.0.1:3333/Id-to-pubId", {
+      await fetch(`${API_URL}/Id-to-pubId`, {
         headers: new Headers({
           Authorization: `${Buffer.from(`${props.user}`).toString("base64")}`,
         }),

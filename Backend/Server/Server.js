@@ -50,7 +50,7 @@ const saltRounds = 10;
 /*START - Image Upload Configurations */
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "Back-end/Assets/Artists");
+    cb(null, "Backend/assets/artists");
   },
   filename: function (req, file, cb) {
     cb(null, "ArtistProfileImage-" + file.originalname + ".jpg");
@@ -60,7 +60,7 @@ const upload = multer({ storage: storage });
 
 const storageEstablishments = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "Back-end/Assets/Establishments");
+    cb(null, "Backend/assets/establishments");
   },
   filename: function (req, file, cb) {
     cb(null, "EstablishmentProfileImage-" + file.originalname + ".jpg");
@@ -68,7 +68,7 @@ const storageEstablishments = multer.diskStorage({
 });
 const uploadEstablishments = multer({ storage: storageEstablishments });
 
-app.use(express.static("Back-end/Assets"));
+app.use(express.static("Backend/assets"));
 /*END - Image Upload Configurations */
 
 /*START - Artists Configurations*/

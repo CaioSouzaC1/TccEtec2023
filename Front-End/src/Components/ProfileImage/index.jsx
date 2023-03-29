@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import BackgroundColors from "../../Utils/Arrays/BackgroundColors";
+import { API_URL } from "../../Utils/Admin";
+
 const ProfileImage = (props) => {
   const randomColor = Math.floor(Math.random() * BackgroundColors.length);
 
@@ -9,8 +11,9 @@ const ProfileImage = (props) => {
   const getImage = async () => {
     if (props.type == "Establishment") {
       try {
-        const img = await fetch(`
-          http://localhost:3333/Establishments/EstablishmentProfileImage-${props.pubId}.jpg`);
+        const img = await fetch(
+          `${API_URL}/establishments/EstablishmentProfileImage-${props.pubId}.jpg`
+        );
 
         setImage(img);
       } catch (err) {
@@ -19,8 +22,9 @@ const ProfileImage = (props) => {
     }
     if (props.type == "Artists") {
       try {
-        const img = await fetch(`
-          http://localhost:3333/Artists/ArtistProfileImage-${props.pubId}.jpg`);
+        const img = await fetch(
+          `${API_URL}/artists/ArtistProfileImage-${props.pubId}.jpg`
+        );
 
         setImage(img);
       } catch (err) {

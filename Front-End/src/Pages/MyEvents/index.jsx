@@ -7,10 +7,9 @@ import ButtonBack from "../../Components/ButtonBack";
 import Button from "../../Components/Button/Button";
 import ThePageText from "../../Components/ThePageText";
 import { Buffer } from "buffer";
-import warnFy from "../../Utils/Toastify/warnFy";
 import { ToastContainer } from "react-toastify";
-import successFy from "../../Utils/Toastify/successFy";
 import { UserContext } from "../../Contexts/User";
+import { API_URL } from "../../Utils/Admin";
 
 const MyEvents = () => {
   const navigate = useNavigate();
@@ -35,7 +34,7 @@ const MyEvents = () => {
 
   const getMyEvents = async () => {
     try {
-      let getEvents = await fetch("http://127.0.0.1:3333/meus-eventos", {
+      let getEvents = await fetch(`${API_URL}/meus-eventos`, {
         headers: new Headers({
           Authorization: `${Buffer.from(
             `${await (await verifyJwt()).user}`

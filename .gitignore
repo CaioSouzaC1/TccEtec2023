@@ -23,11 +23,12 @@ dist-ssr
 *.sln
 *.sw?
 *.s?
+.env
 
-Back-End/Assets
-Back-End/Database/
-Back-End/Database/**
-Back-End/prisma/migrations/
-Back-end/prisma/src
+Backend/assets
+Backend/Database/
+Backend/Database/**
+Backend/prisma/migrations/
+Backend/prisma/src
 
 Front-End/public/OpenPeeps

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import BackgroundColors from "../../Utils/Arrays/BackgroundColors";
+import { API_URL } from "../../Utils/Admin";
 
 const ChatImage = (props) => {
   const randomColor = Math.floor(Math.random() * BackgroundColors.length);
@@ -10,7 +11,7 @@ const ChatImage = (props) => {
     if (props.type == "establishments") {
       try {
         const img = await fetch(`
-            http://localhost:3333/Establishments/EstablishmentProfileImage-${props.pubId}.jpg`);
+            ${API_URL}/Establishments/EstablishmentProfileImage-${props.pubId}.jpg`);
 
         setImage(img);
       } catch (err) {
@@ -20,7 +21,7 @@ const ChatImage = (props) => {
     if (props.type == "artist") {
       try {
         const img = await fetch(`
-            http://localhost:3333/Artists/ArtistProfileImage-${props.pubId}.jpg`);
+            ${API_URL}/Artists/ArtistProfileImage-${props.pubId}.jpg`);
 
         setImage(img);
       } catch (err) {

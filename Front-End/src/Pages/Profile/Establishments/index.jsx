@@ -14,6 +14,7 @@ import Chat from "../../../Components/Chat";
 import { Buffer } from "buffer";
 import BackgroundColors from "../../../Utils/Arrays/BackgroundColors";
 import { Clock, Envelope, Info, WhatsappLogo } from "phosphor-react";
+import { API_URL } from "../../../Utils/Admin";
 
 const ProfileEstablishments = () => {
   let { id } = useParams();
@@ -49,9 +50,7 @@ const ProfileEstablishments = () => {
 
   const getEstablishmentsInfo = async () => {
     try {
-      let EstablishmentsData = await fetch(
-        `http://127.0.0.1:3333/estabelecimento/${id}`
-      );
+      let EstablishmentsData = await fetch(`${API_URL}/estabelecimento/${id}`);
       if (EstablishmentsData.status !== 200) {
         errorFy("Estabelecimento não encontrado");
       } else {
@@ -65,20 +64,17 @@ const ProfileEstablishments = () => {
   const createEvent = async () => {
     const objVerify = await verifyJwt();
     try {
-      let eventCreated = await fetch(
-        "http://127.0.0.1:3333/ArtistCreateEvent",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            idArtist: objVerify.user,
-            idEstablishment: id,
-          }),
-        }
-      );
+      let eventCreated = await fetch(`${API_URL}/ArtistCreateEvent`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          idArtist: objVerify.user,
+          idEstablishment: id,
+        }),
+      });
       if (eventCreated.status == 200) {
         eventCreated = await eventCreated.json();
         successFy(
@@ -105,7 +101,7 @@ const ProfileEstablishments = () => {
         setEventButton(true);
       }
       const pubIdToId = await (
-        await fetch("http://127.0.0.1:3333/pubId-to-Id", {
+        await fetch(`${API_URL}/pubId-to-Id`, {
           headers: new Headers({
             Authorization: `${Buffer.from(`${id}`).toString("base64")}`,
           }),
@@ -132,7 +128,7 @@ const ProfileEstablishments = () => {
                   size={3}
                   name={estableshimentData.name}
                   pubId={id}
-                  type={"Artists"}
+                  type={"Establishment"}
                 />
               </div>
               <div className="text-center pb-2 md:text-left w-full md:w-4/6 flex items-center justify-center md:justify-start">

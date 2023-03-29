@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import errorFy from "../../../Utils/Toastify/errorFy";
 import { useNavigate } from "react-router-dom";
 import verifyJwt from "../../../Utils/Security/verifyJwt";
+import { API_URL } from "../../../Utils/Admin";
 
 const Ultimos = () => {
   const navigate = useNavigate();
@@ -9,9 +10,7 @@ const Ultimos = () => {
   const [nameUser, setNameUser] = useState(false);
   const getLasts = async () => {
     try {
-      let ultimos = await fetch(
-        "http://127.0.0.1:3333/estabelecimentos/ultimos"
-      );
+      let ultimos = await fetch(`${API_URL}/estabelecimentos/ultimos`);
       let isAuth = await (await verifyJwt()).auth;
       if (isAuth) {
         setNameUser("VoiceName");

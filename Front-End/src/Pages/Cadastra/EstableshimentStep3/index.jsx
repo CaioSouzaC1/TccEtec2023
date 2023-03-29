@@ -10,8 +10,15 @@ import errorFy from "../../../Utils/Toastify/errorFy";
 import ButtonBack from "../../../Components/ButtonBack";
 import successFy from "../../../Utils/Toastify/successFy";
 import ThePageText from "../../../Components/ThePageText";
-import { MapPin, MapPinLine, MapTrifold, Signpost, TagChevron } from "phosphor-react";
+import {
+  MapPin,
+  MapPinLine,
+  MapTrifold,
+  Signpost,
+  TagChevron,
+} from "phosphor-react";
 import ButtonAdvance from "../../../Components/ButtonAdvance";
+import { API_URL } from "../../../Utils/Admin";
 
 const CreateAccEstableshimentStepThree = () => {
   const { state } = useLocation();
@@ -43,7 +50,7 @@ const CreateAccEstableshimentStepThree = () => {
     } else {
       try {
         let createAccEstableshiment = await fetch(
-          "http://127.0.0.1:3333/createAccEstableshiment",
+          `${API_URL}/createAccEstableshiment`,
           {
             method: "POST",
             headers: {
@@ -89,50 +96,50 @@ const CreateAccEstableshimentStepThree = () => {
 
       <form className="Form mt-10 items-center" onSubmit={sendForm}>
         <div className="flex gap-3">
-        <div className="w-60 flex justify-center items-center">
-        <MapPin size={30} className="mb-4 text-red-600" />  
-        <InputText
-          class="Cep"
-          label="CEP"
-          min="8"
-          placeholder="00000-000"
-        ></InputText>
-        </div>
-        <div className="w-32 flex justify-center items-center">
-        <TagChevron size={30} className="mb-4 text-red-600" />  
-        <InputText 
-        class="numero" 
-        label="Número" 
-        placeholder="178"
-        ></InputText>
-        </div>
-        </div>
-        <div className="flex justify-center items-center">
-        <Signpost size={30} className="mb-4 text-red-600" />  
-        <InputText
-          class="rua"
-          label="Logradouro"
-          placeholder="Rua Getúlio Vargas"
-        ></InputText>
+          <div className="w-60 flex justify-center items-center">
+            <MapPin size={30} className="mb-4 text-red-600" />
+            <InputText
+              class="Cep"
+              label="CEP"
+              min="8"
+              placeholder="00000-000"
+            ></InputText>
+          </div>
+          <div className="w-32 flex justify-center items-center">
+            <TagChevron size={30} className="mb-4 text-red-600" />
+            <InputText
+              class="numero"
+              label="Número"
+              placeholder="178"
+            ></InputText>
+          </div>
         </div>
         <div className="flex justify-center items-center">
-        <MapPinLine size={30} className="mb-4 text-red-600" />  
-        <InputText
-          class="bairro"
-          label="Bairro"
-          placeholder="Jardim Paraiso"
-        ></InputText>
+          <Signpost size={30} className="mb-4 text-red-600" />
+          <InputText
+            class="rua"
+            label="Logradouro"
+            placeholder="Rua Getúlio Vargas"
+          ></InputText>
         </div>
         <div className="flex justify-center items-center">
-        <MapTrifold size={30} className="mb-4 text-red-600" />
-        <InputText
-          class="cidade"
-          label="Cidade"
-          placeholder="São Paulo"
-        ></InputText>
+          <MapPinLine size={30} className="mb-4 text-red-600" />
+          <InputText
+            class="bairro"
+            label="Bairro"
+            placeholder="Jardim Paraiso"
+          ></InputText>
+        </div>
+        <div className="flex justify-center items-center">
+          <MapTrifold size={30} className="mb-4 text-red-600" />
+          <InputText
+            class="cidade"
+            label="Cidade"
+            placeholder="São Paulo"
+          ></InputText>
         </div>
         <div className="flex flex-col items-center">
-        <ButtonAdvance text="Enviar"></ButtonAdvance>
+          <ButtonAdvance text="Enviar"></ButtonAdvance>
         </div>
         <ToastContainer />
       </form>
@@ -140,7 +147,7 @@ const CreateAccEstableshimentStepThree = () => {
         <Link to={"../login"}>
           <Button text="Já tenho conta!"></Button>
         </Link>
-      <ButtonBack />
+        <ButtonBack />
       </div>
     </>
   );

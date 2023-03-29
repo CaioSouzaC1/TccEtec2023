@@ -9,6 +9,7 @@ import ThePageText from "../../Components/ThePageText";
 import ButtonLogout from "../../Components/ButtonLogout";
 import ProfileImage from "../../Components/ProfileImage";
 import { UserContext } from "../../Contexts/User";
+import { API_URL } from "../../Utils/Admin";
 
 const Feed = () => {
   const [lastPlacesState, setLastPlacesState] = useState(false);
@@ -26,9 +27,7 @@ const Feed = () => {
 
   const lastPlaces = async () => {
     try {
-      let ultimos = await fetch(
-        "http://127.0.0.1:3333/estabelecimentos/ultimos"
-      );
+      let ultimos = await fetch(`${API_URL}/estabelecimentos/ultimos`);
 
       if (ultimos.status === 200) {
         ultimos = await ultimos.json();

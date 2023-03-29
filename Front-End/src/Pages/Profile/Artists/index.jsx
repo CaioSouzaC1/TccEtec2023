@@ -3,13 +3,13 @@ import { useParams } from "react-router-dom";
 import errorFy from "../../../Utils/Toastify/errorFy";
 import { ToastContainer } from "react-toastify";
 import ButtonBack from "../../../Components/ButtonBack";
-import stoningData from "../../../Utils/MyFunctions/stoningData";
 import ProfileImage from "../../../Components/ProfileImage";
 import verifyJwt from "../../../Utils/Security/verifyJwt";
 import { Buffer } from "buffer";
 import Chat from "../../../Components/Chat";
 import BackgroundColors from "../../../Utils/Arrays/BackgroundColors";
 import { Clock, Envelope, Info, WhatsappLogo } from "phosphor-react";
+import { API_URL } from "../../../Utils/Admin";
 
 const ProfileArtists = () => {
   const [artInfo, setArtInfo] = useState(false);
@@ -42,7 +42,7 @@ const ProfileArtists = () => {
 
   const getArtInfo = async () => {
     try {
-      let artData = await fetch(`http://127.0.0.1:3333/artista/${id}`);
+      let artData = await fetch(`${API_URL}/artista/${id}`);
       if (artData.status !== 200) {
         errorFy("Usuário não encontrado");
       } else {
@@ -58,7 +58,7 @@ const ProfileArtists = () => {
     const { status, auth, user, type } = await verifyJwt();
     if (auth) {
       const pubIdToId = await (
-        await fetch("http://127.0.0.1:3333/pubId-to-Id", {
+        await fetch(`${API_URL}/pubId-to-Id`, {
           headers: new Headers({
             Authorization: `${Buffer.from(`${id}`).toString("base64")}`,
           }),

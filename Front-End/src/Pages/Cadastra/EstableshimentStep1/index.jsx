@@ -13,6 +13,7 @@ import ButtonBack from "../../../Components/ButtonBack";
 import ThePageText from "../../../Components/ThePageText";
 import { Envelope, Key } from "phosphor-react";
 import ButtonAdvance from "../../../Components/ButtonAdvance";
+import { API_URL } from "../../../Utils/Admin";
 
 const CreateAccEstableshimentStepOne = () => {
   const [emailState, SetEmailState] = useState(false);
@@ -22,16 +23,11 @@ const CreateAccEstableshimentStepOne = () => {
     e.preventDefault();
     const email = selectValue(".Email");
     try {
-      let emailRow = await fetch(
-        "http://127.0.0.1:3333/validateEmailEstableshiment",
-        {
-          headers: new Headers({
-            Authorization: `Basic ${Buffer.from(`${email}`).toString(
-              "base64"
-            )}`,
-          }),
-        }
-      );
+      let emailRow = await fetch(`${API_URL}/validateEmailEstableshiment`, {
+        headers: new Headers({
+          Authorization: `Basic ${Buffer.from(`${email}`).toString("base64")}`,
+        }),
+      });
       if (emailRow.status == 200) {
         emailRow = await emailRow.json();
         SetEmailState(emailRow.emails);
@@ -78,38 +74,38 @@ const CreateAccEstableshimentStepOne = () => {
       </div>
       <form className="Form mt-10 items-center" onSubmit={validateEmail}>
         <div className="flex justify-center items-center">
-        <Envelope size={30} className="mb-4 text-red-600" />  
-        <InputText
-          type="email"
-          class="Email"
-          label="Email"
-          placeholder="Seu Email"
-        ></InputText>
+          <Envelope size={30} className="mb-4 text-red-600" />
+          <InputText
+            type="email"
+            class="Email"
+            label="Email"
+            placeholder="Seu Email"
+          ></InputText>
         </div>
         <div className="flex justify-center items-center">
-        <Key size={30} className="mb-4 text-red-600" />          
-        <InputText
-          type="password"
-          class="Senha"
-          label="Senha"
-          placeholder="Sua Senha"
-          min="8"
-          max="24"
-        ></InputText>
+          <Key size={30} className="mb-4 text-red-600" />
+          <InputText
+            type="password"
+            class="Senha"
+            label="Senha"
+            placeholder="Sua Senha"
+            min="8"
+            max="24"
+          ></InputText>
         </div>
         <div className="flex justify-center items-center">
-        <Key size={30} className="mb-4 text-red-600" />          
-        <InputText
-          type="password"
-          class="ConfirmaSenha"
-          label="Confirma Senha"
-          placeholder="Confirme sua senha"
-          min="8"
-          max="24"
-        ></InputText>
+          <Key size={30} className="mb-4 text-red-600" />
+          <InputText
+            type="password"
+            class="ConfirmaSenha"
+            label="Confirma Senha"
+            placeholder="Confirme sua senha"
+            min="8"
+            max="24"
+          ></InputText>
         </div>
-        <div className="flex flex-col items-center">    
-        <ButtonAdvance text="Avançar"></ButtonAdvance>
+        <div className="flex flex-col items-center">
+          <ButtonAdvance text="Avançar"></ButtonAdvance>
         </div>
         <ToastContainer />
       </form>
@@ -117,7 +113,7 @@ const CreateAccEstableshimentStepOne = () => {
         <Link to={"../login"}>
           <Button text="Já possuo conta!"></Button>
         </Link>
-      <ButtonBack />
+        <ButtonBack />
       </div>
     </>
   );
