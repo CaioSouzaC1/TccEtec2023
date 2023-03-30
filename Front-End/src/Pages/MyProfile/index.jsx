@@ -234,7 +234,7 @@ const MyProfile = () => {
                 className="profileImage hidden"
                 type="file"
                 accept="image/*"
-                onChange={setProfileImageEstablishments}
+                onChange={setProfileImage}
               />
             </div>
             <div className="text-center pb-2 md:text-left w-full md:w-4/6 flex items-center">

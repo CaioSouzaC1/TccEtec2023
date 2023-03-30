@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState, useContext } from "react";
-import verifyJwt from "../../Utils/Security/verifyJwt";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../Components/Button/Button";
-import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import ThePageText from "../../Components/ThePageText";
@@ -10,7 +8,12 @@ import ButtonLogout from "../../Components/ButtonLogout";
 import ProfileImage from "../../Components/ProfileImage";
 import { UserContext } from "../../Contexts/User";
 import { API_URL } from "../../Utils/Admin";
-
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { Autoplay, Pagination, Navigation } from "swiper";
+import styles from "./styles.module.css";
 const Feed = () => {
   const [lastPlacesState, setLastPlacesState] = useState(false);
 
@@ -25,6 +28,12 @@ const Feed = () => {
     });
   }
 
+  const progressCircle = useRef(null);
+  const progressContent = useRef(null);
+  const onAutoplayTimeLeft = (s, time, progress) => {
+    progressCircle.current.style.setProperty("--progress", 1 - progress);
+    progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
+  };
   const lastPlaces = async () => {
     try {
       let ultimos = await fetch(`${API_URL}/estabelecimentos/ultimos`);
@@ -37,42 +46,13 @@ const Feed = () => {
       console.log(err);
     }
   };
-  const options = {
-    // loop: true,
-    margin: 10,
-    nav: true,
-    dots: true,
-    autoplay: true,
-    responsive: {
-      0: {
-        items: 1,
-        dots: false,
-      },
-      536: {
-        items: 2,
-      },
-      1000: {
-        items: 3,
-        nav: true,
-        dots: true,
-      },
-    },
-  };
 
   useEffect(() => {
     if (stateRef.current === null) {
       stateRef.current = true;
-      // verifyAuth();
       lastPlaces();
     }
   }, []);
-
-  // const verifyAuth = async () => {
-  //   let isAuth = await (await verifyJwt()).auth;
-  //   if (!isAuth) {
-
-  //   }
-  // };
 
   return (
     <>
@@ -82,24 +62,59 @@ const Feed = () => {
       </Link>
       <br />
       {lastPlacesState && (
-        <OwlCarousel className="owl-theme" {...options}>
+        <Swiper
+          slidesPerView={1}
+          spaceBetween={10}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
+          onAutoplayTimeLeft={onAutoplayTimeLeft}
+          loop={true}
+          pagination={{
+            clickable: true,
+          }}
+          navigation={false}
+          breakpoints={{
+            640: {
+              slidesPerView: 1,
+              spaceBetween: 10,
+            },
+            768: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 30,
+            },
+          }}
+          modules={[Autoplay, Pagination, Navigation]}
+          className="mySwiper"
+        >
           {lastPlacesState.map((e) => {
             return (
-              <div key={e.pubId} className="item text-center">
-                <ProfileImage
-                  name={e.name}
-                  pubId={e.pubId}
-                  type={"Establishment"}
-                />
+              <SwiperSlide key={e.pubId}>
                 <Link to={`/estabelecimento/${e.pubId}`}>
+                  <ProfileImage
+                    name={e.name}
+                    pubId={e.pubId}
+                    type={"Establishment"}
+                  />
                   <h3>{e.name}</h3>
                   <h4>{e.logradouro}</h4>
                   <h5>{e.bairro}</h5>
                 </Link>
-              </div>
+              </SwiperSlide>
             );
           })}
-        </OwlCarousel>
+          <div className={`${styles.autoplayProgress}`} slot="container-end">
+            <svg viewBox="0 0 48 48" ref={progressCircle}>
+              <circle cx="24" cy="24" r="20"></circle>
+            </svg>
+            <span ref={progressContent}></span>
+          </div>
+        </Swiper>
       )}
       <br />
 

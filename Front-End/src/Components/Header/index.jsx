@@ -32,6 +32,11 @@ const Header = () => {
           {logged && logged.auth && (
             <>
               <li className="mx-3 uppercase font-bold text-white">
+                <Link className="relative pb-1" to={"/feed"}>
+                  Feed
+                </Link>{" "}
+              </li>
+              <li className="mx-3 uppercase font-bold text-white">
                 <Link className="relative pb-1" to={"/meu-perfil"}>
                   Meu Perfil
                 </Link>{" "}
