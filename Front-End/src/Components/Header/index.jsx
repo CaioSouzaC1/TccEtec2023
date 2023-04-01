@@ -7,7 +7,11 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [logged, setLogged] = useState(undefined);
   const location = useLocation();
-
+  Array.from(document.querySelectorAll("ul.ul-menu li")).forEach((e) => {
+    e.addEventListener("click", () => {
+      setMenuOpen(false);
+    });
+  });
   useEffect(() => {
     verifyJwt().then((res) => {
       setLogged(res);
@@ -28,7 +32,7 @@ const Header = () => {
       <div
         className={`${styles.list_header}  ${menuOpen ? styles.oppened : ""}`}
       >
-        <ul className="flex flex-row">
+        <ul className="flex flex-row ul-menu">
           {logged && logged.auth && (
             <>
               <li className="mx-3 uppercase font-bold text-white">

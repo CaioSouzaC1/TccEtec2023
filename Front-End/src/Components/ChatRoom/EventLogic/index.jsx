@@ -58,7 +58,7 @@ const EventLogic = (props) => {
     if (!docSnap.data()) {
       await setDoc(eventDocRef, {
         timestamp: Date.now(),
-        event_data: selectValue("#eventDate"),
+        event_data: new Date(selectValue("#eventDate")).getTime(),
         init_hour: selectValue("#eventHour"),
         event_type: selectValue("#eventType"),
         event_name: selectValue("#eventTitle"),
@@ -74,7 +74,7 @@ const EventLogic = (props) => {
   const editEvent = async () => {
     try {
       await updateDoc(eventDocRef, {
-        event_data: selectValue("#eventDate"),
+        event_data: new Date(selectValue("#eventDate")).getTime(),
         init_hour: selectValue("#eventHour"),
         event_type: selectValue("#eventType"),
         event_name: selectValue("#eventTitle"),
@@ -223,6 +223,8 @@ const EventLogic = (props) => {
     eventState.status != 201 &&
     eventState.proposer === `${userDataByJwt.type}:${userDataByJwt.user}`
   ) {
+    const date_event = new Date(eventState.event_data);
+    const formattedDate = date_event.toISOString().slice(0, 10);
     return (
       <>
         <form>
@@ -236,7 +238,7 @@ const EventLogic = (props) => {
             id="eventDate"
             className="w-full bg-f-black py-2 mb-2 focus:outline-none active:outline-none focus:shadow-outline border border-s-red rounded-md hover:border-f-red transition-all"
             type="date"
-            defaultValue={eventState.event_data}
+            defaultValue={formattedDate}
           />
           <label className="block py-2 mt-2 cursor-pointer" htmlFor="eventHour">
             Horário de inicio:
@@ -298,6 +300,8 @@ const EventLogic = (props) => {
     eventState.status != 201 &&
     eventState.accecpter === `${userDataByJwt.type}:${userDataByJwt.user}`
   ) {
+    const date_event = new Date(eventState.event_data);
+    const formattedDate = date_event.toISOString().slice(0, 10);
     return (
       <>
         <form>
@@ -312,7 +316,7 @@ const EventLogic = (props) => {
             className="w-full bg-f-black py-2 mb-2 focus:outline-none active:outline-none focus:shadow-outline border border-s-red rounded-md hover:border-f-red transition-all"
             type="date"
             disabled
-            value={eventState.event_data}
+            value={formattedDate}
           />
           <label className="block py-2 mt-2 cursor-pointer" htmlFor="eventHour">
             Horário de inicio:

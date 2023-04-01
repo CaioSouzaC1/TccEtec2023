@@ -28,7 +28,7 @@ import {
   WhatsappLogo,
 } from "phosphor-react";
 import styles from "./Profile.module.css";
-import { API_URL } from "../../Utils/Admin";
+import { API_URL, APP_URL } from "../../Utils/Admin";
 const MyProfile = () => {
   const [userDatas, setUserDatas] = useState(false);
   const [userType, setUserType] = useState(false);
@@ -296,7 +296,7 @@ const MyProfile = () => {
           <p
             className="cursor-pointer font-light my-4 py-4 px-2 rounded-lg hover:bg-f-gray active:bg-f-gray bg-s-black inline-block"
             onClick={() =>
-              copyProfileLink(`${API_URL}/artista/${userDatas.pubId}`)
+              copyProfileLink(`${APP_URL}/artista/${userDatas.pubId}`)
             }
           >
             Compartilhar Perfil{" "}
@@ -444,7 +444,7 @@ const MyProfile = () => {
           <p
             className="cursor-pointer font-light my-4 py-4 px-2 rounded-lg hover:bg-f-gray active:bg-f-gray bg-s-black inline-block"
             onClick={() =>
-              copyProfileLink(`${API_URL}/estabelecimento/${userDatas.pubId}`)
+              copyProfileLink(`${APP_URL}/estabelecimento/${userDatas.pubId}`)
             }
           >
             Compartilhar Perfil{" "}

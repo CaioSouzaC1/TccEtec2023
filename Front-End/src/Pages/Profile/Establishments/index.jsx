@@ -61,38 +61,6 @@ const ProfileEstablishments = () => {
       console.error(err);
     }
   };
-  const createEvent = async () => {
-    const objVerify = await verifyJwt();
-    try {
-      let eventCreated = await fetch(`${API_URL}/ArtistCreateEvent`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          idArtist: objVerify.user,
-          idEstablishment: id,
-        }),
-      });
-      if (eventCreated.status == 200) {
-        eventCreated = await eventCreated.json();
-        successFy(
-          `Solicitação criada, possível evento id: ${eventCreated}`,
-          6100
-        );
-        infoFy(
-          "Assim que o Estabelecimento aceitar a possibilidade, o chat estará disponível",
-          6100
-        );
-        setTimeout(() => {
-          navigate("/feed");
-        }, 7000);
-      }
-    } catch (err) {
-      errorFy(err);
-    }
-  };
 
   const renderEventButton = async () => {
     const { status, auth, user, type } = await verifyJwt();
@@ -177,9 +145,6 @@ const ProfileEstablishments = () => {
         </>
       )}
       <h2>{estableshimentData == false && `Estabelecimento não encontrado`}</h2>
-      {eventButton && (
-        <button onClick={createEvent}>Quero me apresentar aqui</button>
-      )}
 
       <br />
       <br />

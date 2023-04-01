@@ -14,9 +14,11 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper";
 import styles from "./styles.module.css";
+import { db } from "../../Utils/Firebase/Firebase";
+import { collection, getDocs, query, where } from "firebase/firestore";
 const Feed = () => {
   const [lastPlacesState, setLastPlacesState] = useState(false);
-
+  const [events, setEvents] = useState(false);
   const stateRef = useRef(null);
   const navigate = useNavigate();
   const { auth, user, type } = useContext(UserContext);
@@ -51,16 +53,31 @@ const Feed = () => {
     if (stateRef.current === null) {
       stateRef.current = true;
       lastPlaces();
+      renderEvents();
     }
   }, []);
 
+  const renderEvents = async () => {
+    const colRef = collection(db, "events");
+
+    const dateTime = new Date().getTime();
+    const eventsQuery = query(
+      colRef,
+      where("event_data", ">=", dateTime),
+      where("status", "==", 201)
+    );
+    const resultQuery01 = await getDocs(eventsQuery);
+    if (resultQuery01.docs < 1) {
+      return;
+    }
+
+    setEvents(resultQuery01.docs);
+    return;
+  };
+
   return (
     <>
-      <ThePageText text="Voice Feed" />
-      <Link to="/meu-perfil">
-        <Button text="Meu Perfil"></Button>
-      </Link>
-      <br />
+      <h2 className="text-2xl font-bold my-8">Estabelecimentos</h2>
       {lastPlacesState && (
         <Swiper
           slidesPerView={1}
@@ -117,7 +134,26 @@ const Feed = () => {
         </Swiper>
       )}
       <br />
-
+      <h3
+        className="text-bold text-xl
+      "
+      ></h3>
+      {events && (
+        <h2 className="text-2xl font-bold mt-8 mb-4">Eventos Confirmados</h2>
+      )}
+      <ul>
+        {events &&
+          events.map((e) => {
+            const data = e.data();
+            return (
+              <li>
+                <h4>{data.event_name}</h4>
+                <h5>{data.event_type}</h5>
+                <h6>{data.init_hour}</h6>
+              </li>
+            );
+          })}
+      </ul>
       <Link to="/meus-eventos">
         <Button text="Meus Eventos"></Button>
       </Link>

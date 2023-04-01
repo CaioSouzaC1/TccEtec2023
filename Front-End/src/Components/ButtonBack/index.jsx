@@ -5,7 +5,7 @@ const ButtonBack = () => {
   return (
     <>
       <button
-        className="w-28 h-10 bg-f-red hover:bg-s-red text-white py-2 px-4 rounded-xl transition-all hover:ring-1 hover:ring-f-red m-2 font-semibold"
+        className="bg-f-red hover:bg-s-red text-white py-2 px-4 rounded transition-all hover:ring-1 hover:ring-f-red m-2 font-semibold"
         onClick={() => navigate(-1)}
       >
         Voltar
