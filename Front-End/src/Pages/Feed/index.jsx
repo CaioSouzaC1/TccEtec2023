@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../Components/Button/Button";
-import "owl.carousel/dist/assets/owl.carousel.css";
-import "owl.carousel/dist/assets/owl.theme.default.css";
 import ThePageText from "../../Components/ThePageText";
 import ButtonLogout from "../../Components/ButtonLogout";
 import ProfileImage from "../../Components/ProfileImage";
