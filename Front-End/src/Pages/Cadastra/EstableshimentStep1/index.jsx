@@ -2,7 +2,6 @@ import { ToastContainer } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Buffer } from "buffer";
-
 import InputText from "../../../Components/InputText";
 import Button from "../../../Components/Button/Button";
 import selectValue from "../../../Utils/MyFunctions/selectValue";
@@ -12,7 +11,6 @@ import warnFy from "../../../Utils/Toastify/warnFy";
 import ButtonBack from "../../../Components/ButtonBack";
 import ThePageText from "../../../Components/ThePageText";
 import { Envelope, Key } from "phosphor-react";
-import ButtonAdvance from "../../../Components/ButtonAdvance";
 import { API_URL } from "../../../Utils/Admin";
 
 const CreateAccEstableshimentStepOne = () => {
@@ -105,7 +103,7 @@ const CreateAccEstableshimentStepOne = () => {
           ></InputText>
         </div>
         <div className="flex flex-col items-center">
-          <ButtonAdvance text="Avançar"></ButtonAdvance>
+          <Button text="Avançar"></Button>
         </div>
         <ToastContainer />
       </form>

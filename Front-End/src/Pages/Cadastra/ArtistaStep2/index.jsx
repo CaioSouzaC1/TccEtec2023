@@ -14,7 +14,6 @@ import setValueNull from "../../../Utils/MyFunctions/setValueNull";
 import ButtonBack from "../../../Components/ButtonBack";
 import arrayReplace from "../../../Utils/MyFunctions/arrayReplace";
 import ThePageText from "../../../Components/ThePageText";
-import ButtonAdvance from "../../../Components/ButtonAdvance";
 import { Note, User, UserFocus, WhatsappLogo } from "phosphor-react";
 import { API_URL } from "../../../Utils/Admin";
 
@@ -132,7 +131,7 @@ const CreateAccArtistaStepTwo = () => {
           ></InputText>
         </div>
         <div className="flex flex-col items-center">
-          <ButtonAdvance text="Enviar"></ButtonAdvance>
+          <Button text="Enviar"></Button>
         </div>
         <ToastContainer />
       </form>

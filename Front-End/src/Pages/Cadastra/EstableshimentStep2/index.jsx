@@ -1,7 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
-
 import InputText from "../../../Components/InputText";
 import Button from "../../../Components/Button/Button";
 import putImask from "../../../Utils/MyFunctions/putImask";
@@ -12,7 +11,6 @@ import warnFy from "../../../Utils/Toastify/warnFy";
 import ButtonBack from "../../../Components/ButtonBack";
 import ThePageText from "../../../Components/ThePageText";
 import { Buildings, Note, User, WhatsappLogo } from "phosphor-react";
-import ButtonAdvance from "../../../Components/ButtonAdvance";
 
 const CreateAccEstableshimentStepTwo = () => {
   const navigate = useNavigate();
@@ -59,51 +57,51 @@ const CreateAccEstableshimentStepTwo = () => {
       </div>
       <form className="Form mt-10 items-center" onSubmit={sendStepThree}>
         <div className="flex justify-center items-center">
-        <User size={30} className="mb-4 text-red-600"/>  
-        <InputText
-          class="NomeResponsavel"
-          label="Nome do Responsável"
-          placeholder="Seu Nome"
-          min="10"
-        ></InputText>
+          <User size={30} className="mb-4 text-red-600" />
+          <InputText
+            class="NomeResponsavel"
+            label="Nome do Responsável"
+            placeholder="Seu Nome"
+            min="10"
+          ></InputText>
         </div>
         <div className="flex justify-center items-center">
-        <Note size={30} className="mb-4 text-red-600" />  
-        <InputText
-          class="Cnpj"
-          label="CNPJ"
-          placeholder="00-0000-0000/0000-00"
-          min="14"
-          max="20"
-        ></InputText>
+          <Note size={30} className="mb-4 text-red-600" />
+          <InputText
+            class="Cnpj"
+            label="CNPJ"
+            placeholder="00-0000-0000/0000-00"
+            min="14"
+            max="20"
+          ></InputText>
         </div>
         <div className="flex justify-center items-center">
-        <WhatsappLogo size={30} className="mb-4 text-red-600" />  
-        <InputText
-          class="whatsApp"
-          label="WhatsApp"
-          placeholder="Seu whatsApp"
-          min="10"
-        ></InputText>
+          <WhatsappLogo size={30} className="mb-4 text-red-600" />
+          <InputText
+            class="whatsApp"
+            label="WhatsApp"
+            placeholder="Seu whatsApp"
+            min="10"
+          ></InputText>
         </div>
         <div className="flex justify-center items-center">
-        <Buildings size={30} className="mb-4 text-red-600" />  
-        <InputText
-          class="nomeEstabelecimento"
-          label="Nome do Estabelecimento"
-          placeholder="Nome do Estabelecimento"
-        ></InputText>
+          <Buildings size={30} className="mb-4 text-red-600" />
+          <InputText
+            class="nomeEstabelecimento"
+            label="Nome do Estabelecimento"
+            placeholder="Nome do Estabelecimento"
+          ></InputText>
         </div>
         <div className="flex flex-col items-center">
-        <ButtonAdvance text="Enviar"></ButtonAdvance>
+          <Button text="Enviar"></Button>
         </div>
         <ToastContainer />
       </form>
       <div className="flex justify-center gap-3">
-      <Link>
-        <Button text="Já tenho conta!"></Button>
-      </Link>
-      <ButtonBack />
+        <Link>
+          <Button text="Já tenho conta!"></Button>
+        </Link>
+        <ButtonBack />
       </div>
     </>
   );

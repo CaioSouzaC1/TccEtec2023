@@ -17,7 +17,6 @@ import {
   Signpost,
   TagChevron,
 } from "phosphor-react";
-import ButtonAdvance from "../../../Components/ButtonAdvance";
 import { API_URL } from "../../../Utils/Admin";
 
 const CreateAccEstableshimentStepThree = () => {
@@ -139,7 +138,7 @@ const CreateAccEstableshimentStepThree = () => {
           ></InputText>
         </div>
         <div className="flex flex-col items-center">
-          <ButtonAdvance text="Enviar"></ButtonAdvance>
+          <Button text="Enviar"></Button>
         </div>
         <ToastContainer />
       </form>

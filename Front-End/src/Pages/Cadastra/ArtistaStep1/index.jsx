@@ -9,7 +9,6 @@ import errorFy from "../../../Utils/Toastify/errorFy";
 import warnFy from "../../../Utils/Toastify/warnFy";
 import ButtonBack from "../../../Components/ButtonBack";
 import ThePageText from "../../../Components/ThePageText";
-import ButtonAdvance from "../../../Components/ButtonAdvance";
 import { API_URL } from "../../../Utils/Admin";
 
 import { Envelope, Key } from "phosphor-react";
@@ -103,7 +102,7 @@ const CreateAccArtistaStepOne = () => {
           ></InputText>
         </div>
         <div className="flex flex-col items-center">
-          <ButtonAdvance text="Avançar"></ButtonAdvance>
+          <Button text="Avançar"></Button>
         </div>
         <ToastContainer />
       </form>
