@@ -1,7 +1,5 @@
 import styles from "./styles.module.css";
 import { Link } from "react-router-dom";
-import Button from "../../Components/Button/Button";
-import ThePageText from "../../Components/ThePageText";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
