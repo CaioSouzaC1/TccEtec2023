@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import SecretJwtGenerator from "./SecretJwtGenerator.js";
 import multer from "multer";
+import sendEmail from "../utils/nodeMailer.js";
 
 /*START - Server Configurations*/
 const app = express();
@@ -98,6 +99,12 @@ router.post("/createAcc", async (req, res) => {
             id: artist.id,
           },
         });
+
+        sendEmail(
+          req.body.email,
+          "Conta Criada com sucesso",
+          "HEHE FUNCIOU ESSA MERDA"
+        );
 
         res.json(token);
       }
@@ -208,33 +215,6 @@ router.get("/artista/:id", async (req, res) => {
   } catch (err) {
     console.log(err);
     res.sendStatus(404);
-  }
-});
-
-router.post("/ArtistCreateEvent", async (req, res) => {
-  try {
-    const establishmentIdPrime = await prisma.Establishments.findFirst({
-      where: { pubId: req.body.idEstablishment },
-      select: { id: true },
-    });
-    if (establishmentIdPrime.id) {
-      try {
-        const EventCreated = await prisma.Events.create({
-          data: {
-            artistCreator: req.body.idArtist,
-            eventSpace: establishmentIdPrime.id,
-            eventStatus: "Pendente Estabelecimento",
-            eventName: "Fixed Name",
-          },
-        });
-        res.json(EventCreated.id);
-      } catch (err) {
-        console.log(err);
-        res.sendStatus(400);
-      }
-    }
-  } catch (err) {
-    res.sendStatus(400);
   }
 });
 
@@ -479,7 +459,11 @@ router.post("/createAccEstableshiment", async (req, res) => {
             id: acc.id,
           },
         });
-
+        sendEmail(
+          req.body.email,
+          "Conta Criada com sucesso",
+          "HEHE FUNCIOU ESSA MERDA"
+        );
         res.json(token);
       }
     });
