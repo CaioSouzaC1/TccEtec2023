@@ -113,7 +113,7 @@ const Home = () => {
             Como acesso a plataforma?
           </h2>
 
-          <div className="w-full md:w-2/3 mx-auto flex flex-wrap">
+          <div className="w-full lg:w-2/3 mx-auto flex flex-wrap">
             <Link className="w-full md:w-1/2" to={"/login"}>
               <div
                 className={`p-4 my-4 mx-auto ${styles.card} bg-s-black hover:brightness-125 rounded-3xl`}
@@ -149,7 +149,7 @@ const Home = () => {
               </div>
             </Link>
           </div>
-          <div className="w-full md:w-1/3 mx-auto py-4 text-center">
+          <div className="w-full lg:w-1/3 mx-auto py-4 text-center">
             <h4 className="font-bold text-lg">Texto de Apoio</h4>
             <p className="font-light text-sm mt-4 px-4">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
@@ -158,6 +158,7 @@ const Home = () => {
               massa. Integer mollis, lacus vitae dignissim ullamcorper, sapien
               mauris auctor quam, sed consectetur nunc justo in nisi.
             </p>
+
             <p className="font-light text-sm mt-4 px-4">
               lacus ac posuere hendrerit, quam orci hendrerit dolor, a gravida
               risus sapien vel massa. Integer mollis, lacus vitae dignissim
