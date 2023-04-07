@@ -102,8 +102,9 @@ router.post("/createAcc", async (req, res) => {
 
         sendEmail(
           req.body.email,
+          req.body.name,
           "Conta Criada com sucesso",
-          "HEHE FUNCIOU ESSA MERDA"
+          "artist"
         );
 
         res.json(token);
@@ -461,8 +462,9 @@ router.post("/createAccEstableshiment", async (req, res) => {
         });
         sendEmail(
           req.body.email,
+          req.body.name,
           "Conta Criada com sucesso",
-          "HEHE FUNCIOU ESSA MERDA"
+          "establishment"
         );
         res.json(token);
       }

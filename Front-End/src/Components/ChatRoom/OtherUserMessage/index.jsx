@@ -48,7 +48,7 @@ const OtherUserMessage = (props) => {
         />
       )}
       <div className="flex-1">
-        <p className="text-sm text-f-gray">{props.text}</p>
+        <p className="text-sm text-white">{props.text}</p>
       </div>
     </div>
   );

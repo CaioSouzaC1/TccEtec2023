@@ -1,6 +1,7 @@
 import nodemailer from "nodemailer";
+import { email_create_acc } from "./emailTemplates.js";
 
-const sendEmail = (email, subject, text) => {
+const sendEmail = (email, name, subject, type) => {
   const transport = nodemailer.createTransport({
     service: "hotmail",
     auth: {
@@ -13,12 +14,12 @@ const sendEmail = (email, subject, text) => {
     from: "tcc2023eteccps@outlook.com",
     to: email,
     subject: subject,
-    text: text,
+    html: email_create_acc(name, email, type),
   };
 
   transport.sendMail(options, (err, info) => {
     if (err) {
-      // console.log(err);
+      console.log(err);
       return err;
     }
     console.log(info);
