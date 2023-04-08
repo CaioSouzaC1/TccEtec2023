@@ -52,9 +52,9 @@ const ProfileImage = (props) => {
       {!image ||
         (image.status == 404 && (
           <div
-            className={`rounded-full object-cover bg-cover ${
+            className={`rounded-full object-cover bg-cover fixFeed ${
               props.mxauto === false ? "" : "m-auto"
-            } h-48 w-48 max-w-[12em] min-h-[12em]`}
+            } ${props.fixFeed} h-48 w-48 max-w-[12em] min-h-[12em]`}
           >
             <div
               className={`${BackgroundColors[randomColor]} h-full rounded-full flex justify-center items-center text-4xl font-semibold`}

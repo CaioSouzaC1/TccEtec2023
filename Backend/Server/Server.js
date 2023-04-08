@@ -360,11 +360,17 @@ router.get("/validateEmailEstableshiment", async (req, res) => {
 router.get("/estabelecimentos/ultimos", async (req, res) => {
   try {
     const lastPlaces = await prisma.Establishments.findMany({
+      take: 10,
+      orderBy: {
+        createdAt: "desc",
+      },
       select: {
+        cidade: true,
         bairro: true,
         name: true,
         logradouro: true,
         pubId: true,
+        numEnd: true,
       },
     });
     res.json(lastPlaces);
@@ -527,72 +533,6 @@ router.post(
 );
 /*END - Estableshiment Configurations*/
 
-/*START - Events Configurations*/
-router.get("/meus-eventos", async (req, res) => {
-  try {
-    const id = Buffer.from(req.headers.authorization, "base64").toString();
-    console.log(id);
-    let events = await prisma.Events.findMany({
-      where: {
-        OR: [
-          {
-            artistCreator: id,
-          },
-          {
-            eventSpace: id,
-          },
-        ],
-      },
-      select: {
-        id: true,
-        eventName: true,
-        artistCreator: true,
-        eventSpace: true,
-        createdAt: true,
-        eventStatus: true,
-      },
-    });
-    if (events.length > 0) {
-      let eventsArray = [];
-      await Promise.all(
-        events.map(async (e) => {
-          const artistData = await prisma.Artists.findUnique({
-            where: {
-              id: e.artistCreator,
-            },
-            select: {
-              pubId: true,
-              nameArt: true,
-              createdAt: true,
-            },
-          });
-          e.ArtistData = artistData;
-
-          const EstablishmentsData = await prisma.Establishments.findUnique({
-            where: {
-              id: e.eventSpace,
-            },
-            select: {
-              pubId: true,
-              name: true,
-              cep: true,
-            },
-          });
-          e.EstablishmentsData = EstablishmentsData;
-          eventsArray.push(e);
-        })
-      );
-      res.json(eventsArray);
-    } else {
-      res.sendStatus(404);
-    }
-  } catch (err) {
-    console.log(err);
-    res.sendStatus(500);
-  }
-});
-/*END - Events Configurations*/
-
 /*START - Util Endpoints*/
 router.get("/pubId-to-Id", async (req, res) => {
   try {
@@ -654,22 +594,6 @@ router.get("/Id-to-pubId", async (req, res) => {
     }
     res.json(login);
   } catch (err) {
-    res.sendStatus(400);
-  }
-});
-
-router.post("/sub-newsletter", async (req, res) => {
-  try {
-    const userToNewsletter = await prisma.Newsletter.create({
-      data: {
-        email: req.body.email,
-      },
-    });
-    if (userToNewsletter) {
-      res.sendStatus(200);
-    }
-  } catch (err) {
-    console.log(err);
     res.sendStatus(400);
   }
 });

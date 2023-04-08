@@ -150,20 +150,23 @@ const Home = () => {
             </Link>
           </div>
           <div className="w-full lg:w-1/3 mx-auto py-4 text-center">
-            <h4 className="font-bold text-lg">Texto de Apoio</h4>
+            <h4 className="font-bold text-lg">
+              Por que escolher nossa plataforma?
+            </h4>
             <p className="font-light text-sm mt-4 px-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-              bibendum tincidunt convallis. Mauris consequat, lacus ac posuere
-              hendrerit, quam orci hendrerit dolor, a gravida risus sapien vel
-              massa. Integer mollis, lacus vitae dignissim ullamcorper, sapien
-              mauris auctor quam, sed consectetur nunc justo in nisi.
+              Você é um artista ou dono de estabelecimento de entretenimento?
+              Sabemos que pode ser difícil encontrar novas oportunidades para
+              shows e eventos. É por isso que criamos uma plataforma que permite
+              conectar artistas e estabelecimentos de todo o país. Com apenas
+              alguns cliques, você pode ampliar sua rede de contatos, descobrir
+              novas oportunidades e expandir sua carreira.
             </p>
 
             <p className="font-light text-sm mt-4 px-4">
-              lacus ac posuere hendrerit, quam orci hendrerit dolor, a gravida
-              risus sapien vel massa. Integer mollis, lacus vitae dignissim
-              ullamcorper, sapien mauris auctor quam, sed consectetur nunc justo
-              in nisi.
+              Além disso, nossa plataforma é segura e eficiente, garantindo uma
+              experiência positiva para todos os usuários. Junte-se a nós e faça
+              parte da comunidade de artistas e estabelecimentos de
+              entretenimento mais vibrante do país!.
             </p>
           </div>
         </div>

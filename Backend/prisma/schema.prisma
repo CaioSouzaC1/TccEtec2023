@@ -19,7 +19,6 @@ model Artists {
   pass String
   whatsApp Float
   cpf Float @unique
-  ArtistsEvents Events[]
   createdAt DateTime @default(now())
   artistsMeta ArtistsMeta?
 }
@@ -31,19 +30,6 @@ model ArtistsMeta {
   updatedAt DateTime @default(now())
   profileImage String? 
 }
-
-model Events {
-  id   String @id @default(uuid())
-  eventName String
-  hour DateTime?
-  createdAt DateTime @default(now())
-  artistCreator String
-  artist Artists @relation(fields: [artistCreator], references: [id])
-  eventSpace String
-  establishment Establishments @relation(fields: [eventSpace], references: [id])
-  eventStatus String
-}
-
 model Establishments {
   id   String @id @default(uuid())
   pubId String @default(cuid())
@@ -60,7 +46,6 @@ model Establishments {
   cidade String
   tema String?
   horaFunc String?
-  EstablishmentEvents Events[]
   createdAt DateTime @default(now())
   establishments EstablishmentsMeta?
 }

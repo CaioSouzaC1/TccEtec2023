@@ -60,7 +60,11 @@ const MyEvents = () => {
     <>
       <ThePageText text="Meus Eventos" />
 
-      {haveEvent === false && <div>Você ainda não tem eventos marcados</div>}
+      {haveEvent === false && (
+        <div className="min-h-70-screen">
+          Você ainda não tem eventos marcados
+        </div>
+      )}
 
       {events && (
         <>

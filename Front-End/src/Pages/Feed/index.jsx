@@ -14,6 +14,14 @@ import { Autoplay, Pagination, Navigation } from "swiper";
 import styles from "./styles.module.css";
 import { db } from "../../Utils/Firebase/Firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
+import {
+  Compass,
+  Envelope,
+  IdentificationBadge,
+  MapPinLine,
+  MapTrifold,
+  WhatsappLogo,
+} from "phosphor-react";
 const Feed = () => {
   const [lastPlacesState, setLastPlacesState] = useState(false);
   const [events, setEvents] = useState(false);
@@ -75,7 +83,9 @@ const Feed = () => {
 
   return (
     <>
-      <h2 className="text-2xl font-bold my-8">Estabelecimentos</h2>
+      <h2 className="text-2xl font-bold my-8">
+        10 últimos estabelecimentos cadastrados
+      </h2>
       {lastPlacesState && (
         <Swiper
           slidesPerView={1}
@@ -105,20 +115,62 @@ const Feed = () => {
             },
           }}
           modules={[Autoplay, Pagination, Navigation]}
-          className="mySwiper"
+          className="lastPlaces"
         >
           {lastPlacesState.map((e) => {
             return (
               <SwiperSlide key={e.pubId}>
                 <Link to={`/estabelecimento/${e.pubId}`}>
-                  <ProfileImage
-                    name={e.name}
-                    pubId={e.pubId}
-                    type={"Establishment"}
-                  />
-                  <h3>{e.name}</h3>
-                  <h4>{e.logradouro}</h4>
-                  <h5>{e.bairro}</h5>
+                  <div
+                    className={`p-2 my-4 mx-auto ${styles.card} bg-s-black hover:brightness-125 rounded-3xl`}
+                  >
+                    <div className="flex flex-wrap items-center mt-4">
+                      <div className="w-full md:w-1/2">
+                        <ProfileImage
+                          fixFeed={styles.fixFeed}
+                          className="h-40 w-40 max-w-[10em] min-h-[10em]"
+                          name={e.name}
+                          pubId={e.pubId}
+                          type={"Establishment"}
+                        />
+                      </div>
+                      <div className="w-full md:w-1/2">
+                        <ul>
+                          <li className="text-xl">
+                            <Compass
+                              className="inline pr-2 mr-2 border-r-2 border-s-red"
+                              size={26}
+                            />
+                            {e.cidade}
+                          </li>
+                          <li className="text-xl">
+                            <MapPinLine
+                              className="inline pr-2 mr-2
+                    border-r-2
+                    border-s-red"
+                              size={26}
+                            />
+                            {e.bairro}
+                          </li>
+                          <li className="text-xl">
+                            <MapTrifold
+                              className="inline pr-2 mr-2 border-r-2 border-s-red"
+                              size={26}
+                            />
+                            {e.logradouro}, {e.numEnd}
+                          </li>
+                        </ul>
+                      </div>
+                      <span className="h-1 rounded-3xl bg-s-red w-4/5 mx-auto mt-4">
+                        {" "}
+                      </span>
+                      <div className="w-full mt-4">
+                        <h3 className="font-bold text-2xl text-center mb-4">
+                          {e.name}
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
                 </Link>
               </SwiperSlide>
             );
