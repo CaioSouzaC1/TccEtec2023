@@ -66,7 +66,7 @@ const EventLogic = (props) => {
         event_type: selectValue("#eventType"),
         event_name: selectValue("#eventTitle"),
         proposer: props.userTI,
-        accecpter: props.otherTI,
+        accepter: props.otherTI,
         event_order: event_order,
         status: 0,
       });
@@ -302,7 +302,7 @@ const EventLogic = (props) => {
     eventState.status != 401 &&
     eventState.status != 402 &&
     eventState.status != 201 &&
-    eventState.accecpter === `${userDataByJwt.type}:${userDataByJwt.user}`
+    eventState.accepter === `${userDataByJwt.type}:${userDataByJwt.user}`
   ) {
     const date_event = new Date(eventState.event_data);
     const formattedDate = date_event.toISOString().slice(0, 10);
@@ -466,7 +466,7 @@ const EventLogic = (props) => {
   if (
     eventState &&
     eventState.status === 402 &&
-    eventState.accecpter === `${userDataByJwt.type}:${userDataByJwt.user}`
+    eventState.accepter === `${userDataByJwt.type}:${userDataByJwt.user}`
   ) {
     return (
       <>

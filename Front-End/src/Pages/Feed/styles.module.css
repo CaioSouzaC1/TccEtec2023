@@ -36,3 +36,30 @@
 .lastPlaces .swiper-pagination-bullets .swiper-pagination-bullet-active {
   background-color: #da0037;
 }
+
+.Eventcard {
+  height: 290px;
+  background-image: linear-gradient(160deg, #da0037 0%, #b0002c 100%);
+  border-radius: 16px;
+  transition: all 0.3s;
+}
+
+.Eventcard2 {
+  height: 290px;
+  background-color: #1a1a1a;
+  border-radius: 16px;
+  transition: all 0.2s;
+}
+
+.Eventcard2:hover,
+.Eventcard2:active,
+.Eventcard2:focus {
+  transform: scale(0.97);
+  border-radius: 16px;
+}
+
+.Eventcard:hover,
+.Eventcard:active,
+.Eventcard:focus {
+  box-shadow: 0px 0px 30px 1px #b0002c;
+}

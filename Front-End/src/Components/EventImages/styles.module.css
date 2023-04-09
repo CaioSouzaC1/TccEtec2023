@@ -1,0 +1,18 @@
+.eventImages img,
+.eventImages .fixFeed {
+  max-height: 120px;
+  min-height: 0;
+  width: 50%;
+  object-fit: cover;
+  max-width: unset;
+}
+
+.eventImages img:nth-child(1),
+.eventImages .fixFeed:nth-child(1) {
+  border-radius: 8px 0 0 8px;
+}
+
+.eventImages img:nth-child(2),
+.eventImages .fixFeed:nth-child(2) {
+  border-radius: 0 8px 8px 0;
+}

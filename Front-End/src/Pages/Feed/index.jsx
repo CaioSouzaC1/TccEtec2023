@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../Components/Button/Button";
-import ThePageText from "../../Components/ThePageText";
 import ButtonLogout from "../../Components/ButtonLogout";
 import ProfileImage from "../../Components/ProfileImage";
 import { UserContext } from "../../Contexts/User";
@@ -15,13 +14,14 @@ import styles from "./styles.module.css";
 import { db } from "../../Utils/Firebase/Firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import {
+  CalendarCheck,
+  Clock,
   Compass,
-  Envelope,
-  IdentificationBadge,
   MapPinLine,
   MapTrifold,
-  WhatsappLogo,
 } from "phosphor-react";
+
+import EventImages from "../../Components/EventImages";
 const Feed = () => {
   const [lastPlacesState, setLastPlacesState] = useState(false);
   const [events, setEvents] = useState(false);
@@ -145,9 +145,7 @@ const Feed = () => {
                           </li>
                           <li className="text-xl">
                             <MapPinLine
-                              className="inline pr-2 mr-2
-                    border-r-2
-                    border-s-red"
+                              className="inline pr-2 mr-2 border-r-2 border-s-red"
                               size={26}
                             />
                             {e.bairro}
@@ -191,17 +189,67 @@ const Feed = () => {
       {events && (
         <h2 className="text-2xl font-bold mt-8 mb-4">Eventos Confirmados</h2>
       )}
-      <ul>
+      <ul className="flex flex-wrap">
         {events &&
           events.map((e) => {
             const data = e.data();
             return (
-              <li className="bg-s-black p-4">
-                <h4>Nome:{data.event_name}</h4>
-                <h5>Tipo:{data.event_type}</h5>
-                <h5>Data:{data.event_data}</h5>
-                <h6>Horário:{data.init_hour}</h6>
-                <h6>Proposer:{data.event_order}</h6>
+              <li
+                key={e._document.key.path.segments[6]}
+                className={`w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:1/5 2xl:1/6 cursor-pointer p-2`}
+              >
+                <Link to={`/eventos/${e._document.key.path.segments[6]}`}>
+                  <div className={`${styles.Eventcard}`}>
+                    <div
+                      className={`${styles.Eventcard2} p-4 w-full text-center`}
+                    >
+                      <EventImages
+                        order={data.event_order}
+                        accepter={data.accepter}
+                        proposer={data.proposer}
+                      />
+                      <h4 className="text-xl font-bold my-2 uppercase">
+                        {data.event_name}
+                      </h4>
+                      <h5 className="text-lg font-regular mb-2">
+                        {data.event_type}
+                      </h5>
+                      <h5 className="flex justify-around flex-wrap font-bold">
+                        <div className="flex w-1/2 justify-center items-center">
+                          <CalendarCheck size={18} weight="bold" />
+                          {new Date(data.event_data).toLocaleDateString(
+                            "pt-BR",
+                            {
+                              day: "numeric",
+                              month: "numeric",
+                              year: "numeric",
+                              timeZone: "America/Sao_Paulo",
+                            }
+                          )}
+                        </div>
+                        <div className="flex w-1/2 justify-center items-center">
+                          <Clock size={18} weight="bold" />
+                          {data.init_hour}
+                        </div>
+                        <span className="h-1 rounded-3xl bg-s-red w-full mx-auto mt-1">
+                          {" "}
+                        </span>
+                        <p className="text-xs font-thin mt-4">
+                          Evento criado em :{" "}
+                          {new Date(data.timestamp).toLocaleDateString(
+                            "pt-BR",
+                            {
+                              day: "numeric",
+                              month: "numeric",
+                              year: "numeric",
+                              timeZone: "America/Sao_Paulo",
+                            }
+                          )}
+                        </p>
+                      </h5>
+                    </div>
+                  </div>
+                </Link>
               </li>
             );
           })}

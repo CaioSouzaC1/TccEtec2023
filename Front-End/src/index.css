@@ -44,7 +44,7 @@ html {
 }
 
 .main_footer {
-  background-image: url("/public/waves.svg");
+  background-image: url("/waves.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
