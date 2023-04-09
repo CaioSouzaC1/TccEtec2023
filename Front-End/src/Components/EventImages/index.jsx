@@ -39,11 +39,13 @@ const EventImages = (props) => {
               name={"Artista"}
               pubId={accepterPubId.pubId}
               type={"Artists"}
+              fixFeed="fixFeed"
             />
             <ProfileImage
               name={"Estabelecimento"}
               pubId={proposerPubId.pubId}
               type={"Establishment"}
+              fixFeed="fixFeed"
             />
           </div>
         );
