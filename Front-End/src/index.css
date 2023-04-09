@@ -106,5 +106,5 @@ input[type="file"]::file-selector-button {
 
 .lastPlaces .swiper-pagination-bullet-active {
   background-color: #da0037;
-  border: 0.4px solid #fff;
+  border: 0.4px solid #000;
 }

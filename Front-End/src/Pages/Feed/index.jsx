@@ -196,10 +196,12 @@ const Feed = () => {
           events.map((e) => {
             const data = e.data();
             return (
-              <li>
-                <h4>{data.event_name}</h4>
-                <h5>{data.event_type}</h5>
-                <h6>{data.init_hour}</h6>
+              <li className="bg-s-black p-4">
+                <h4>Nome:{data.event_name}</h4>
+                <h5>Tipo:{data.event_type}</h5>
+                <h5>Data:{data.event_data}</h5>
+                <h6>Horário:{data.init_hour}</h6>
+                <h6>Proposer:{data.event_order}</h6>
               </li>
             );
           })}

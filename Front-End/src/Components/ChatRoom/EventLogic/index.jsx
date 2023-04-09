@@ -54,6 +54,9 @@ const EventLogic = (props) => {
   const logic = async (e) => {
     e.preventDefault();
 
+    const event_order =
+      props.userTI.split(":")[0] === "artist" ? "Artists" : "Establishment";
+
     const docSnap = await getDoc(eventDocRef);
     if (!docSnap.data()) {
       await setDoc(eventDocRef, {
@@ -64,6 +67,7 @@ const EventLogic = (props) => {
         event_name: selectValue("#eventTitle"),
         proposer: props.userTI,
         accecpter: props.otherTI,
+        event_order: event_order,
         status: 0,
       });
     }
@@ -468,9 +472,10 @@ const EventLogic = (props) => {
       <>
         <form className="text-center">
           <h3 className="text-xl font-semibold m-0">
-            Você teve de cancelar o evento.
+            Você teve de cancelar o evento{" "}
+            <MaskSad className="inline" weight="bold" size={26} />
           </h3>
-          <MaskSad size={22} />
+
           <h5 className="text-sm mt-8 font-normal">
             Por conta disso, solicitamos a outra parte que deletasse o mesmo.
           </h5>
