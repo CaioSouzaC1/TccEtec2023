@@ -1,15 +1,11 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import verifyJwt from "../../Utils/Security/verifyJwt";
-import { Link, useNavigate } from "react-router-dom";
-import errorFy from "../../Utils/Toastify/errorFy";
-import infoFy from "../../Utils/Toastify/infoFy";
+import { useNavigate } from "react-router-dom";
 import ButtonBack from "../../Components/ButtonBack";
-import Button from "../../Components/Button/Button";
 import ThePageText from "../../Components/ThePageText";
-import { Buffer } from "buffer";
 import { ToastContainer } from "react-toastify";
 import { UserContext } from "../../Contexts/User";
-import { API_URL } from "../../Utils/Admin";
+import { getDocs, collection, query, where } from "firebase/firestore";
+import { app, auth, storage, db } from "../../Utils/Firebase/Firebase";
 
 const MyEvents = () => {
   const navigate = useNavigate();
@@ -21,78 +17,51 @@ const MyEvents = () => {
       },
     });
   }
-  const [events, setEvents] = useState(false);
+  const [eventsAsProposerState, setEventsAsProposerState] = useState(false);
+  const [eventsAsAccepterState, setEventsAsAccepterState] = useState(false);
 
-  const stateRef = useRef(null);
-  const [haveEvent, setHaveEvent] = useState(undefined);
   useEffect(() => {
-    if (stateRef.current === null) {
-      stateRef.current = true;
-      getMyEvents();
-    }
+    getEventsData();
   }, []);
 
-  const getMyEvents = async () => {
-    try {
-      let getEvents = await fetch(`${API_URL}/meus-eventos`, {
-        headers: new Headers({
-          Authorization: `${Buffer.from(
-            `${await (await verifyJwt()).user}`
-          ).toString("base64")}`,
-        }),
-      });
+  const getEventsData = async () => {
+    const colRef = collection(db, "events");
 
-      if (getEvents.status === 200) {
-        getEvents = await getEvents.json();
-        setEvents(getEvents);
-      } else if (getEvents.status === 404) {
-        setHaveEvent(false);
-        setTimeout(() => {
-          infoFy("Relaxa. Logo você terá!", 3000);
-        }, 500);
-      }
-    } catch (err) {
-      errorFy(err);
+    const queryAccepter = query(
+      colRef,
+      where("accepter", "==", `${type}:${user}`)
+    );
+    const queryProposer = query(
+      colRef,
+      where("proposer", "==", `${type}:${user}`)
+    );
+    const eventsAsProposer = await getDocs(queryProposer);
+
+    const eventsAsAccepter = await getDocs(queryAccepter);
+    if (eventsAsProposer.docs.length != 0) {
+      setEventsAsProposerState(eventsAsProposer.docs);
+    }
+
+    console.log(eventsAsProposer.docs.length != 0);
+    console.log(eventsAsAccepter.docs.length != 0);
+
+    if (eventsAsAccepter.docs.length != 0) {
+      setEventsAsAccepterState(eventsAsAccepter.docs);
     }
   };
 
+  useEffect(() => {
+    console.log(eventsAsProposerState);
+    console.log(eventsAsAccepterState);
+  }, [eventsAsProposerState, eventsAsAccepterState]);
+
   return (
     <>
-      <ThePageText text="Meus Eventos" />
-
-      {haveEvent === false && (
-        <div className="min-h-70-screen">
-          Você ainda não tem eventos marcados
-        </div>
-      )}
-
-      {events && (
-        <>
-          <h3>Eventos Solicitados:</h3>
-          <ul>
-            {events.map((e) => {
-              return (
-                <li key={e.id}>
-                  <span>{e.eventName} - </span>
-                  <span>id: {e.id} - </span>
-
-                  <span>{e.eventStatus}</span>
-                  <br />
-                  <strong>Dados do Solicitante:</strong>
-                  <span>{e.ArtistData.nameArt} - </span>
-                  <span>Conta Criada em:{e.ArtistData.createdAt} </span>
-
-                  <Link to={`/artista/${e.ArtistData.pubId}`}>
-                    <Button text="Vizualizar Perfil"></Button>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </>
-      )}
-      <ButtonBack />
-      <ToastContainer />
+      <section>
+        <ThePageText text="Meus Eventos" />
+        <ButtonBack />
+        <ToastContainer />
+      </section>
     </>
   );
 };

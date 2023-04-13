@@ -299,7 +299,7 @@ const MyProfile = () => {
               copyProfileLink(`${APP_URL}/artista/${userDatas.pubId}`)
             }
           >
-            Compartilhar Perfil{" "}
+            Copiar link do perfil{" "}
             <Link className="inline" weight="light" size={18} />
           </p>
 
@@ -447,7 +447,7 @@ const MyProfile = () => {
               copyProfileLink(`${APP_URL}/estabelecimento/${userDatas.pubId}`)
             }
           >
-            Compartilhar Perfil{" "}
+            Copiar link do perfil{" "}
             <Link className="inline" weight="light" size={18} />
           </p>
           <p className="text-sm">

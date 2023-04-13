@@ -182,78 +182,85 @@ const Feed = () => {
         </Swiper>
       )}
       <br />
-      <h3
-        className="text-bold text-xl
-      "
-      ></h3>
-      {events && (
-        <h2 className="text-2xl font-bold mt-8 mb-4">Eventos Confirmados</h2>
-      )}
-      <ul className="flex flex-wrap">
-        {events &&
-          events.map((e) => {
-            const data = e.data();
-            return (
-              <li
-                key={e._document.key.path.segments[6]}
-                className={`w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:1/5 2xl:1/6 cursor-pointer p-2`}
-              >
-                <Link to={`/eventos/${e._document.key.path.segments[6]}`}>
-                  <div className={`${styles.Eventcard}`}>
-                    <div
-                      className={`${styles.Eventcard2} p-4 w-full text-center`}
+      <section className="flex flex-wrap">
+        {events && (
+          <div className="w-full md:w-1/2">
+            <h2 className="text-2xl font-bold mt-8 mb-4">
+              Eventos Confirmados
+            </h2>
+            <ul className="flex flex-wrap">
+              {events &&
+                events.map((e) => {
+                  const data = e.data();
+                  return (
+                    <li
+                      key={e._document.key.path.segments[6]}
+                      className={`w-full md:w-1/2 2xl:1/3 cursor-pointer p-2`}
                     >
-                      <EventImages
-                        order={data.event_order}
-                        accepter={data.accepter}
-                        proposer={data.proposer}
-                      />
-                      <h4 className="text-xl font-bold my-2 uppercase">
-                        {data.event_name}
-                      </h4>
-                      <h5 className="text-lg font-regular mb-2">
-                        {data.event_type}
-                      </h5>
-                      <h5 className="flex justify-around flex-wrap font-bold">
-                        <div className="flex w-1/2 justify-center items-center">
-                          <CalendarCheck size={18} weight="bold" />
-                          {new Date(data.event_data).toLocaleDateString(
-                            "pt-BR",
-                            {
-                              day: "numeric",
-                              month: "numeric",
-                              year: "numeric",
-                              timeZone: "America/Sao_Paulo",
-                            }
-                          )}
+                      <Link to={`/eventos/${e._document.key.path.segments[6]}`}>
+                        <div className={`${styles.Eventcard}`}>
+                          <div
+                            className={`${styles.Eventcard2} p-4 w-full text-center`}
+                          >
+                            <EventImages
+                              order={data.event_order}
+                              accepter={data.accepter}
+                              proposer={data.proposer}
+                            />
+                            <h4 className="text-xl font-bold my-2 uppercase">
+                              {data.event_name}
+                            </h4>
+                            <h5 className="text-lg font-regular mb-2">
+                              {data.event_type}
+                            </h5>
+                            <h5 className="flex justify-around flex-wrap font-bold">
+                              <div className="flex w-1/2 justify-center items-center">
+                                <CalendarCheck size={18} weight="bold" />
+                                {new Date(data.event_data).toLocaleDateString(
+                                  "pt-BR",
+                                  {
+                                    day: "numeric",
+                                    month: "numeric",
+                                    year: "numeric",
+                                    timeZone: "America/Sao_Paulo",
+                                  }
+                                )}
+                              </div>
+                              <div className="flex w-1/2 justify-center items-center">
+                                <Clock size={18} weight="bold" />
+                                {data.init_hour}
+                              </div>
+                              <span className="h-1 rounded-3xl bg-s-red w-full mx-auto mt-1">
+                                {" "}
+                              </span>
+                              <p className="text-xs font-thin mt-4">
+                                Evento criado em :{" "}
+                                {new Date(data.timestamp).toLocaleDateString(
+                                  "pt-BR",
+                                  {
+                                    day: "numeric",
+                                    month: "numeric",
+                                    year: "numeric",
+                                    timeZone: "America/Sao_Paulo",
+                                  }
+                                )}
+                              </p>
+                            </h5>
+                          </div>
                         </div>
-                        <div className="flex w-1/2 justify-center items-center">
-                          <Clock size={18} weight="bold" />
-                          {data.init_hour}
-                        </div>
-                        <span className="h-1 rounded-3xl bg-s-red w-full mx-auto mt-1">
-                          {" "}
-                        </span>
-                        <p className="text-xs font-thin mt-4">
-                          Evento criado em :{" "}
-                          {new Date(data.timestamp).toLocaleDateString(
-                            "pt-BR",
-                            {
-                              day: "numeric",
-                              month: "numeric",
-                              year: "numeric",
-                              timeZone: "America/Sao_Paulo",
-                            }
-                          )}
-                        </p>
-                      </h5>
-                    </div>
-                  </div>
-                </Link>
-              </li>
-            );
-          })}
-      </ul>
+                      </Link>
+                    </li>
+                  );
+                })}
+            </ul>
+          </div>
+        )}
+        <div className="w-full md:w-1/2">
+          <h2 className="text-2xl font-bold mt-8 mb-4 pl-4">
+            Artistas mais vistos
+          </h2>
+        </div>
+      </section>
       <Link to="/meus-eventos">
         <Button text="Meus Eventos"></Button>
       </Link>

@@ -1,0 +1,8 @@
+div.eventData img,
+div.eventData div > div {
+  max-height: 220px;
+  min-height: 220px;
+}
+div.eventData {
+  max-width: 70%;
+}

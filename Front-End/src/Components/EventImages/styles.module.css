@@ -3,7 +3,7 @@
   max-height: 120px;
   min-height: 0;
   width: 50%;
-  object-fit: cover;
+  object-fit: fill;
   max-width: unset;
 }
 

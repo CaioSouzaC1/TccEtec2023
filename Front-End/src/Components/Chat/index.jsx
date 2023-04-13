@@ -47,14 +47,14 @@ const Chat = (props) => {
     try {
       const docSnap = await getDoc(docUserChatRef);
       if (!docSnap.data()) {
-        await setDoc(docUserChatRef, {
-          id: props.viewer,
-          timestamp: Date.now(),
-          // TESTE: [
-          //   { data: "data", datadois: "dataDois" },
-          //   { data: "data", datatres: "datatres" },
-          // ],
-        });
+        // await setDoc(docUserChatRef, {
+        //   id: props.viewer,
+        //   timestamp: Date.now(),
+        //   TESTE: [
+        //     { data: "data", datadois: "dataDois" },
+        //     { data: "data", datatres: "datatres" },
+        //   ],
+        // });
       }
 
       const queryChat01 = query(
