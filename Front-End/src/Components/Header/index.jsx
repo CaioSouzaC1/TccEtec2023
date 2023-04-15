@@ -47,7 +47,7 @@ const Header = () => {
               </li>
               <li className="mx-3 uppercase font-bold text-white">
                 <Link className="relative pb-1" to={"/meus-eventos"}>
-                  Eventos
+                  Meus eventos
                 </Link>{" "}
               </li>
             </>
