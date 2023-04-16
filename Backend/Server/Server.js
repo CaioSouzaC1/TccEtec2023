@@ -597,6 +597,35 @@ router.get("/Id-to-pubId", async (req, res) => {
     res.sendStatus(400);
   }
 });
+
+router.get("/artist/most-viewed", async (req, res) => {
+  try {
+    const mostViewedArtists = await prisma.Artists.findMany({
+      take: 6,
+      orderBy: {
+        artistsMeta: {
+          profileViews: "desc",
+        },
+      },
+      select: {
+        name: true,
+        nameArt: true,
+        pubId: true,
+        createdAt: true,
+        artistsMeta: {
+          select: {
+            profileViews: true,
+          },
+        },
+      },
+    });
+
+    res.json(mostViewedArtists);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(400);
+  }
+});
 /*END - Util Endpoints*/
 
 /*START - App Listen Configurations*/

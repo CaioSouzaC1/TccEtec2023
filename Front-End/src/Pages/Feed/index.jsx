@@ -25,6 +25,8 @@ import EventImages from "../../Components/EventImages";
 const Feed = () => {
   const [lastPlacesState, setLastPlacesState] = useState(false);
   const [events, setEvents] = useState(false);
+  const [artistsMostViewed, setArtistsMostViewed] = useState(false);
+
   const stateRef = useRef(null);
   const navigate = useNavigate();
   const { auth, user, type } = useContext(UserContext);
@@ -60,6 +62,7 @@ const Feed = () => {
       stateRef.current = true;
       lastPlaces();
       renderEvents();
+      artistsMostVieweds();
     }
   }, []);
 
@@ -79,6 +82,19 @@ const Feed = () => {
 
     setEvents(resultQuery01.docs);
     return;
+  };
+
+  const artistsMostVieweds = async () => {
+    try {
+      let ultimos = await fetch(`${API_URL}/artist/most-viewed`);
+
+      if (ultimos.status === 200) {
+        ultimos = await ultimos.json();
+        setArtistsMostViewed(ultimos);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -259,6 +275,50 @@ const Feed = () => {
           <h2 className="text-2xl font-bold mt-8 mb-4 pl-4">
             Artistas mais vistos
           </h2>
+          <ul className="flex flex-wrap">
+            {artistsMostViewed &&
+              artistsMostViewed.map((e) => {
+                return (
+                  <li
+                    key={e.pubId}
+                    className={`w-full md:w-1/2 2xl:1/3 cursor-pointer p-2`}
+                  >
+                    <Link to={`/artista/${e.pubId}`}>
+                      <div className={`${styles.Eventcard}`}>
+                        <div
+                          className={`${styles.Eventcard2} ${styles.amv} p-4 w-full text-center`}
+                        >
+                          <ProfileImage
+                            name={e.name}
+                            pubId={e.pubId}
+                            type={"Artists"}
+                          />
+                          <h4 className="text-2xl font-bold my-2 uppercase">
+                            {e.nameArt}
+                          </h4>
+                          <h4 className="text-xl font-regular my-2">
+                            {e.name}
+                          </h4>
+                          <h5 className="text-lg font-regular mb-2 mt-4">
+                            Visualizações no perfil:{" "}
+                            {e.artistsMeta.profileViews}
+                          </h5>
+                          <p className="text-xs font-thin mt-2">
+                            Conta criada em :{" "}
+                            {new Date(e.createdAt).toLocaleDateString("pt-BR", {
+                              day: "numeric",
+                              month: "numeric",
+                              year: "numeric",
+                              timeZone: "America/Sao_Paulo",
+                            })}
+                          </p>
+                        </div>
+                      </div>
+                    </Link>
+                  </li>
+                );
+              })}
+          </ul>
         </div>
       </section>
       <Link to="/meus-eventos">
