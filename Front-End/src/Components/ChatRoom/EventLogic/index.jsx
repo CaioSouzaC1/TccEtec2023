@@ -31,7 +31,6 @@ const EventLogic = (props) => {
   const eventDocRef = doc(db, "events", props.chatId);
 
   const [eventState, setEventState] = useState(false);
-  // const userTIData = `${type}:${user}`;
 
   const verifyEventData = async () => {
     const docSnap = await getDoc(eventDocRef);
@@ -46,10 +45,6 @@ const EventLogic = (props) => {
     () => onSnapshot(eventDocRef, (snapshot) => setEventState(snapshot.data())),
     []
   );
-
-  // useEffect(() => {
-  //   console.log(eventState);
-  // }, [eventState]);
 
   const logic = async (e) => {
     e.preventDefault();

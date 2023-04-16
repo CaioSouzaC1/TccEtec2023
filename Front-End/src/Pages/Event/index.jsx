@@ -91,7 +91,11 @@ const Event = () => {
   const eventDocRef = doc(db, "events", id);
 
   if (!eventData) {
-    return <Loader />;
+    return (
+      <div className="min-h-70-screen">
+        <Loader />
+      </div>
+    );
   }
 
   return (

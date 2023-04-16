@@ -11,6 +11,7 @@ module.exports = {
         "f-gray": "#444444",
         "s-gray": "#282828",
         "f-blue": "#0c4a88",
+        "f-green": "#52eb34",
       },
     },
   },

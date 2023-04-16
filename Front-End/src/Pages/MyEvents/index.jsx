@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import { getDocs, collection, query, where } from "firebase/firestore";
 import { app, auth, storage, db } from "../../Utils/Firebase/Firebase";
 import verifyJwt from "../../Utils/Security/verifyJwt";
+import EventsListItem from "../../Components/EventsListItem";
 
 const MyEvents = () => {
   const navigate = useNavigate();
@@ -64,27 +65,40 @@ const MyEvents = () => {
     if (eventsAsAccepter.docs.length != 0) {
       setEventsAsAccepterState(eventsAsAccepter.docs);
     }
-    console.log(eventsAsProposer.docs);
-    console.log(eventsAsAccepter.docs);
   };
 
-  useEffect(() => {
-    console.log(authInfo);
-    console.log(userInfo);
-    console.log(typeInfo);
-  }, [eventsAsProposerState, eventsAsAccepterState]);
-
   return (
-    <>
-      <section>
-        <ThePageText text="Meus Eventos" />
+    <div className="min-h-70-screen">
+      <ThePageText text="Meus Eventos" />
+      <section className="flex flex-wrap text-center">
+        <div className="w-full md:w-1/2">
+          <h4 className="font-bold text-xl">Propostos por teceiros</h4>
+          {eventsAsAccepterState && (
+            <ul className="px-4 flex flex-col bg-s-black">
+              {eventsAsAccepterState.map((e) => {
+                return <EventsListItem fireId={e.id} key={e.id} />;
+              })}
+            </ul>
+          )}
+        </div>
 
-        {authInfo && <div>Tem data</div>}
+        <div className="w-full md:w-1/2">
+          <h4 className="font-bold text-xl">Propostos por mim</h4>
+          {eventsAsProposerState && (
+            <ul className="px-4 flex flex-col">
+              {eventsAsProposerState.map((e) => {
+                return <EventsListItem fireId={e.id} key={e.id} />;
+              })}
+            </ul>
+          )}
+        </div>
 
-        <ButtonBack />
+        <div className="w-full">
+          <ButtonBack />
+        </div>
         <ToastContainer />
       </section>
-    </>
+    </div>
   );
 };
 
