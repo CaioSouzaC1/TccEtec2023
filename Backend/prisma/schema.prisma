@@ -55,3 +55,19 @@ model EstablishmentsMeta {
   profileViews Int @default(0)
   updatedAt DateTime @default(now())
 }
+
+model Post {
+  id   String @id @default(cuid())
+  author String
+  author_type String
+  title String
+  format String
+  createdAt DateTime @default(now())
+  postmeta Postmeta?
+}
+model Postmeta {
+  id   String @id @unique
+  post_id Post @relation(fields: [id], references: [id])
+  meta_key String 
+  meta_value String 
+}

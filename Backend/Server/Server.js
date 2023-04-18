@@ -257,6 +257,35 @@ router.post("/updateProfileImage", upload.single("file"), (req, res) => {
     res.status(200).send("Imagem Cadastrada");
   }
 });
+
+router.get("/artist/most-viewed", async (req, res) => {
+  try {
+    const mostViewedArtists = await prisma.Artists.findMany({
+      take: 6,
+      orderBy: {
+        artistsMeta: {
+          profileViews: "desc",
+        },
+      },
+      select: {
+        name: true,
+        nameArt: true,
+        pubId: true,
+        createdAt: true,
+        artistsMeta: {
+          select: {
+            profileViews: true,
+          },
+        },
+      },
+    });
+
+    res.json(mostViewedArtists);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(400);
+  }
+});
 /*END - Artists Configurations*/
 
 /*START - Security/Validations*/
@@ -533,6 +562,25 @@ router.post(
 );
 /*END - Estableshiment Configurations*/
 
+/*START - Post Endpoints*/
+
+router.post("/post/create", async (req, res) => {
+  try {
+    const post = await prisma.Post.create({
+      data: {
+        title: req.body.title,
+        format: req.body.format,
+      },
+    });
+    res.json(post);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+});
+
+/*END - Util Endpoints*/
+
 /*START - Util Endpoints*/
 router.get("/pubId-to-Id", async (req, res) => {
   try {
@@ -598,34 +646,6 @@ router.get("/Id-to-pubId", async (req, res) => {
   }
 });
 
-router.get("/artist/most-viewed", async (req, res) => {
-  try {
-    const mostViewedArtists = await prisma.Artists.findMany({
-      take: 6,
-      orderBy: {
-        artistsMeta: {
-          profileViews: "desc",
-        },
-      },
-      select: {
-        name: true,
-        nameArt: true,
-        pubId: true,
-        createdAt: true,
-        artistsMeta: {
-          select: {
-            profileViews: true,
-          },
-        },
-      },
-    });
-
-    res.json(mostViewedArtists);
-  } catch (err) {
-    console.error(err);
-    res.sendStatus(400);
-  }
-});
 /*END - Util Endpoints*/
 
 /*START - App Listen Configurations*/
