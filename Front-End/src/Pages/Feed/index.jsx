@@ -22,10 +22,13 @@ import {
 } from "phosphor-react";
 
 import EventImages from "../../Components/EventImages";
+import NewModal from "../../Components/NewModal";
+import PostLogic from "../../Components/PostLogic";
 const Feed = () => {
   const [lastPlacesState, setLastPlacesState] = useState(false);
   const [events, setEvents] = useState(false);
   const [artistsMostViewed, setArtistsMostViewed] = useState(false);
+  const [modalPost, setModalPost] = useState(false);
 
   const stateRef = useRef(null);
   const navigate = useNavigate();
@@ -321,11 +324,28 @@ const Feed = () => {
           </ul>
         </div>
       </section>
-      <Link to="/meus-eventos">
-        <Button text="Meus Eventos"></Button>
-      </Link>
-      <br />
-      <ButtonLogout />
+      <section className="bg-s-black w-full my-8 rounded pt-4">
+        <h2 className="text-2xl font-bold my-4 pl-4">Atalhos úteis</h2>
+        <div className="flex flex-wrap">
+          <button
+            onClick={() => setModalPost(true)}
+            className="bg-f-red hover:bg-gradient-to-tr from-f-red to-red-800 text-white py-2 px-4 rounded transition-all m-2 font-semibold"
+          >
+            Criar Postagem
+          </button>
+
+          <Link to="/meu-perfil">
+            <Button text="Meu Perfil"></Button>
+          </Link>
+          <Link to="/meus-eventos">
+            <Button text="Meus Eventos"></Button>
+          </Link>
+          <ButtonLogout />
+        </div>
+      </section>
+      <NewModal show={modalPost} callback={setModalPost}>
+        <PostLogic></PostLogic>
+      </NewModal>
     </>
   );
 };
