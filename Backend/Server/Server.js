@@ -565,17 +565,36 @@ router.post(
 /*START - Post Endpoints*/
 
 router.post("/post/create", async (req, res) => {
-  try {
-    const post = await prisma.Post.create({
-      data: {
-        title: req.body.title,
-        format: req.body.format,
-      },
-    });
-    res.json(post);
-  } catch (err) {
-    console.log(err);
-    res.sendStatus(400);
+  if (req.body.format === "video") {
+    try {
+      const post = await prisma.Post.create({
+        data: {
+          author: req.body.author,
+          author_type: req.body.author_type,
+          format: req.body.format,
+        },
+      });
+
+      const contentMeta = await prisma.Postmeta.create({
+        data: {
+          id: post.id,
+          meta_key: "content",
+          meta_value: req.body.content,
+        },
+      });
+
+      const videoUrlMeta = await prisma.Postmeta.create({
+        data: {
+          id: post.id,
+          meta_key: "video_url",
+          meta_value: req.body.video_url,
+        },
+      });
+      res.json(post);
+    } catch (err) {
+      console.log(err);
+      res.sendStatus(400);
+    }
   }
 });
 

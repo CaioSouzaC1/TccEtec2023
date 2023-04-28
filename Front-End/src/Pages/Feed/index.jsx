@@ -344,7 +344,7 @@ const Feed = () => {
         </div>
       </section>
       <NewModal show={modalPost} callback={setModalPost}>
-        <PostLogic></PostLogic>
+        <PostLogic type={type} user={user} />
       </NewModal>
     </>
   );
