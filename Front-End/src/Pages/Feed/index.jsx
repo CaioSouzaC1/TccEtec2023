@@ -24,6 +24,7 @@ import {
 import EventImages from "../../Components/EventImages";
 import NewModal from "../../Components/NewModal";
 import PostLogic from "../../Components/PostLogic";
+import { ToastContainer } from "react-toastify";
 const Feed = () => {
   const [lastPlacesState, setLastPlacesState] = useState(false);
   const [events, setEvents] = useState(false);
@@ -344,8 +345,9 @@ const Feed = () => {
         </div>
       </section>
       <NewModal show={modalPost} callback={setModalPost}>
-        <PostLogic type={type} user={user} />
+        <PostLogic type={type} user={user} callback={setModalPost} />
       </NewModal>
+      <ToastContainer />
     </>
   );
 };

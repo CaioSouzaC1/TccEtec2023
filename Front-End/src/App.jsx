@@ -23,6 +23,7 @@ import About from "./Pages/About";
 import Objective from "./Pages/Objective";
 import NotFound from "./Pages/NotFound";
 import Event from "./Pages/Event";
+import Posts from "./Pages/Posts";
 
 function App() {
   const location = useLocation();
@@ -76,6 +77,7 @@ function App() {
             element={<ProfileEstablishments />}
           />
           <Route path="/eventos/:id" element={<Event />} />
+          <Route path="/post/:id" element={<Posts />} />
           <Route path="/estabelecimentos/ultimos" element={<Ultimos />} />
           <Route
             path="/meu-perfil"

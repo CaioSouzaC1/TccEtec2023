@@ -69,6 +69,16 @@ const storageEstablishments = multer.diskStorage({
 });
 const uploadEstablishments = multer({ storage: storageEstablishments });
 
+const storagePosts = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "Backend/assets/posts");
+  },
+  filename: function (req, file, cb) {
+    cb(null, "PostImage-" + file.originalname + ".jpg");
+  },
+});
+const uploadPosts = multer({ storage: storagePosts });
+
 app.use(express.static("Backend/assets"));
 /*END - Image Upload Configurations */
 
@@ -595,6 +605,55 @@ router.post("/post/create", async (req, res) => {
       console.log(err);
       res.sendStatus(400);
     }
+  }
+
+  if (req.body.format === "post") {
+    try {
+      const post = await prisma.Post.create({
+        data: {
+          author: req.body.author,
+          author_type: req.body.author_type,
+          format: req.body.format,
+        },
+      });
+
+      const contentMeta = await prisma.Postmeta.create({
+        data: {
+          id: post.id,
+          meta_key: "content",
+          meta_value: req.body.content,
+        },
+      });
+
+      res.json(post);
+    } catch (err) {
+      console.log(err);
+      res.sendStatus(400);
+    }
+  }
+});
+
+router.get("/post/read/:id", async (req, res) => {
+  try {
+    const pubId = req.params.id;
+
+    const post = await prisma.Post.findUnique({
+      where: { id: pubId },
+    });
+
+    const metatags = await prisma.Postmeta.findMany({
+      where: { id: post.id },
+    });
+
+    const resp = new Object();
+
+    resp.post = post;
+    resp.metatags = metatags;
+
+    res.json(resp);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
   }
 });
 
