@@ -7,8 +7,6 @@ import { Article, FolderPlus, YoutubeLogo } from "phosphor-react";
 import InputText from "../InputText";
 import Button from "../Button/Button";
 import { API_URL } from "../../Utils/Admin";
-import { useContext, useState } from "react";
-import { UserContext } from "../../Contexts/User";
 import selectValue from "../../Utils/MyFunctions/selectValue";
 import getYoutubeId from "../../Utils/MyFunctions/getYoutubeId";
 import errorFy from "../../Utils/Toastify/errorFy";
@@ -55,6 +53,7 @@ const PostLogic = (props) => {
     event.preventDefault();
 
     try {
+      const fileInput = event.target[0];
       const req = await (
         await fetch(`${API_URL}/post/create`, {
           method: "POST",
@@ -67,7 +66,7 @@ const PostLogic = (props) => {
             author_type: `${props.type}`,
             format: "post",
             content: selectValue(".post_content"),
-            image: selectInput("#postImageInput").target.files[0],
+            image: fileInput.files[0],
           }),
         })
       ).json();

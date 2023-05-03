@@ -609,23 +609,25 @@ router.post("/post/create", async (req, res) => {
 
   if (req.body.format === "post") {
     try {
-      const post = await prisma.Post.create({
-        data: {
-          author: req.body.author,
-          author_type: req.body.author_type,
-          format: req.body.format,
-        },
-      });
+      console.log(req.body);
+      // const post = await prisma.Post.create({
+      //   data: {
+      //     author: req.body.author,
+      //     author_type: req.body.author_type,
+      //     format: req.body.format,
+      //   },
+      // });
 
-      const contentMeta = await prisma.Postmeta.create({
-        data: {
-          id: post.id,
-          meta_key: "content",
-          meta_value: req.body.content,
-        },
-      });
+      // const contentMeta = await prisma.Postmeta.create({
+      //   data: {
+      //     id: post.id,
+      //     meta_key: "content",
+      //     meta_value: req.body.content,
+      //   },
+      // });
 
-      res.json(post);
+      // res.json(post);
+      res.json({ enviado: "console" });
     } catch (err) {
       console.log(err);
       res.sendStatus(400);
