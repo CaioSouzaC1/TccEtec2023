@@ -610,24 +610,23 @@ router.post("/post/create", async (req, res) => {
   if (req.body.format === "post") {
     try {
       console.log(req.body);
-      // const post = await prisma.Post.create({
-      //   data: {
-      //     author: req.body.author,
-      //     author_type: req.body.author_type,
-      //     format: req.body.format,
-      //   },
-      // });
+      const post = await prisma.Post.create({
+        data: {
+          author: req.body.author,
+          author_type: req.body.author_type,
+          format: req.body.format,
+        },
+      });
 
-      // const contentMeta = await prisma.Postmeta.create({
-      //   data: {
-      //     id: post.id,
-      //     meta_key: "content",
-      //     meta_value: req.body.content,
-      //   },
-      // });
+      const contentMeta = await prisma.Postmeta.create({
+        data: {
+          id: post.id,
+          meta_key: "content",
+          meta_value: req.body.content,
+        },
+      });
 
-      // res.json(post);
-      res.json({ enviado: "console" });
+      res.json(post);
     } catch (err) {
       console.log(err);
       res.sendStatus(400);
@@ -656,6 +655,15 @@ router.get("/post/read/:id", async (req, res) => {
   } catch (err) {
     console.log(err);
     res.sendStatus(400);
+  }
+});
+
+router.post("/post/featured-image", uploadPosts.single("file"), (req, res) => {
+  const file = req.file;
+  if (!file) {
+    res.sendStatus(400);
+  } else {
+    res.status(200).send("Imagem Cadastrada");
   }
 });
 

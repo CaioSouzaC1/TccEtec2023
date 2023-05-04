@@ -1,6 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
-
 import "swiper/css";
 import "swiper/css/navigation";
 import { Article, FolderPlus, YoutubeLogo } from "phosphor-react";
@@ -14,6 +13,7 @@ import { ToastContainer } from "react-toastify";
 import setValueNull from "../../Utils/MyFunctions/setValueNull";
 import successFy from "../../Utils/Toastify/successFy";
 import selectInput from "../../Utils/MyFunctions/selectInput";
+import InputTextarea from "../InputTextarea";
 
 const PostLogic = (props) => {
   const sendPostVideo = async (event) => {
@@ -51,7 +51,6 @@ const PostLogic = (props) => {
 
   const sendPost = async (event) => {
     event.preventDefault();
-
     try {
       const fileInput = event.target[0];
       const req = await (
@@ -70,6 +69,16 @@ const PostLogic = (props) => {
           }),
         })
       ).json();
+
+      const formData = new FormData();
+      formData.append("file", fileInput.files[0], req.id);
+
+      if (formData.has("file")) {
+        await fetch(`${API_URL}/post/featured-image`, {
+          method: "POST",
+          body: formData,
+        });
+      }
       successFy("Post criado.");
       props.callback(false);
     } catch (err) {
@@ -86,10 +95,10 @@ const PostLogic = (props) => {
               Postagem com Foto
             </h3>
             <form className="flex flex-wrap justify-center" onSubmit={sendPost}>
-              <div className="w-1/6 text-center">
+              <div className="w-full md:w-1/6 text-center">
                 <label className="cursor-pointer" htmlFor="postImageInput">
                   <FolderPlus
-                    className={`rounded-full p-2 bg-s-black hover:bg-f-gray transition-all`}
+                    className={`rounded-full p-2 bg-s-black hover:bg-f-gray transition-all mx-auto`}
                     size={60}
                     weight="bold"
                   />
@@ -102,13 +111,8 @@ const PostLogic = (props) => {
                   required
                 />
               </div>
-              <div className="w-5/6">
-                <InputText
-                  type="text"
-                  class="post_content"
-                  label="Conteúdo"
-                  placeholder="Descreva sobre"
-                />
+              <div className="w-full md:w-5/6">
+                <InputTextarea class="post_content"></InputTextarea>
               </div>
               <Button text="Postar"></Button>
             </form>
@@ -124,14 +128,14 @@ const PostLogic = (props) => {
               onSubmit={sendPostVideo}
             >
               <div className="mb-4 w-full flex flex-wrap">
-                <div className="w-1/6 text-center">
+                <div className="w-full md:w-1/6 text-center">
                   <Article
-                    className={`rounded-full p-2 bg-s-black hover:bg-f-gray transition-all`}
+                    className={`rounded-full p-2 bg-s-black hover:bg-f-gray transition-all mx-auto`}
                     size={60}
                     weight="bold"
                   />
                 </div>
-                <div className="w-5/6">
+                <div className="w-full md:w-5/6">
                   <InputText
                     type="text"
                     class="video_content"
@@ -141,14 +145,14 @@ const PostLogic = (props) => {
                 </div>
               </div>
               <div className="mb-4 w-full flex flex-wrap">
-                <div className="w-1/6 text-center">
+                <div className="w-full md:w-1/6 text-center">
                   <YoutubeLogo
-                    className={`rounded-full p-2 bg-s-black hover:bg-f-gray transition-all`}
+                    className={`rounded-full p-2 bg-s-black hover:bg-f-gray transition-all mx-auto`}
                     size={60}
                     weight="bold"
                   />
                 </div>
-                <div className="w-5/6">
+                <div className="w-full md:w-5/6">
                   <InputText
                     type="text"
                     class="youtube_url"
