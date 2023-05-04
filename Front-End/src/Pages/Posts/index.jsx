@@ -36,7 +36,7 @@ const Posts = () => {
 
   if (postData && postData.post.format === "video") {
     return (
-      <div className="text-center">
+      <div className="text-center min-h-70-screen">
         <h2 className="mb-4">{getTheContent()}</h2>
         <div
           style={{
@@ -77,8 +77,13 @@ const Posts = () => {
 
   if (postData && postData.post.format === "post") {
     return (
-      <div className="text-center">
-        <h2 className="mb-4">{getTheContent()}</h2>
+      <div className="text-center min-h-70-screen">
+        <h2 className="my-4">{getTheContent()}</h2>
+        <img
+          className="mx-auto max-w-full rounded hover:brightness-110"
+          src={`${API_URL}/posts/PostImage-${postData.post.id}.jpg`}
+          alt="Post Image"
+        />
         <h4 className="mt-4 font-bold text-sm">
           Post criado em :{" "}
           {new Date(postData.post.createdAt).toLocaleDateString("pt-BR", {
