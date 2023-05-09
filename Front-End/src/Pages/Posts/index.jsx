@@ -20,9 +20,9 @@ const Posts = () => {
   };
 
   const getTheContent = () => {
-    const videoUrl = postData.metatags.find((e) => e.meta_key === "content");
-    if (videoUrl) {
-      return videoUrl.meta_value;
+    const content = postData.metatags.find((e) => e.meta_key === "content");
+    if (content) {
+      return content.meta_value;
     }
   };
 

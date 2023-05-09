@@ -29,6 +29,7 @@ import {
 } from "phosphor-react";
 import styles from "./Profile.module.css";
 import { API_URL, APP_URL } from "../../Utils/Admin";
+import MyPosts from "../../Components/MyPosts";
 const MyProfile = () => {
   const [userDatas, setUserDatas] = useState(false);
   const [userType, setUserType] = useState(false);
@@ -248,7 +249,7 @@ const MyProfile = () => {
           <br />
 
           <div className="flex flex-wrap">
-            <div className="w-full md:w-1/2">
+            <div className="w-full md:w-1/3">
               <h2 className="font-bold text-2xl">
                 Minhas informações{" "}
                 <Info className="inline" weight="bold" size={22} />{" "}
@@ -290,7 +291,11 @@ const MyProfile = () => {
                 </li>
               </ul>
             </div>
-            <div className="w-full md:w-1/2"></div>
+            <div className="w-full md:w-2/3">
+              {userType && userDatas && (
+                <MyPosts type={userType} pubid={userDatas.pubId} />
+              )}
+            </div>
           </div>
 
           <p
@@ -380,7 +385,7 @@ const MyProfile = () => {
           </div>
 
           <div className="flex flex-wrap">
-            <div className="w-full md:w-1/2">
+            <div className="w-full md:w-1/3">
               <h2 className="font-bold text-2xl">
                 Minhas informações{" "}
                 <Info className="inline" weight="bold" size={22} />{" "}
@@ -438,7 +443,11 @@ const MyProfile = () => {
                 </li>
               </ul>
             </div>
-            <div className="w-full md:w-1/2"></div>
+            <div className="w-full md:w-2/3">
+              {userType && userDatas && (
+                <MyPosts type={userType} pubid={userDatas.pubId} />
+              )}
+            </div>
           </div>
 
           <p

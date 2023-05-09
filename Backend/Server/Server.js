@@ -667,6 +667,28 @@ router.post("/post/featured-image", uploadPosts.single("file"), (req, res) => {
   }
 });
 
+router.get("/post/mys", async (req, res) => {
+  try {
+    const data = Buffer.from(req.headers.authorization, "base64").toString();
+    const [type, id] = data.split(":");
+
+    const posts = await prisma.Post.findMany({
+      where: { author: id, author_type: type },
+    });
+
+    for (const e of posts) {
+      const metatags = await prisma.Postmeta.findMany({
+        where: { id: e.id },
+      });
+      e.metatags = metatags;
+    }
+
+    res.json(posts);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 /*END - Util Endpoints*/
 
 /*START - Util Endpoints*/

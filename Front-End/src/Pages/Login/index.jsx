@@ -52,7 +52,7 @@ const Login = () => {
         }, 2000);
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       if (err == "Error: 401") {
         errorFy("Email ou senha inválidos");
       } else {

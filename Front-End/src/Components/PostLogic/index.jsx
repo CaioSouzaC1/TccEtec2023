@@ -112,7 +112,7 @@ const PostLogic = (props) => {
                 />
               </div>
               <div className="w-full md:w-5/6">
-                <InputTextarea class="post_content"></InputTextarea>
+                <InputTextarea className="post_content"></InputTextarea>
               </div>
               <Button text="Postar"></Button>
             </form>

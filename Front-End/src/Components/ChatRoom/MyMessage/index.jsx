@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { Buffer } from "buffer";
-import ProfileImage from "../../ProfileImage";
 import { useState } from "react";
 import ChatImage from "../../ChatImage";
 import { API_URL } from "../../../Utils/Admin";
