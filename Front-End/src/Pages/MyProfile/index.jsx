@@ -290,6 +290,15 @@ const MyProfile = () => {
                   {userDatas.name}
                 </li>
               </ul>
+              <p
+                className="cursor-pointer font-light my-4 py-4 px-2 rounded-lg hover:bg-f-gray active:bg-f-gray bg-s-black inline-block"
+                onClick={() =>
+                  copyProfileLink(`${APP_URL}/artista/${userDatas.pubId}`)
+                }
+              >
+                Copiar link do perfil{" "}
+                <Link className="inline" weight="light" size={18} />
+              </p>
             </div>
             <div className="w-full md:w-2/3">
               {userType && userDatas && (
@@ -298,17 +307,7 @@ const MyProfile = () => {
             </div>
           </div>
 
-          <p
-            className="cursor-pointer font-light my-4 py-4 px-2 rounded-lg hover:bg-f-gray active:bg-f-gray bg-s-black inline-block"
-            onClick={() =>
-              copyProfileLink(`${APP_URL}/artista/${userDatas.pubId}`)
-            }
-          >
-            Copiar link do perfil{" "}
-            <Link className="inline" weight="light" size={18} />
-          </p>
-
-          <p className="text-sm">
+          <p className="text-sm my-4 text-center text-white font-light">
             {userDatas && `Conta Criada em ${format(userDatas.createdAt)}`}
           </p>
 

@@ -673,6 +673,7 @@ router.get("/post/mys", async (req, res) => {
     const [type, id] = data.split(":");
 
     const posts = await prisma.Post.findMany({
+      take: 6,
       where: { author: id, author_type: type },
     });
 

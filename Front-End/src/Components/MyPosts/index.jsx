@@ -57,10 +57,10 @@ const MyPosts = (props) => {
   }
 
   return (
-    <div className="w-full bg-s-black md:pl-4 rounded text-center mt-2 md:ml-4">
-      <h2 className="font-bold text-2xl py-4">Meus Posts</h2>
+    <div className="w-full bg-s-black md:pl-4 rounded text-center mt-2 md:mx-4">
+      <h2 className="font-bold text-2xl pt-4">Meus últimos posts</h2>
 
-      <ul>
+      <ul className="pb-4 w-full">
         {postsData &&
           postsData.map((post) => {
             if (post.format === "post") {
@@ -74,7 +74,7 @@ const MyPosts = (props) => {
                     to={`/post/${post.id}`}
                   >
                     <img
-                      className="w-2/5 h-40 object-cover rounded-t-lg"
+                      className="w-2/5 h-24 md:h-40 object-cover rounded-tl-lg hover:brightness-110"
                       src={`${API_URL}/posts/PostImage-${post.id}.jpg`}
                       alt="post_image"
                     />
@@ -88,8 +88,26 @@ const MyPosts = (props) => {
 
             if (post.format === "video") {
               return (
-                <li className="my-4" key={post.id}>
-                  <Link to={`/post/${post.id}`}>{post.id}</Link>
+                <li
+                  className="m-4 bg-f-black rounded border-b-2 border-b-f-red hover:border-b-f-blue hover:bg-s-black transition-all"
+                  key={post.id}
+                >
+                  <Link
+                    className={`flex flex-wrap items-center ${styles.postLink}`}
+                    to={`/post/${post.id}`}
+                  >
+                    <img
+                      className="w-2/5 h-24 md:h-40 object-cover rounded-tl-lg hover:brightness-110"
+                      src={`https://img.youtube.com/vi/${get_metatag_value(
+                        post.metatags,
+                        "video_url"
+                      )}/hqdefault.jpg`}
+                      alt="post_image"
+                    />
+                    <p className="font-bold text-xl w-3/5 px-4">
+                      {get_metatag_value(post.metatags, "content")}
+                    </p>
+                  </Link>
                 </li>
               );
             }
