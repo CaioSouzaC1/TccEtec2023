@@ -250,7 +250,7 @@ const MyProfile = () => {
 
           <div className="flex flex-wrap">
             <div className="w-full md:w-1/3">
-              <h2 className="font-bold text-2xl">
+              <h2 className="font-bold text-2xl mb-4">
                 Minhas informações{" "}
                 <Info className="inline" weight="bold" size={22} />{" "}
               </h2>
@@ -291,7 +291,7 @@ const MyProfile = () => {
                 </li>
               </ul>
               <p
-                className="cursor-pointer font-light my-4 py-4 px-2 rounded-lg hover:bg-f-gray active:bg-f-gray bg-s-black inline-block"
+                className="cursor-pointer font-light mt-8 mb-4 py-4 px-2 rounded-lg hover:bg-f-gray active:bg-f-gray bg-s-black inline-block"
                 onClick={() =>
                   copyProfileLink(`${APP_URL}/artista/${userDatas.pubId}`)
                 }
@@ -385,7 +385,7 @@ const MyProfile = () => {
 
           <div className="flex flex-wrap">
             <div className="w-full md:w-1/3">
-              <h2 className="font-bold text-2xl">
+              <h2 className="font-bold text-2xl mb-4">
                 Minhas informações{" "}
                 <Info className="inline" weight="bold" size={22} />{" "}
               </h2>
@@ -441,6 +441,17 @@ const MyProfile = () => {
                   {userDatas.logradouro}, {userDatas.numEnd}
                 </li>
               </ul>
+              <p
+                className="cursor-pointer font-light mt-8 mb-4 py-4 px-2 rounded-lg hover:bg-f-gray active:bg-f-gray bg-s-black inline-block"
+                onClick={() =>
+                  copyProfileLink(
+                    `${APP_URL}/estabelecimento/${userDatas.pubId}`
+                  )
+                }
+              >
+                Copiar link do perfil{" "}
+                <Link className="inline" weight="light" size={18} />
+              </p>
             </div>
             <div className="w-full md:w-2/3">
               {userType && userDatas && (
@@ -449,18 +460,10 @@ const MyProfile = () => {
             </div>
           </div>
 
-          <p
-            className="cursor-pointer font-light my-4 py-4 px-2 rounded-lg hover:bg-f-gray active:bg-f-gray bg-s-black inline-block"
-            onClick={() =>
-              copyProfileLink(`${APP_URL}/estabelecimento/${userDatas.pubId}`)
-            }
-          >
-            Copiar link do perfil{" "}
-            <Link className="inline" weight="light" size={18} />
-          </p>
-          <p className="text-sm">
+          <p className="text-sm my-4 text-center text-white font-light">
             {userDatas && `Conta Criada em ${format(userDatas.createdAt)}`}
           </p>
+
           <br />
           <Modal title="Atualizar Perfil" callback={AttProfileEstablishment}>
             {userDatas && (

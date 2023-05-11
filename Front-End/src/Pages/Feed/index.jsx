@@ -327,7 +327,7 @@ const Feed = () => {
       </section>
       <section className="bg-s-black w-full my-8 rounded pt-4">
         <h2 className="text-2xl font-bold my-4 pl-4">Atalhos úteis</h2>
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap justify-around items-center">
           <button
             onClick={() => setModalPost(true)}
             className="bg-f-red hover:bg-gradient-to-tr from-f-red to-red-800 text-white py-2 px-4 rounded transition-all m-2 font-semibold"

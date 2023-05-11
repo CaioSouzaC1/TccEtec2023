@@ -58,9 +58,9 @@ const MyPosts = (props) => {
 
   return (
     <div className="w-full bg-s-black md:pl-4 rounded text-center mt-2 md:mx-4">
-      <h2 className="font-bold text-2xl pt-4">Meus últimos posts</h2>
+      <h2 className="font-bold text-2xl py-4">Meus últimos posts</h2>
 
-      <ul className="pb-4 w-full">
+      <ul className="pb-4 w-full overflow-y-scroll h-56 scrollbar-track-red">
         {postsData &&
           postsData.map((post) => {
             if (post.format === "post") {

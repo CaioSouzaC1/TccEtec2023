@@ -21,7 +21,7 @@ const Footer = () => {
           <div className="w-full md:w-1/5 flex flex-row my-2">
             <a
               className="w-1/3 text-center hover:brightness-150"
-              href="http://"
+              href="https://web.facebook.com/people/Voice_Oficial/100092551356231/"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -32,7 +32,7 @@ const Footer = () => {
 
             <a
               className="w-1/3 text-center hover:brightness-150"
-              href="http://"
+              href="https://twitter.com/voice_ofc"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -42,7 +42,7 @@ const Footer = () => {
             </a>
             <a
               className="w-1/3 text-center hover:brightness-150"
-              href="http://"
+              href="https://www.instagram.com/voice_oficial/"
               target="_blank"
               rel="noopener noreferrer"
             >
