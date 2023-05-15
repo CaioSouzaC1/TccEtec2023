@@ -11,7 +11,7 @@ import {
 import { db } from "../../Utils/Firebase/Firebase";
 import selectValue from "../../Utils/MyFunctions/selectValue";
 import setValueNull from "../../Utils/MyFunctions/setValueNull";
-import { CalendarPlus, PaperPlaneRight } from "phosphor-react";
+import { CalendarPlus, ChatsCircle, PaperPlaneRight } from "phosphor-react";
 import NewModal from "../NewModal";
 import EventLogic from "./EventLogic";
 
@@ -92,7 +92,10 @@ const ChatRoom = (props) => {
   return (
     <div className="md:max-w-sm mx-auto w-full h-screen flex flex-col justify-center">
       <div className="text-center p-4 bg-s-black text-f-red ">
-        <h1 className="text-2xl font-bold">Chat Room</h1>
+        <h1 className="text-2xl font-bold flex items-center justify-center">
+          Sala de Conversa
+          <ChatsCircle className="ml-2" weight="bold" size={28} />
+        </h1>
       </div>
 
       <main ref={chatContainerRef} className="p-4 overflow-y-scroll h-3/4 ">

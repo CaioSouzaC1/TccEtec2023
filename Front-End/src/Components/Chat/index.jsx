@@ -14,6 +14,7 @@ import { useState } from "react";
 import generateDocId from "../../Utils/MyFunctions/generateDocId";
 import { useEffect } from "react";
 import ChatRoom from "../ChatRoom";
+import { ChatTeardropDots } from "phosphor-react";
 
 const Chat = (props) => {
   const [chatText, setChatText] = useState("Carregando Status");
@@ -102,7 +103,13 @@ const Chat = (props) => {
   return (
     <>
       {" "}
-      <button onClick={getDocsTensor}>{chatText}</button>
+      <button
+        className="flex rounded-lg bg-s-black items-center p-4"
+        onClick={getDocsTensor}
+      >
+        <ChatTeardropDots className="inline" size={32} />
+        <p className="font-bold ml-2">{chatText}</p>
+      </button>
       {showChatRoom && (
         <ChatRoom
           chatId={chatId}

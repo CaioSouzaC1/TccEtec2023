@@ -25,6 +25,7 @@ import EventImages from "../../Components/EventImages";
 import NewModal from "../../Components/NewModal";
 import PostLogic from "../../Components/PostLogic";
 import { ToastContainer } from "react-toastify";
+import PostsInFeed from "../../Components/PostsInFeed";
 const Feed = () => {
   const [lastPlacesState, setLastPlacesState] = useState(false);
   const [events, setEvents] = useState(false);
@@ -276,9 +277,7 @@ const Feed = () => {
           </div>
         )}
         <div className="w-full md:w-1/2">
-          <h2 className="text-2xl font-bold mt-8 mb-4 pl-4">
-            Artistas mais vistos
-          </h2>
+          <h2 className="text-2xl font-bold my-4">Artistas mais vistos</h2>
           <ul className="flex flex-wrap">
             {artistsMostViewed &&
               artistsMostViewed.map((e) => {
@@ -325,25 +324,30 @@ const Feed = () => {
           </ul>
         </div>
       </section>
-      <section className="bg-s-black w-full my-8 rounded pt-4">
-        <h2 className="text-2xl font-bold my-4 pl-4">Atalhos úteis</h2>
-        <div className="flex flex-wrap justify-around items-center">
-          <button
-            onClick={() => setModalPost(true)}
-            className="bg-f-red hover:bg-gradient-to-tr from-f-red to-red-800 text-white py-2 px-4 rounded transition-all m-2 font-semibold"
-          >
-            Criar Postagem
-          </button>
 
-          <Link to="/meu-perfil">
-            <Button text="Meu Perfil"></Button>
-          </Link>
-          <Link to="/meus-eventos">
-            <Button text="Meus Eventos"></Button>
-          </Link>
-          <ButtonLogout />
-        </div>
-      </section>
+      <PostsInFeed />
+
+      <>
+        <h2 className="text-2xl font-bold my-4">Atalhos úteis</h2>
+        <section className="bg-s-black w-full mb-8 rounded pt-4">
+          <div className="flex flex-wrap justify-around items-center">
+            <button
+              onClick={() => setModalPost(true)}
+              className="bg-f-red hover:bg-gradient-to-tr from-f-red to-red-800 text-white py-2 px-4 rounded transition-all m-2 font-semibold"
+            >
+              Criar Postagem
+            </button>
+
+            <Link to="/meu-perfil">
+              <Button text="Meu Perfil"></Button>
+            </Link>
+            <Link to="/meus-eventos">
+              <Button text="Meus Eventos"></Button>
+            </Link>
+            <ButtonLogout />
+          </div>
+        </section>
+      </>
       <NewModal show={modalPost} callback={setModalPost}>
         <PostLogic type={type} user={user} callback={setModalPost} />
       </NewModal>

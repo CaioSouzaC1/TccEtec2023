@@ -690,6 +690,28 @@ router.get("/post/mys", async (req, res) => {
   }
 });
 
+router.get("/post/feed", async (req, res) => {
+  try {
+    const posts = await prisma.Post.findMany({
+      take: 2,
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    for (const e of posts) {
+      const metatags = await prisma.Postmeta.findMany({
+        where: { id: e.id },
+      });
+      e.metatags = metatags;
+    }
+
+    res.json(posts);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 /*END - Util Endpoints*/
 
 /*START - Util Endpoints*/

@@ -36,17 +36,34 @@ const Header = () => {
           {logged && logged.auth && (
             <>
               <li className="mx-3 uppercase font-bold text-white">
-                <Link className="relative pb-1" to={"/feed"}>
+                <Link
+                  className={`relative pb-1 ${
+                    location.pathname === "/feed" ? `${styles.here}` : ""
+                  }`}
+                  to={"/feed"}
+                >
                   Feed
                 </Link>{" "}
               </li>
               <li className="mx-3 uppercase font-bold text-white">
-                <Link className="relative pb-1" to={"/meu-perfil"}>
+                <Link
+                  className={`relative pb-1 ${
+                    location.pathname == "/meu-perfil" ? `${styles.here}` : ""
+                  }`}
+                  to={"/meu-perfil"}
+                >
                   Meu Perfil
                 </Link>{" "}
               </li>
               <li className="mx-3 uppercase font-bold text-white">
-                <Link className="relative pb-1" to={"/meus-eventos"}>
+                <Link
+                  className={`relative pb-1 ${
+                    location.pathname === "/meus-eventos"
+                      ? `${styles.here}`
+                      : ""
+                  }`}
+                  to={"/meus-eventos"}
+                >
                   Meus eventos
                 </Link>{" "}
               </li>
@@ -55,24 +72,44 @@ const Header = () => {
           {logged && logged.auth === false && (
             <>
               <li className="mx-3 uppercase font-bold text-white">
-                <Link className="relative pb-1" to={"/login"}>
+                <Link
+                  className={`relative pb-1 ${
+                    location.pathname === "/login" ? `${styles.here}` : ""
+                  }`}
+                  to={"/login"}
+                >
                   Login
                 </Link>{" "}
               </li>
               <li className="mx-3 uppercase font-bold text-white">
-                <Link className="relative pb-1" to={"/cadastra"}>
+                <Link
+                  className={`relative pb-1 ${
+                    location.pathname === "/cadastra" ? `${styles.here}` : ""
+                  }`}
+                  to={"/cadastra"}
+                >
                   Criar conta
                 </Link>{" "}
               </li>
             </>
           )}
           <li className="mx-3 uppercase font-bold text-white">
-            <Link className="relative pb-1" to={"/sobre-nos"}>
+            <Link
+              className={`relative pb-1 ${
+                location.pathname === "/sobre-nos" ? `${styles.here}` : ""
+              }`}
+              to={"/sobre-nos"}
+            >
               Sobre nós
             </Link>{" "}
           </li>
           <li className="mx-3 uppercase font-bold text-white">
-            <Link className="relative pb-1" to={"/objetivo"}>
+            <Link
+              className={`relative pb-1 ${
+                location.pathname === "/objetivo" ? `${styles.here}` : ""
+              }`}
+              to={"/objetivo"}
+            >
               Objetivo
             </Link>{" "}
           </li>

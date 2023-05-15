@@ -46,8 +46,6 @@ const EventsListItem = (props) => {
     }
   };
 
-  console.log(eventState);
-
   if (!eventState) {
     return <Loader />;
   }
