@@ -22,6 +22,7 @@ const ChatRoom = (props) => {
   const colRef = collection(db, "chats");
   const chatContainerRef = useRef(null);
   const [modalEvent, setModalEvent] = useState(false);
+  const [showEventInput, setShowEventInput] = useState(false);
 
   const userTI = `${props.type}:${props.user}`;
   const otherTI = `${props.visualizedType}:${props.visualized}`;
@@ -83,40 +84,46 @@ const ChatRoom = (props) => {
             />
           );
         }
+        if (props.visualizedType != props.type) {
+          setShowEventInput(true);
+        }
       });
-    } catch (err) {
-      // console.log(err);
-    }
+    } catch (err) {}
   };
 
   return (
     <div className="md:max-w-sm mx-auto w-full h-screen flex flex-col justify-center">
-      <div className="text-center p-4 bg-s-black text-f-red ">
+      <div className="text-center p-4 bg-s-black text-f-red  border-b-2 border-f-red">
         <h1 className="text-2xl font-bold flex items-center justify-center">
           Sala de Conversa
           <ChatsCircle className="ml-2" weight="bold" size={28} />
         </h1>
       </div>
 
-      <main ref={chatContainerRef} className="p-4 overflow-y-scroll h-3/4 ">
+      <main
+        ref={chatContainerRef}
+        className="p-4 overflow-y-scroll h-3/4  bg-s-black border-r-2 border-l-2 border-f-red"
+      >
         {renderMessages()}
       </main>
 
-      <div className="p-4 bg-s-black">
+      <div className="p-4 bg-s-black border-2 border-f-red">
         <form
           onSubmit={handleSubmit}
           className="rounded-xl overflow-hidden flex flex-wrap justify-between"
         >
-          <div
-            onClick={() => setModalEvent(true)}
-            className="p-2 border border-f-red hover:bg-s-red rounded-full text-white bg-s-gray transition-all cursor-pointer"
-          >
-            <CalendarPlus size={24} />
-          </div>
+          {showEventInput && (
+            <div
+              onClick={() => setModalEvent(true)}
+              className="p-2 border border-f-red hover:bg-s-red rounded-full text-white bg-s-gray transition-all cursor-pointer"
+            >
+              <CalendarPlus size={24} />
+            </div>
+          )}
           <input
             id="chatInput"
             required
-            className="w-4/6 sm:w-5/6 md:w-4/6 p-2 border placeholder:text-white focus:placeholder:text-f-red bg-s-black border-white focus:border-s-red focus:outline-none focus:shadow-outline rounded-md"
+            className="w-4/6 sm:w-5/6 md:w-4/6 p-2 border placeholder:text-white focus:placeholder:text-f-red bg-s-black border-s-red focus:outline-none focus:shadow-outline rounded-md"
             type="text"
             placeholder="Digite uma mensagem"
           />

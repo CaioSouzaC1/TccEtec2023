@@ -15,11 +15,14 @@ import generateDocId from "../../Utils/MyFunctions/generateDocId";
 import { useEffect } from "react";
 import ChatRoom from "../ChatRoom";
 import { ChatTeardropDots } from "phosphor-react";
+import Loader from "../Loader";
 
 const Chat = (props) => {
   const [chatText, setChatText] = useState("Carregando Status");
   const [chatRoomStatus, setChatRoomStatus] = useState(false);
   const [showChatRoom, setShowChatRoom] = useState(false);
+  const [showLoader, setShowLoader] = useState(false);
+
   const [chatId, setChatId] = useState(
     generateDocId(props.viewer, props.visualized)
   );
@@ -46,18 +49,7 @@ const Chat = (props) => {
 
   const getDocsTensor = async () => {
     try {
-      const docSnap = await getDoc(docUserChatRef);
-      if (!docSnap.data()) {
-        // await setDoc(docUserChatRef, {
-        //   id: props.viewer,
-        //   timestamp: Date.now(),
-        //   TESTE: [
-        //     { data: "data", datadois: "dataDois" },
-        //     { data: "data", datatres: "datatres" },
-        //   ],
-        // });
-      }
-
+      setShowLoader(true);
       const queryChat01 = query(
         colRef,
         where("User1", "==", `${props.viewerType}:${props.viewer}`),
@@ -91,6 +83,7 @@ const Chat = (props) => {
       }
       setChatText("Abrir Chat");
       setShowChatRoom(true);
+      setShowLoader(false);
     } catch (err) {
       console.log(err);
     }
@@ -118,6 +111,11 @@ const Chat = (props) => {
           visualized={props.visualized}
           visualizedType={props.visualizedType}
         />
+      )}
+      {showLoader && (
+        <div className="mt-4">
+          <Loader />
+        </div>
       )}
     </>
   );

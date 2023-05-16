@@ -9,7 +9,6 @@ const Posts = () => {
   const fetchData = async () => {
     const data = await (await fetch(`${API_URL}/post/read/${id}`)).json();
     setPostData(data);
-    console.log(data);
   };
 
   const getVideoId = () => {

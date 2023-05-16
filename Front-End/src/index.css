@@ -99,6 +99,14 @@ html {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.clamp-4 {
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 4;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 input[type="file"]::file-selector-button {
   border: none;
   border-radius: 8px;
@@ -108,7 +116,6 @@ input[type="file"]::file-selector-button {
   background-color: #da0037;
   border: 0.4px solid #000;
 }
-/* Apply custom scrollbar style to all scrollbars */
 ::-webkit-scrollbar {
   width: 8px;
   background-color: transparent;

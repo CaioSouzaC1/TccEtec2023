@@ -4,6 +4,7 @@ import { Buffer } from "buffer";
 import { Link } from "react-router-dom";
 import Loader from "../Loader";
 import styles from "./styles.module.css";
+import get_metatag_value from "../../Utils/MyFunctions/get_metatag_value";
 
 const MyPosts = (props) => {
   const [postsData, setPostsData] = useState(false);
@@ -29,22 +30,13 @@ const MyPosts = (props) => {
       })
     ).json();
     setPostsData(data);
-    console.log(data);
-  };
-
-  const get_metatag_value = (metatags, key) => {
-    const metatag = metatags.find((e) => e.meta_key === key);
-    if (metatag) {
-      return metatag.meta_value;
-    }
-    return "";
   };
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  if (postsData.lenght === 0) {
+  if (postsData.length === 0) {
     return (
       <div className="w-full bg-s-black md:pl-4 rounded text-center mt-2">
         <h2 className="font-bold">Você ainda não tem postagens</h2>

@@ -693,7 +693,7 @@ router.get("/post/mys", async (req, res) => {
 router.get("/post/feed", async (req, res) => {
   try {
     const posts = await prisma.Post.findMany({
-      take: 2,
+      take: 20,
       orderBy: {
         createdAt: "desc",
       },

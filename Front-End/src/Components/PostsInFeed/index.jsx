@@ -8,6 +8,7 @@ import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper";
 import styles from "./styles.module.css";
 import { Link } from "react-router-dom";
+import get_metatag_value from "../../Utils/MyFunctions/get_metatag_value";
 
 const PostsInFeed = () => {
   const [data, setData] = useState(false);
@@ -16,7 +17,6 @@ const PostsInFeed = () => {
     const posts = await (await fetch(`${API_URL}/post/feed`)).json();
 
     setData(posts);
-    console.log(posts);
   };
 
   useEffect(() => {
@@ -70,15 +70,49 @@ const PostsInFeed = () => {
             className="lastPlaces"
           >
             {data &&
-              data.map((e) => {
-                console.log(e);
-                return (
-                  <SwiperSlide key={e.id}>
-                    <Link className="" to={`/post/${e.id}`}>
-                      {e.id}
-                    </Link>
-                  </SwiperSlide>
-                );
+              data.map((post) => {
+                if (post.format === "post") {
+                  return (
+                    <SwiperSlide key={post.id}>
+                      <Link
+                        className={`flex flex-wrap items-center p-2 bg-f-black brightness-90 hover:brightness-110 border-b-2 border-f-black hover:border-f-red transition-all rounded-sm ${styles.postLink}`}
+                        to={`/post/${post.id}`}
+                      >
+                        <img
+                          className="w-2/5 h-24 md:h-40 object-cover rounded-sm"
+                          src={`${API_URL}/posts/PostImage-${post.id}.jpg`}
+                          alt="post_image"
+                        />
+                        <p className="font-bold text-md w-3/5 px-4 clamp-4">
+                          {get_metatag_value(post.metatags, "content")}
+                        </p>
+                      </Link>
+                    </SwiperSlide>
+                  );
+                }
+
+                if (post.format === "video") {
+                  return (
+                    <SwiperSlide key={post.id}>
+                      <Link
+                        className={`flex flex-wrap items-center p-2 bg-f-black brightness-90 hover:brightness-110 border-b-2 border-f-black hover:border-f-red transition-all rounded-sm ${styles.postLink}`}
+                        to={`/post/${post.id}`}
+                      >
+                        <img
+                          className="w-2/5 h-24 md:h-40 object-cover rounded-sm"
+                          src={`https://img.youtube.com/vi/${get_metatag_value(
+                            post.metatags,
+                            "video_url"
+                          )}/hqdefault.jpg`}
+                          alt="post_image"
+                        />
+                        <p className="font-bold text-md w-3/5 px-4 clamp-4">
+                          {get_metatag_value(post.metatags, "content")}
+                        </p>
+                      </Link>
+                    </SwiperSlide>
+                  );
+                }
               })}
 
             <div className={`${styles.autoplayProgress}`} slot="container-end">

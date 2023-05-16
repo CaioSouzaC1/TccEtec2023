@@ -83,8 +83,6 @@ const Event = () => {
     concatenedObjs.sqliteEstablishment = establishmentsData;
     concatenedObjs.sqliteArtist = artistData;
 
-    console.log(concatenedObjs);
-
     setEventData(concatenedObjs);
   };
 
