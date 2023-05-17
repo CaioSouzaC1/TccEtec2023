@@ -24,6 +24,7 @@ import Objective from "./Pages/Objective";
 import NotFound from "./Pages/NotFound";
 import Event from "./Pages/Event";
 import Posts from "./Pages/Posts";
+import UseTerms from "./Pages/UseTerms";
 
 function App() {
   const location = useLocation();
@@ -103,6 +104,7 @@ function App() {
               </UserProvider>
             }
           />
+          <Route path="/termos-de-uso" element={<UseTerms />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
