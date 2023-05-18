@@ -1,4 +1,5 @@
 import { FacebookLogo, InstagramLogo, TwitterLogo } from "phosphor-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -15,6 +16,7 @@ const Footer = () => {
 
               <span className="mx-4 mt-8 text-xs font-black">
                 Todos os direitos reservados!
+                <Link to={"/termos-de-uso"}> Termos de uso.</Link>
               </span>
             </div>
           </div>
