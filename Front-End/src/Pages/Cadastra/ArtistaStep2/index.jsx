@@ -99,7 +99,7 @@ const CreateAccArtistaStepTwo = () => {
     <>
       <section className="flex flex-wrap mt-8">
         <div className="w-full md:w-1/2">
-          <h1 className="text-4xl font-black md:pr-8 mb-4">
+          <h1 className="text-4xl font-black md:pr-8 my-4">
             Não perca tempo, junte-se a nós e desbloqueie seu potencial
             artístico hoje mesmo!
           </h1>
@@ -190,14 +190,17 @@ const CreateAccArtistaStepTwo = () => {
               .
             </p>
           </div>
-          <div className="flex flex-col items-center">
-            <Button text="Enviar"></Button>
+          <div
+            style={{ width: `calc(100% - ${42}px)` }}
+            className="flex flex-col items-center ml-auto"
+          >
+            <Button full={true} text="Enviar"></Button>
           </div>
           <ToastContainer />
         </form>
       </section>
 
-      <div className="flex justify-center gap-2">
+      <div className="flex justify-center gap-8 my-4">
         <Link to={"../login"}>
           <Button text="Já possuo conta!"></Button>
         </Link>

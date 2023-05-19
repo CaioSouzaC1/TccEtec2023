@@ -65,7 +65,7 @@ const CreateAccArtistaStepOne = () => {
     <>
       <section className="flex flex-wrap mt-8">
         <div className="w-full md:w-1/2">
-          <h1 className="text-4xl font-black md:pr-8 mb-4">
+          <h1 className="text-4xl font-black md:pr-8 my-4">
             Descubra um mundo de oportunidades musicais ao criar sua conta
             conosco.
           </h1>

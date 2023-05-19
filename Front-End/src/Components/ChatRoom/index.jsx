@@ -43,7 +43,7 @@ const ChatRoom = (props) => {
     try {
       event.preventDefault();
       const userChatRet = doc(colRef, chatDocId);
-      const message = selectValue("#chatInput");
+      const message = selectValue("#chatInput").replace(":#:", ";#;");
       const timestamp = new Date().getTime();
       await updateDoc(userChatRet, {
         messages: arrayUnion(

@@ -61,7 +61,7 @@ const ProfileEstablishments = () => {
       console.error(err);
     }
   };
-
+  git;
   const renderEventButton = async () => {
     const { status, auth, user, type } = await verifyJwt();
     if (auth) {

@@ -11,7 +11,7 @@ const ChatImage = (props) => {
     if (props.type == "establishments") {
       try {
         const img = await fetch(`
-            ${API_URL}/Establishments/EstablishmentProfileImage-${props.pubId}.jpg`);
+            ${API_URL}/establishments/EstablishmentProfileImage-${props.pubId}.jpg`);
 
         setImage(img);
       } catch (err) {
@@ -21,7 +21,7 @@ const ChatImage = (props) => {
     if (props.type == "artist") {
       try {
         const img = await fetch(`
-            ${API_URL}/Artists/ArtistProfileImage-${props.pubId}.jpg`);
+            ${API_URL}/artists/ArtistProfileImage-${props.pubId}.jpg`);
 
         setImage(img);
       } catch (err) {
