@@ -1,6 +1,3 @@
---- Perfil do Artista achando perfil e dando erroFy de artista não encontrado
 --- Bug Cpf artist step 2
---- No load das infos dos Perfis, deixar un loader (Atual exibindo não encontrado) 
 --- Verificar a mensagem antes de salvar (Retirar o split caso exista na string)
---- Padronizar retornos (EX: Establishment/establishments)
---- implementar email bonito tabnine
+--- Remover template do tabnine e colocar um template simples

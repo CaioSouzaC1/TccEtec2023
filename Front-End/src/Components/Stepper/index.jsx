@@ -4,7 +4,7 @@ const Stepper = (props) => {
   return (
     <>
       <div className="relative h-28">
-        <div class={`${styles.stepper} ${props.on ? styles.on : ""}`}>
+        <div className={`${styles.stepper} ${props.on ? styles.on : ""}`}>
           <span></span>
           <span></span>
           <span></span>

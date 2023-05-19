@@ -6,8 +6,8 @@ const UseTerms = () => {
         <li className="my-4">
           <h6 className="text-lg">
             {" "}
-            <span className="font-bold text-xl">1 -</span> Cadastro e Perfil de
-            Usuário:
+            <span className="font-bold text-xl">1 -</span> Cadastro e perfil de
+            usuário:
           </h6>
           <p>• Ao se cadastrar, forneça informações precisas e atualizadas.</p>
           <p>
