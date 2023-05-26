@@ -51,7 +51,7 @@ html {
   min-height: 200px;
 }
 
-@media (max-width: 375px) {
+@media (max-width: 410px) {
   .main_footer {
     min-height: 260px;
   }
@@ -80,6 +80,10 @@ html {
 }
 .min-h-70-screen {
   min-height: 70vh;
+}
+
+.fix-height {
+  min-height: calc(100vh - 293px);
 }
 
 @media (max-width: 480px) {

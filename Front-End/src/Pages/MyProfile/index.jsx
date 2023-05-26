@@ -209,333 +209,337 @@ const MyProfile = () => {
 
   return (
     <>
-      <div
-        className={`${BackgroundColors[randomColor]} w-full h-40 rounded-t-lg flex mt-4`}
-      ></div>
+      <div className="fix-height">
+        <div
+          className={`${BackgroundColors[randomColor]} w-full h-40 rounded-t-lg flex mt-4`}
+        ></div>
 
-      {userType === "Artist" && (
-        <>
-          <div className="flex flex-wrap bg-s-black relative rounded-b-lg mb-8">
-            <div className="mt-[-96px] pb-2 text-left w-full md:w-2/6">
-              <ProfileImage
-                state={imageState}
-                name={userDatas.name}
-                pubId={userDatas.pubId}
-                type={"Artists"}
-              />
-              <label className="cursor-pointer" htmlFor="profileImageInput">
-                <Pencil
-                  className={`rounded-full p-2 bg-f-black hover:bg-s-gray ${styles.pencil} transition-all`}
-                  size={40}
-                  weight="bold"
+        {userType === "Artist" && (
+          <>
+            <div className="flex flex-wrap bg-s-black relative rounded-b-lg mb-8">
+              <div className="mt-[-96px] pb-2 text-left w-full md:w-2/6">
+                <ProfileImage
+                  state={imageState}
+                  name={userDatas.name}
+                  pubId={userDatas.pubId}
+                  type={"Artists"}
                 />
-              </label>
-              <input
-                id="profileImageInput"
-                className="profileImage hidden"
-                type="file"
-                accept="image/*"
-                onChange={setProfileImage}
-              />
-            </div>
-            <div className="text-center pb-2 md:text-left w-full md:w-4/6 flex items-center">
-              <h2 className="font-bold mx-2 md:mx-0 my-4 md:my-0 text-3xl clamp-2">
-                {userDatas.nameArt},{" "}
-                <span className="text-2xl font-normal">{userDatas.name}.</span>
-              </h2>
-            </div>
-          </div>
-
-          <br />
-
-          <div className="flex flex-wrap">
-            <div className="w-full md:w-1/3">
-              <h2 className="font-bold text-2xl mb-4">
-                Minhas informações{" "}
-                <Info className="inline" weight="bold" size={22} />{" "}
-              </h2>
-              <ul>
-                <li className="text-xl">
-                  <Envelope
-                    className="inline pr-2 mr-2 border-r-2 border-s-red"
+                <label className="cursor-pointer" htmlFor="profileImageInput">
+                  <Pencil
+                    className={`rounded-full p-2 bg-f-black hover:bg-s-gray ${styles.pencil} transition-all`}
+                    size={40}
                     weight="bold"
-                    size={28}
                   />
-                  {userDatas.email}
-                </li>
-                <li className="text-xl">
-                  <WhatsappLogo
-                    className="inline pr-2 mr-2
+                </label>
+                <input
+                  id="profileImageInput"
+                  className="profileImage hidden"
+                  type="file"
+                  accept="image/*"
+                  onChange={setProfileImage}
+                />
+              </div>
+              <div className="text-center pb-2 md:text-left w-full md:w-4/6 flex items-center">
+                <h2 className="font-bold mx-2 md:mx-0 my-4 md:my-0 text-3xl clamp-2">
+                  {userDatas.nameArt},{" "}
+                  <span className="text-2xl font-normal">
+                    {userDatas.name}.
+                  </span>
+                </h2>
+              </div>
+            </div>
+
+            <br />
+
+            <div className="flex flex-wrap">
+              <div className="w-full md:w-1/3">
+                <h2 className="font-bold text-2xl mb-4">
+                  Minhas informações{" "}
+                  <Info className="inline" weight="bold" size={22} />{" "}
+                </h2>
+                <ul>
+                  <li className="text-xl">
+                    <Envelope
+                      className="inline pr-2 mr-2 border-r-2 border-s-red"
+                      weight="bold"
+                      size={28}
+                    />
+                    {userDatas.email}
+                  </li>
+                  <li className="text-xl">
+                    <WhatsappLogo
+                      className="inline pr-2 mr-2
                     border-r-2
                     border-s-red"
+                      weight="bold"
+                      size={28}
+                    />
+                    {userDatas.whatsApp}
+                  </li>
+                  <li className="text-xl">
+                    <IdentificationBadge
+                      className="inline pr-2 mr-2 border-r-2 border-s-red"
+                      weight="bold"
+                      size={28}
+                    />
+                    {userDatas.nameArt}
+                  </li>
+                  <li className="text-xl">
+                    <AddressBook
+                      className="inline pr-2 mr-2 border-r-2 border-s-red"
+                      weight="bold"
+                      size={28}
+                    />
+                    {userDatas.name}
+                  </li>
+                </ul>
+                <p
+                  className="cursor-pointer font-light mt-8 mb-4 py-4 px-2 rounded-lg hover:bg-f-gray active:bg-f-gray bg-s-black inline-block"
+                  onClick={() =>
+                    copyProfileLink(`${APP_URL}/artista/${userDatas.pubId}`)
+                  }
+                >
+                  Copiar link do perfil{" "}
+                  <Link className="inline" weight="light" size={18} />
+                </p>
+              </div>
+              <div className="w-full md:w-2/3">
+                {userType && userDatas && (
+                  <MyPosts type={userType} pubid={userDatas.pubId} />
+                )}
+              </div>
+            </div>
+
+            <p className="text-sm my-4 text-center text-white font-light">
+              {userDatas && `Conta Criada em ${format(userDatas.createdAt)}`}
+            </p>
+
+            <Modal title="Atualizar Perfil" callback={AttProfileArtist}>
+              {userDatas && (
+                <>
+                  <form>
+                    <InputText
+                      placeholder={userDatas.name}
+                      label={"Nome"}
+                      value={userDatas.name}
+                      class={"nameModal"}
+                    />
+                    <br />
+                    <InputText
+                      placeholder={userDatas.nameArt}
+                      label={"Nome Artístico"}
+                      value={userDatas.nameArt}
+                      class={"nameArtModal"}
+                    />
+                    <br />
+                    <InputText
+                      placeholder={userDatas.email}
+                      label={"Email"}
+                      value={userDatas.email}
+                      class={"emailModal"}
+                    />
+                    <br />
+                    <InputText
+                      placeholder={userDatas.whatsApp}
+                      label={"WhatsApp"}
+                      value={userDatas.whatsApp}
+                      class={"whatsAppModal"}
+                    />
+                    <br />
+                  </form>
+                </>
+              )}
+            </Modal>
+            <br />
+          </>
+        )}
+
+        {userType === "Establishment" && (
+          <>
+            <div className="flex flex-wrap bg-s-black relative rounded-b-lg mb-8">
+              <div className="mt-[-96px] pb-2 text-left w-full md:w-2/6">
+                <ProfileImage
+                  state={imageState}
+                  name={userDatas.name}
+                  pubId={userDatas.pubId}
+                  type={"Establishment"}
+                />
+                <label className="cursor-pointer" htmlFor="profileImageInput">
+                  <Pencil
+                    className={`rounded-full p-2 bg-f-black hover:bg-s-gray ${styles.pencil} transition-all`}
+                    size={40}
                     weight="bold"
-                    size={28}
                   />
-                  {userDatas.whatsApp}
-                </li>
-                <li className="text-xl">
-                  <IdentificationBadge
-                    className="inline pr-2 mr-2 border-r-2 border-s-red"
-                    weight="bold"
-                    size={28}
-                  />
-                  {userDatas.nameArt}
-                </li>
-                <li className="text-xl">
-                  <AddressBook
-                    className="inline pr-2 mr-2 border-r-2 border-s-red"
-                    weight="bold"
-                    size={28}
-                  />
+                </label>
+                <input
+                  id="profileImageInput"
+                  className="profileImage hidden"
+                  type="file"
+                  accept="image/*"
+                  onChange={setProfileImageEstablishments}
+                />
+              </div>
+              <div className="text-center pb-2 md:text-left w-full md:w-4/6 flex items-center">
+                <h2 className="font-bold mx-2 md:mx-0 my-4 md:my-0 text-3xl clamp-2">
                   {userDatas.name}
-                </li>
-              </ul>
-              <p
-                className="cursor-pointer font-light mt-8 mb-4 py-4 px-2 rounded-lg hover:bg-f-gray active:bg-f-gray bg-s-black inline-block"
-                onClick={() =>
-                  copyProfileLink(`${APP_URL}/artista/${userDatas.pubId}`)
-                }
-              >
-                Copiar link do perfil{" "}
-                <Link className="inline" weight="light" size={18} />
-              </p>
+                </h2>
+              </div>
             </div>
-            <div className="w-full md:w-2/3">
-              {userType && userDatas && (
-                <MyPosts type={userType} pubid={userDatas.pubId} />
-              )}
-            </div>
-          </div>
 
-          <p className="text-sm my-4 text-center text-white font-light">
-            {userDatas && `Conta Criada em ${format(userDatas.createdAt)}`}
-          </p>
-
-          <Modal title="Atualizar Perfil" callback={AttProfileArtist}>
-            {userDatas && (
-              <>
-                <form>
-                  <InputText
-                    placeholder={userDatas.name}
-                    label={"Nome"}
-                    value={userDatas.name}
-                    class={"nameModal"}
-                  />
-                  <br />
-                  <InputText
-                    placeholder={userDatas.nameArt}
-                    label={"Nome Artístico"}
-                    value={userDatas.nameArt}
-                    class={"nameArtModal"}
-                  />
-                  <br />
-                  <InputText
-                    placeholder={userDatas.email}
-                    label={"Email"}
-                    value={userDatas.email}
-                    class={"emailModal"}
-                  />
-                  <br />
-                  <InputText
-                    placeholder={userDatas.whatsApp}
-                    label={"WhatsApp"}
-                    value={userDatas.whatsApp}
-                    class={"whatsAppModal"}
-                  />
-                  <br />
-                </form>
-              </>
-            )}
-          </Modal>
-          <br />
-        </>
-      )}
-
-      {userType === "Establishment" && (
-        <>
-          <div className="flex flex-wrap bg-s-black relative rounded-b-lg mb-8">
-            <div className="mt-[-96px] pb-2 text-left w-full md:w-2/6">
-              <ProfileImage
-                state={imageState}
-                name={userDatas.name}
-                pubId={userDatas.pubId}
-                type={"Establishment"}
-              />
-              <label className="cursor-pointer" htmlFor="profileImageInput">
-                <Pencil
-                  className={`rounded-full p-2 bg-f-black hover:bg-s-gray ${styles.pencil} transition-all`}
-                  size={40}
-                  weight="bold"
-                />
-              </label>
-              <input
-                id="profileImageInput"
-                className="profileImage hidden"
-                type="file"
-                accept="image/*"
-                onChange={setProfileImageEstablishments}
-              />
-            </div>
-            <div className="text-center pb-2 md:text-left w-full md:w-4/6 flex items-center">
-              <h2 className="font-bold mx-2 md:mx-0 my-4 md:my-0 text-3xl clamp-2">
-                {userDatas.name}
-              </h2>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap">
-            <div className="w-full md:w-1/3">
-              <h2 className="font-bold text-2xl mb-4">
-                Minhas informações{" "}
-                <Info className="inline" weight="bold" size={22} />{" "}
-              </h2>
-              <ul>
-                <li className="text-xl">
-                  <Envelope
-                    className="inline pr-2 mr-2 border-r-2 border-s-red"
-                    weight="bold"
-                    size={28}
-                  />
-                  {userDatas.email}
-                </li>
-                <li className="text-xl">
-                  <WhatsappLogo
-                    className="inline pr-2 mr-2
+            <div className="flex flex-wrap">
+              <div className="w-full md:w-1/3">
+                <h2 className="font-bold text-2xl mb-4">
+                  Minhas informações{" "}
+                  <Info className="inline" weight="bold" size={22} />{" "}
+                </h2>
+                <ul>
+                  <li className="text-xl">
+                    <Envelope
+                      className="inline pr-2 mr-2 border-r-2 border-s-red"
+                      weight="bold"
+                      size={28}
+                    />
+                    {userDatas.email}
+                  </li>
+                  <li className="text-xl">
+                    <WhatsappLogo
+                      className="inline pr-2 mr-2
                     border-r-2
                     border-s-red"
-                    weight="bold"
-                    size={28}
-                  />
-                  {userDatas.whatsApp}
-                </li>
-                <li className="text-xl">
-                  <Compass
-                    className="inline pr-2 mr-2 border-r-2 border-s-red"
-                    weight="bold"
-                    size={28}
-                  />
-                  {userDatas.cep}
-                </li>
-                <li className="text-xl">
-                  <MapPinLine
-                    className="inline pr-2 mr-2 border-r-2 border-s-red"
-                    weight="bold"
-                    size={28}
-                  />
-                  {userDatas.cidade}
-                </li>
-                <li className="text-xl">
-                  <MapTrifold
-                    className="inline pr-2 mr-2 border-r-2 border-s-red"
-                    weight="bold"
-                    size={28}
-                  />
-                  {userDatas.bairro}
-                </li>
-                <li className="text-xl">
-                  <MapPin
-                    className="inline pr-2 mr-2 border-r-2 border-s-red"
-                    weight="bold"
-                    size={28}
-                  />
-                  {userDatas.logradouro}, {userDatas.numEnd}
-                </li>
-              </ul>
-              <p
-                className="cursor-pointer font-light mt-8 mb-4 py-4 px-2 rounded-lg hover:bg-f-gray active:bg-f-gray bg-s-black inline-block"
-                onClick={() =>
-                  copyProfileLink(
-                    `${APP_URL}/estabelecimento/${userDatas.pubId}`
-                  )
-                }
-              >
-                Copiar link do perfil{" "}
-                <Link className="inline" weight="light" size={18} />
-              </p>
+                      weight="bold"
+                      size={28}
+                    />
+                    {userDatas.whatsApp}
+                  </li>
+                  <li className="text-xl">
+                    <Compass
+                      className="inline pr-2 mr-2 border-r-2 border-s-red"
+                      weight="bold"
+                      size={28}
+                    />
+                    {userDatas.cep}
+                  </li>
+                  <li className="text-xl">
+                    <MapPinLine
+                      className="inline pr-2 mr-2 border-r-2 border-s-red"
+                      weight="bold"
+                      size={28}
+                    />
+                    {userDatas.cidade}
+                  </li>
+                  <li className="text-xl">
+                    <MapTrifold
+                      className="inline pr-2 mr-2 border-r-2 border-s-red"
+                      weight="bold"
+                      size={28}
+                    />
+                    {userDatas.bairro}
+                  </li>
+                  <li className="text-xl">
+                    <MapPin
+                      className="inline pr-2 mr-2 border-r-2 border-s-red"
+                      weight="bold"
+                      size={28}
+                    />
+                    {userDatas.logradouro}, {userDatas.numEnd}
+                  </li>
+                </ul>
+                <p
+                  className="cursor-pointer font-light mt-8 mb-4 py-4 px-2 rounded-lg hover:bg-f-gray active:bg-f-gray bg-s-black inline-block"
+                  onClick={() =>
+                    copyProfileLink(
+                      `${APP_URL}/estabelecimento/${userDatas.pubId}`
+                    )
+                  }
+                >
+                  Copiar link do perfil{" "}
+                  <Link className="inline" weight="light" size={18} />
+                </p>
+              </div>
+              <div className="w-full md:w-2/3">
+                {userType && userDatas && (
+                  <MyPosts type={userType} pubid={userDatas.pubId} />
+                )}
+              </div>
             </div>
-            <div className="w-full md:w-2/3">
-              {userType && userDatas && (
-                <MyPosts type={userType} pubid={userDatas.pubId} />
+
+            <p className="text-sm my-4 text-center text-white font-light">
+              {userDatas && `Conta Criada em ${format(userDatas.createdAt)}`}
+            </p>
+
+            <br />
+            <Modal title="Atualizar Perfil" callback={AttProfileEstablishment}>
+              {userDatas && (
+                <>
+                  <form>
+                    <InputText
+                      placeholder={userDatas.name}
+                      label={"Nome"}
+                      value={userDatas.name}
+                      class={"nameModal"}
+                    />
+                    <br />
+                    <InputText
+                      placeholder={userDatas.email}
+                      label={"Email"}
+                      value={userDatas.email}
+                      class={"emailModal"}
+                    />
+                    <br />
+                    <InputText
+                      placeholder={userDatas.whatsApp}
+                      label={"WhatsApp"}
+                      value={userDatas.whatsApp}
+                      class={"whatsAppModal"}
+                    />
+                    <br />
+                    <InputText
+                      placeholder={userDatas.cep}
+                      label={"Cep"}
+                      value={userDatas.cep}
+                      class={"cepModal"}
+                    />
+                    <br />
+                    <InputText
+                      placeholder={userDatas.cidade}
+                      label={"Cidade"}
+                      value={userDatas.cidade}
+                      class={"cidadeModal"}
+                    />
+                    <br />
+                    <InputText
+                      placeholder={userDatas.bairro}
+                      label={"Bairro"}
+                      value={userDatas.bairro}
+                      class={"bairroModal"}
+                    />
+                    <br />
+                    <InputText
+                      placeholder={userDatas.logradouro}
+                      label={"Logradouro"}
+                      value={userDatas.logradouro}
+                      class={"logradouroModal"}
+                    />
+                    <br />
+                    <InputText
+                      placeholder={userDatas.numEnd}
+                      label={"Número de Endereço"}
+                      value={userDatas.numEnd}
+                      class={"numEndModal"}
+                    />
+                    <br />
+                  </form>
+                </>
               )}
-            </div>
-          </div>
+            </Modal>
+          </>
+        )}
 
-          <p className="text-sm my-4 text-center text-white font-light">
-            {userDatas && `Conta Criada em ${format(userDatas.createdAt)}`}
-          </p>
-
-          <br />
-          <Modal title="Atualizar Perfil" callback={AttProfileEstablishment}>
-            {userDatas && (
-              <>
-                <form>
-                  <InputText
-                    placeholder={userDatas.name}
-                    label={"Nome"}
-                    value={userDatas.name}
-                    class={"nameModal"}
-                  />
-                  <br />
-                  <InputText
-                    placeholder={userDatas.email}
-                    label={"Email"}
-                    value={userDatas.email}
-                    class={"emailModal"}
-                  />
-                  <br />
-                  <InputText
-                    placeholder={userDatas.whatsApp}
-                    label={"WhatsApp"}
-                    value={userDatas.whatsApp}
-                    class={"whatsAppModal"}
-                  />
-                  <br />
-                  <InputText
-                    placeholder={userDatas.cep}
-                    label={"Cep"}
-                    value={userDatas.cep}
-                    class={"cepModal"}
-                  />
-                  <br />
-                  <InputText
-                    placeholder={userDatas.cidade}
-                    label={"Cidade"}
-                    value={userDatas.cidade}
-                    class={"cidadeModal"}
-                  />
-                  <br />
-                  <InputText
-                    placeholder={userDatas.bairro}
-                    label={"Bairro"}
-                    value={userDatas.bairro}
-                    class={"bairroModal"}
-                  />
-                  <br />
-                  <InputText
-                    placeholder={userDatas.logradouro}
-                    label={"Logradouro"}
-                    value={userDatas.logradouro}
-                    class={"logradouroModal"}
-                  />
-                  <br />
-                  <InputText
-                    placeholder={userDatas.numEnd}
-                    label={"Número de Endereço"}
-                    value={userDatas.numEnd}
-                    class={"numEndModal"}
-                  />
-                  <br />
-                </form>
-              </>
-            )}
-          </Modal>
-        </>
-      )}
-
-      <ButtonBack />
-      <br />
-      <ButtonLogout />
-      <ToastContainer />
+        <ButtonBack />
+        <br />
+        <ButtonLogout />
+        <ToastContainer />
+      </div>
     </>
   );
 };

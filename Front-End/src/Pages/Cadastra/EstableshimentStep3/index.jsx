@@ -97,114 +97,120 @@ const CreateAccEstableshimentStepThree = () => {
   };
   return (
     <>
-      <section className="flex flex-wrap mt-8">
-        <div className="w-full md:w-1/2">
-          <h1 className="text-4xl font-black md:pr-8 my-4">
-            Amplie sua rede de contatos no mundo do entretenimento ao criar uma
-            conta conosco.
-          </h1>
-          <h2 className="font-regular text-xl mb-8 md:pr-8">
-            Conecte-se com artistas talentosos, promotores de eventos e outros
-            donos de estabelecimentos. Expanda suas possibilidades de parcerias
-            e colaborações, e esteja sempre atualizado sobre as tendências e
-            novidades do setor. Aproveite essa oportunidade para fortalecer sua
-            presença e tornar seu estabelecimento um destino musical imperdível.
-          </h2>
-        </div>
+      <div className="fix-height">
+        <section className="flex flex-wrap mt-8">
+          <div className="w-full md:w-1/2">
+            <h1 className="text-4xl font-black md:pr-8 my-4">
+              Amplie sua rede de contatos no mundo do entretenimento ao criar
+              uma conta conosco.
+            </h1>
+            <h2 className="font-regular text-xl mb-8 md:pr-8">
+              Conecte-se com artistas talentosos, promotores de eventos e outros
+              donos de estabelecimentos. Expanda suas possibilidades de
+              parcerias e colaborações, e esteja sempre atualizado sobre as
+              tendências e novidades do setor. Aproveite essa oportunidade para
+              fortalecer sua presença e tornar seu estabelecimento um destino
+              musical imperdível.
+            </h2>
+          </div>
 
-        <form className="Form items-center w-full md:w-1/2" onSubmit={sendForm}>
-          <div className="flex flex-wrap w-full justify-center gap-12">
-            <Stepper
-              icon={<UserCircle size={24} weight="bold" />}
-              text="Etapa 1"
-            />
-            <Stepper
-              icon={<GlobeHemisphereWest size={24} weight="bold" />}
-              text="Etapa 2"
-            />
-            <Stepper
-              icon={<UserCirclePlus size={24} weight="bold" />}
-              text="Etapa 3"
-              on={true}
-            />
-          </div>
-          <div className="flex gap-3">
-            <div className="w-60 flex justify-center items-center">
-              <MapPin
-                size={22}
-                weight="bold"
-                className="text-white mb-4 ml-2 mr-4"
-              />
-              <InputText
-                class="Cep"
-                label="CEP"
-                min="8"
-                placeholder="00000-000"
-              ></InputText>
-            </div>
-            <div className="w-32 flex justify-center items-center">
-              <NumberCircleTwo
-                size={22}
-                weight="bold"
-                className="text-white mb-4 ml-2 mr-4"
-              />
-              <InputText
-                class="numero"
-                label="Número"
-                placeholder="178"
-              ></InputText>
-            </div>
-          </div>
-          <div className="flex justify-center items-center">
-            <Signpost
-              size={22}
-              weight="bold"
-              className="text-white mb-4 ml-2 mr-4"
-            />
-            <InputText
-              class="rua"
-              label="Logradouro"
-              placeholder="Rua Getúlio Vargas"
-            ></InputText>
-          </div>
-          <div className="flex justify-center items-center">
-            <MapPinLine
-              size={22}
-              weight="bold"
-              className="text-white mb-4 ml-2 mr-4"
-            />
-            <InputText
-              class="bairro"
-              label="Bairro"
-              placeholder="Jardim Paraiso"
-            ></InputText>
-          </div>
-          <div className="flex justify-center items-center">
-            <MapTrifold
-              size={22}
-              weight="bold"
-              className="text-white mb-4 ml-2 mr-4"
-            />
-            <InputText
-              class="cidade"
-              label="Cidade"
-              placeholder="São Paulo"
-            ></InputText>
-          </div>
-          <div
-            style={{ width: `calc(100% - ${42}px)` }}
-            className="flex flex-col items-center ml-auto"
+          <form
+            className="Form items-center w-full md:w-1/2"
+            onSubmit={sendForm}
           >
-            <Button full={true} text="Criar conta"></Button>
-          </div>
-          <ToastContainer />
-        </form>
-      </section>
-      <div className="flex justify-center gap-8 my-4">
-        <Link to={"../login"}>
-          <Button text="Já possuo conta!"></Button>
-        </Link>
-        <ButtonBack />
+            <div className="flex flex-wrap w-full justify-center gap-12">
+              <Stepper
+                icon={<UserCircle size={24} weight="bold" />}
+                text="Etapa 1"
+              />
+              <Stepper
+                icon={<GlobeHemisphereWest size={24} weight="bold" />}
+                text="Etapa 2"
+              />
+              <Stepper
+                icon={<UserCirclePlus size={24} weight="bold" />}
+                text="Etapa 3"
+                on={true}
+              />
+            </div>
+            <div className="flex gap-3">
+              <div className="w-60 flex justify-center items-center">
+                <MapPin
+                  size={22}
+                  weight="bold"
+                  className="text-white mb-4 ml-2 mr-4"
+                />
+                <InputText
+                  class="Cep"
+                  label="CEP"
+                  min="8"
+                  placeholder="00000-000"
+                ></InputText>
+              </div>
+              <div className="w-32 flex justify-center items-center">
+                <NumberCircleTwo
+                  size={22}
+                  weight="bold"
+                  className="text-white mb-4 ml-2 mr-4"
+                />
+                <InputText
+                  class="numero"
+                  label="Número"
+                  placeholder="178"
+                ></InputText>
+              </div>
+            </div>
+            <div className="flex justify-center items-center">
+              <Signpost
+                size={22}
+                weight="bold"
+                className="text-white mb-4 ml-2 mr-4"
+              />
+              <InputText
+                class="rua"
+                label="Logradouro"
+                placeholder="Rua Getúlio Vargas"
+              ></InputText>
+            </div>
+            <div className="flex justify-center items-center">
+              <MapPinLine
+                size={22}
+                weight="bold"
+                className="text-white mb-4 ml-2 mr-4"
+              />
+              <InputText
+                class="bairro"
+                label="Bairro"
+                placeholder="Jardim Paraiso"
+              ></InputText>
+            </div>
+            <div className="flex justify-center items-center">
+              <MapTrifold
+                size={22}
+                weight="bold"
+                className="text-white mb-4 ml-2 mr-4"
+              />
+              <InputText
+                class="cidade"
+                label="Cidade"
+                placeholder="São Paulo"
+              ></InputText>
+            </div>
+            <div
+              style={{ width: `calc(100% - ${42}px)` }}
+              className="flex flex-col items-center ml-auto"
+            >
+              <Button full={true} text="Criar conta"></Button>
+            </div>
+            <ToastContainer />
+          </form>
+        </section>
+        <div className="flex justify-center gap-8 my-4">
+          <Link to={"../login"}>
+            <Button text="Já possuo conta!"></Button>
+          </Link>
+          <ButtonBack />
+        </div>
       </div>
     </>
   );

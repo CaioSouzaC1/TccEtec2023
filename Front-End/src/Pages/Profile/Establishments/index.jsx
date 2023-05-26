@@ -61,7 +61,7 @@ const ProfileEstablishments = () => {
       console.error(err);
     }
   };
-  git;
+
   const renderEventButton = async () => {
     const { status, auth, user, type } = await verifyJwt();
     if (auth) {
@@ -83,87 +83,91 @@ const ProfileEstablishments = () => {
 
   return (
     <>
-      {estableshimentData && (
-        <>
+      <div className="fix-height">
+        {estableshimentData && (
           <>
-            <div
-              className={`${BackgroundColors[randomColor]} w-full h-40 rounded-t-lg flex mt-4`}
-            ></div>
+            <>
+              <div
+                className={`${BackgroundColors[randomColor]} w-full h-40 rounded-t-lg flex mt-4`}
+              ></div>
 
-            <div className="flex flex-wrap bg-s-black relative rounded-b-lg mb-8">
-              <div className="mt-[-96px] pb-2 text-left w-full md:w-2/6">
-                <ProfileImage
-                  size={3}
-                  name={estableshimentData.name}
-                  pubId={id}
-                  type={"Establishment"}
-                />
-              </div>
-              <div className="text-center pb-2 md:text-left w-full md:w-4/6 flex items-center justify-center md:justify-start">
-                <h2 className="font-bold mx-2 md:mx-0 my-4 md:my-0 text-3xl clamp-2">
-                  {estableshimentData.name}
-                </h2>
-              </div>
-            </div>
-            <div className="flex flex-wrap">
-              <div className="w-full md:w-1/2">
-                <h2 className="font-bold text-2xl">
-                  Informações de contato{" "}
-                  <Info className="inline" weight="bold" size={22} />{" "}
-                </h2>
-                <ul>
-                  <li className="text-xl">
-                    <Envelope
-                      className="inline pr-2 mr-2 border-r-2 border-s-red"
-                      size={28}
-                    />
+              <div className="flex flex-wrap bg-s-black relative rounded-b-lg mb-8">
+                <div className="mt-[-96px] pb-2 text-left w-full md:w-2/6">
+                  <ProfileImage
+                    size={3}
+                    name={estableshimentData.name}
+                    pubId={id}
+                    type={"Establishment"}
+                  />
+                </div>
+                <div className="text-center pb-2 md:text-left w-full md:w-4/6 flex items-center justify-center md:justify-start">
+                  <h2 className="font-bold mx-2 md:mx-0 my-4 md:my-0 text-3xl clamp-2">
                     {estableshimentData.name}
-                  </li>
-                  <li className="text-xl">
-                    <WhatsappLogo
-                      className="inline pr-2 mr-2
-                    border-r-2
-                    border-s-red"
-                      size={28}
-                    />
-                    {estableshimentData.whatsApp}
-                  </li>
-                  <li className="text-xl">
-                    <Clock
-                      className="inline pr-2 mr-2
-                    border-r-2
-                    border-s-red"
-                      size={28}
-                    />
-                    Conta criada em {format(estableshimentData.createdAt)}
-                  </li>
-                </ul>
+                  </h2>
+                </div>
               </div>
-              <div className="w-full md:w-1/2"></div>
-            </div>
+              <div className="flex flex-wrap">
+                <div className="w-full md:w-1/2">
+                  <h2 className="font-bold text-2xl">
+                    Informações de contato{" "}
+                    <Info className="inline" weight="bold" size={22} />{" "}
+                  </h2>
+                  <ul>
+                    <li className="text-xl">
+                      <Envelope
+                        className="inline pr-2 mr-2 border-r-2 border-s-red"
+                        size={28}
+                      />
+                      {estableshimentData.name}
+                    </li>
+                    <li className="text-xl">
+                      <WhatsappLogo
+                        className="inline pr-2 mr-2
+                    border-r-2
+                    border-s-red"
+                        size={28}
+                      />
+                      {estableshimentData.whatsApp}
+                    </li>
+                    <li className="text-xl">
+                      <Clock
+                        className="inline pr-2 mr-2
+                    border-r-2
+                    border-s-red"
+                        size={28}
+                      />
+                      Conta criada em {format(estableshimentData.createdAt)}
+                    </li>
+                  </ul>
+                </div>
+                <div className="w-full md:w-1/2"></div>
+              </div>
+            </>
           </>
-        </>
-      )}
-      <h2>{estableshimentData == false && `Estabelecimento não encontrado`}</h2>
+        )}
+        <h2>
+          {estableshimentData == false && `Estabelecimento não encontrado`}
+        </h2>
 
-      <br />
-      <br />
-      {viewer && viewerType && (
-        <>
-          <Chat
-            viewer={viewer}
-            viewerType={viewerType}
-            visualized={visualized}
-            visualizedType="establishments"
-          />
-          <br />
-        </>
-      )}
+        <br />
+        <br />
+        {viewer && viewerType && (
+          <>
+            <Chat
+              viewer={viewer}
+              viewerType={viewerType}
+              visualized={visualized}
+              visualizedType="establishments"
+            />
+            <br />
+          </>
+        )}
 
-      <br />
-      <br />
-      <ButtonBack />
-      <ToastContainer />
+        <br />
+        <br />
+        <ButtonBack />
+        <ToastContainer />
+      </div>
     </>
   );
 };

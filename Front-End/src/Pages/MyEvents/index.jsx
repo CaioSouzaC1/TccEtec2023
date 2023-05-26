@@ -1,10 +1,10 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ButtonBack from "../../Components/ButtonBack";
 import ThePageText from "../../Components/ThePageText";
 import { ToastContainer } from "react-toastify";
 import { getDocs, collection, query, where } from "firebase/firestore";
-import { app, auth, storage, db } from "../../Utils/Firebase/Firebase";
+import { auth, db } from "../../Utils/Firebase/Firebase";
 import verifyJwt from "../../Utils/Security/verifyJwt";
 import EventsListItem from "../../Components/EventsListItem";
 
@@ -68,7 +68,7 @@ const MyEvents = () => {
   };
 
   return (
-    <div className="min-h-70-screen">
+    <div className="fix-height">
       <ThePageText text="Meus Eventos" />
       <section className="flex flex-wrap text-center">
         <div className="w-full md:w-1/2">

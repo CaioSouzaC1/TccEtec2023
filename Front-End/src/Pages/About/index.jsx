@@ -2,7 +2,7 @@ import CardAbout from "../../Components/CardAbout";
 
 const About = () => {
   return (
-    <section>
+    <section className="fix-height">
       <div className="flex flex-wrap">
         <div className="w-full mt-4">
           <h1 className="font-light text-2xl p-4 text-center">

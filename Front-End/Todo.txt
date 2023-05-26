@@ -1,2 +1,2 @@
 --- Bug Cpf artist step 2
---- Remover template do tabnine e colocar um template simples
+--- Colocar um aviso para falar que a foto é obrigatória no post

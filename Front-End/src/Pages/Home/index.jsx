@@ -7,7 +7,7 @@ import { Pagination, Autoplay } from "swiper";
 
 const Home = () => {
   return (
-    <section>
+    <section className="fix-height">
       <div className="mt-6">
         <Swiper
           pagination={{
