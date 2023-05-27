@@ -40,9 +40,7 @@ app.use((req, res, next) => {
   next();
 });
 
-const prisma = new PrismaClient({
-  log: ["query"],
-});
+const prisma = new PrismaClient({});
 
 const secret = SecretJwtGenerator();
 const saltRounds = 10;
@@ -127,12 +125,16 @@ router.post("/createAcc", async (req, res) => {
 });
 
 router.post("/validateEmail", async (req, res) => {
-  const rowEmail = await prisma.Artists.findMany({
-    where: {
-      email: req.body.email,
-    },
-  });
-  res.json({ emails: rowEmail.length });
+  try {
+    const rowEmail = await prisma.Artists.findMany({
+      where: {
+        email: req.body.email,
+      },
+    });
+    res.json({ emails: rowEmail.length });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 router.get("/getInfo", async (req, res) => {
@@ -300,22 +302,26 @@ router.get("/artist/most-viewed", async (req, res) => {
 
 /*START - Security/Validations*/
 const verifyJwt = (req, res, next) => {
-  const token = req.headers.jwtauthorization;
+  try {
+    const token = req.headers.jwtauthorization;
 
-  if (token == "null") {
-    res.json({ auth: false, user: false });
-  } else {
-    jwt.verify(token, secret, (err, decoded) => {
-      if (err) {
-        res.json({ auth: false, user: false });
-      } else {
-        res.json({
-          auth: true,
-          user: jwt.verify(token, secret).user,
-          type: jwt.verify(token, secret).type,
-        });
-      }
-    });
+    if (token == "null") {
+      res.json({ auth: false, user: false });
+    } else {
+      jwt.verify(token, secret, (err, decoded) => {
+        if (err) {
+          res.json({ auth: false, user: false });
+        } else {
+          res.json({
+            auth: true,
+            user: jwt.verify(token, secret).user,
+            type: jwt.verify(token, secret).type,
+          });
+        }
+      });
+    }
+  } catch (err) {
+    console.log(err);
   }
 };
 
