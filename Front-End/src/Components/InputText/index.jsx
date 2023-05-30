@@ -5,12 +5,11 @@ const InputText = (props) => {
   const min = props.min != null ? props.min : "0";
   const max = props.max != null ? props.max : "60";
   return (
-    <div className={styles.filds}>
+    <div className={styles.userbox}>
       <input
         required
         className={props.class}
         type={type}
-        placeholder={props.placeholder}
         defaultValue={props.value}
         minLength={min}
         maxLength={max}
