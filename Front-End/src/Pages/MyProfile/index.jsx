@@ -296,7 +296,7 @@ const MyProfile = () => {
                 <p
                   className="cursor-pointer font-light mt-8 mb-4 py-4 px-2 rounded-lg hover:bg-f-gray active:bg-f-gray bg-s-black inline-block"
                   onClick={() =>
-                    copyProfileLink(`${APP_URL}/artista/${userDatas.pubId}`)
+                    copyProfileLink(`${APP_URL}artista/${userDatas.pubId}`)
                   }
                 >
                   Copiar link do perfil{" "}
@@ -448,7 +448,7 @@ const MyProfile = () => {
                   className="cursor-pointer font-light mt-8 mb-4 py-4 px-2 rounded-lg hover:bg-f-gray active:bg-f-gray bg-s-black inline-block"
                   onClick={() =>
                     copyProfileLink(
-                      `${APP_URL}/estabelecimento/${userDatas.pubId}`
+                      `${APP_URL}estabelecimento/${userDatas.pubId}`
                     )
                   }
                 >
