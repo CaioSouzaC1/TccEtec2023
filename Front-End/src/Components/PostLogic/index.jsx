@@ -53,6 +53,14 @@ const PostLogic = (props) => {
     event.preventDefault();
     try {
       const fileInput = event.target[0];
+
+      if (fileInput.files[0] === undefined) {
+        errorFy(
+          "Você precisa colocar uma foto na postagem. Clique na pasta para selecionar."
+        );
+        return;
+      }
+
       const req = await (
         await fetch(`${API_URL}/post/create`, {
           method: "POST",
@@ -79,6 +87,7 @@ const PostLogic = (props) => {
           body: formData,
         });
       }
+
       successFy("Post criado.");
       props.callback(false);
     } catch (err) {
@@ -94,11 +103,15 @@ const PostLogic = (props) => {
             <h3 className="text-2xl font-bold uppercase mb-4 mt-2">
               Postagem com Foto
             </h3>
-            <form className="flex flex-wrap justify-center" onSubmit={sendPost}>
+            <form
+              name="sendPost"
+              className="flex flex-wrap justify-center"
+              onSubmit={sendPost}
+            >
               <div className="w-full md:w-1/6 text-center">
                 <label className="cursor-pointer" htmlFor="postImageInput">
                   <FolderPlus
-                    className={`rounded-full p-2 bg-s-black hover:bg-f-gray transition-all mx-auto`}
+                    className={`rounded-full p-2 bg-s-black hover:bg-f-gray transition-all mx-auto my-4`}
                     size={60}
                     weight="bold"
                   />
@@ -108,12 +121,12 @@ const PostLogic = (props) => {
                   className="profileImage hidden"
                   type="file"
                   accept="image/*"
-                  required
                 />
               </div>
               <div className="w-full md:w-5/6">
                 <InputTextarea className="post_content"></InputTextarea>
               </div>
+
               <Button text="Postar"></Button>
             </form>
           </div>

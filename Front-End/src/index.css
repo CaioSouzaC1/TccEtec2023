@@ -145,3 +145,16 @@ input[type="file"]::file-selector-button {
   background-color: rgba(0, 0, 0, 0.2);
   transition: 1s;
 }
+
+form.Form > div.flex.justify-center.items-center > div {
+  width: 80%;
+}
+
+form.Form > div.flex.gap-3 > div > div {
+  width: 100%;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  color: #da0037;
+}

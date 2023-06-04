@@ -22,7 +22,7 @@ const ChatRoom = (props) => {
   const colRef = collection(db, "chats");
   const chatContainerRef = useRef(null);
   const [modalEvent, setModalEvent] = useState(false);
-  const [showEventInput, setShowEventInput] = useState(false);
+  const modalRef = useRef(false);
 
   const userTI = `${props.type}:${props.user}`;
   const otherTI = `${props.visualizedType}:${props.visualized}`;
@@ -64,6 +64,13 @@ const ChatRoom = (props) => {
       return data.messages.map((e, i) => {
         const splitData = e.split(":#:");
 
+        console.log(props.visualizedType);
+        console.log(props.type);
+        console.log(modalRef);
+        if (props.visualizedType != props.type) {
+          modalRef.current = true;
+        }
+
         if (splitData[0] == `${props.type}:${props.user}`) {
           return (
             <MyMessage
@@ -83,9 +90,6 @@ const ChatRoom = (props) => {
               user={props.visualized}
             />
           );
-        }
-        if (props.visualizedType != props.type) {
-          setShowEventInput(true);
         }
       });
     } catch (err) {}
@@ -112,7 +116,7 @@ const ChatRoom = (props) => {
           onSubmit={handleSubmit}
           className="rounded-xl overflow-hidden flex flex-wrap justify-between"
         >
-          {showEventInput && (
+          {modalRef.current && (
             <div
               onClick={() => setModalEvent(true)}
               className="p-2 border border-f-red hover:bg-s-red rounded-full text-white bg-s-gray transition-all cursor-pointer"
