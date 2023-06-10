@@ -46,10 +46,16 @@ const secret = SecretJwtGenerator();
 const saltRounds = 10;
 /*END - Server Configurations*/
 
+//development
+const img_path = "Backend/assets";
+
+//prod
+//const img_path = "../assets/images/";
+
 /*START - Image Upload Configurations */
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "Backend/assets/artists");
+    cb(null, `${img_path}/artists`);
   },
   filename: function (req, file, cb) {
     cb(null, "ArtistProfileImage-" + file.originalname + ".jpg");
@@ -59,7 +65,7 @@ const upload = multer({ storage: storage });
 
 const storageEstablishments = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "Backend/assets/establishments");
+    cb(null, `${img_path}/establishments`);
   },
   filename: function (req, file, cb) {
     cb(null, "EstablishmentProfileImage-" + file.originalname + ".jpg");
@@ -69,7 +75,7 @@ const uploadEstablishments = multer({ storage: storageEstablishments });
 
 const storagePosts = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "Backend/assets/posts");
+    cb(null, `${img_path}/posts`);
   },
   filename: function (req, file, cb) {
     cb(null, "PostImage-" + file.originalname + ".jpg");
@@ -781,6 +787,7 @@ router.get("/Id-to-pubId", async (req, res) => {
     }
     res.json(login);
   } catch (err) {
+    console.log(err);
     res.sendStatus(400);
   }
 });
