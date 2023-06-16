@@ -2,7 +2,7 @@ import styles from "./styles.module.css";
 const CardAbout = (props) => {
   return (
     <>
-      <div className="w-full sm:w-1/2 md:w-1/4">
+      <div className="w-full sm:w-1/2 md:w-1/3">
         <div
           className={`w-4/5 mx-auto bg-s-black rounded-lg border cursor-pointer border-f-red hover:border-f-blue hover:brightness-110 mt-8 hover:mt-4 mb-4 hover:mb-8 transition-all ${styles.card}`}
         >

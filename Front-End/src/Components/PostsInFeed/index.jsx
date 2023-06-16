@@ -13,10 +13,37 @@ import get_metatag_value from "../../Utils/MyFunctions/get_metatag_value";
 const PostsInFeed = () => {
   const [data, setData] = useState(false);
 
-  const fetchData = async () => {
-    const posts = await (await fetch(`${API_URL}/post/feed`)).json();
+  const verifyImage = async (id) => {
+    try {
+      const url = `${API_URL}/posts/PostImage-${id}.jpg`;
+      const response = await fetch(url);
+      return response.ok;
+    } catch (error) {
+      console.error("Ocorreu um erro ao verificar a imagem:", error);
+      return false;
+    }
+  };
 
-    setData(posts);
+  const fetchData = async () => {
+    try {
+      const posts = await (await fetch(`${API_URL}/post/feed`)).json();
+      const postsWithImage = await Promise.all(
+        posts.map(async (post) => {
+          if (post.format === "post") {
+            const imageExists = await verifyImage(post.id);
+            return {
+              ...post,
+              hasImage: imageExists,
+            };
+          }
+          return post;
+        })
+      );
+      console.log(postsWithImage);
+      setData(postsWithImage);
+    } catch (error) {
+      console.error("Ocorreu um erro ao buscar os posts:", error);
+    }
   };
 
   useEffect(() => {
@@ -72,6 +99,9 @@ const PostsInFeed = () => {
             {data &&
               data.map((post) => {
                 if (post.format === "post") {
+                  if (post.hasImage === false) {
+                    return null;
+                  }
                   return (
                     <SwiperSlide key={post.id}>
                       <Link

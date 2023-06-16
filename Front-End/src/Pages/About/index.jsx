@@ -33,11 +33,6 @@ const About = () => {
             img="/Peeps/alana_perfil.svg"
           />
           <CardAbout
-            name="Bruno Simões"
-            resp="Idealizador"
-            img="/Peeps/bruno_perfil.svg"
-          />
-          <CardAbout
             name="Caio César"
             resp="Desenvolvimento"
             img="/Peeps/caio_perfil.svg"

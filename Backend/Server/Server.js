@@ -47,10 +47,10 @@ const saltRounds = 10;
 /*END - Server Configurations*/
 
 //development
-const img_path = "Backend/assets";
+// const img_path = "Backend/assets";
 
 //prod
-//const img_path = "../assets/images/";
+const img_path = "/home/ubuntu/projetos/TccEtec2023/Backend/assets";
 
 /*START - Image Upload Configurations */
 const storage = multer.diskStorage({
@@ -83,7 +83,12 @@ const storagePosts = multer.diskStorage({
 });
 const uploadPosts = multer({ storage: storagePosts });
 
-app.use(express.static("Backend/assets"));
+//Dev
+// app.use(express.static("Backend/assets"));
+
+//Prod
+app.use(express.static("/home/ubuntu/projetos/TccEtec2023/Backend/assets"));
+
 /*END - Image Upload Configurations */
 
 /*START - Artists Configurations*/
